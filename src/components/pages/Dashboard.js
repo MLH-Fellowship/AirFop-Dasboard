@@ -1,7 +1,7 @@
 import React from 'react'
-import ItemsList from '../components/ItemsList'
+import ProjectsList from '../projects/ProjectsList'
 import { connect } from 'react-redux'
-import { updateMsg } from '../actions/itemActions'
+import { updateMsg } from '../../actions/projectActions'
 
 const Dashboard = ({msg, updateMsg}) => {
     const onClick=()=>{
@@ -12,7 +12,7 @@ const Dashboard = ({msg, updateMsg}) => {
         <div>
             MSG: {msg}
             <button onClick={onClick}>CLICK ME!</button>
-            <ItemsList/>
+            <ProjectsList/>
         </div>
     )
 }

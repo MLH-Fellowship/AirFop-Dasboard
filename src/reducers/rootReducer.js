@@ -1,5 +1,8 @@
+import {projects} from '../data/Data'
+
 const initState = {
-    msg: 'root reducer connected!'
+    msg: 'root reducer connected!',
+    projects
 }
 
 const rootReducer = (state = initState, action) => {

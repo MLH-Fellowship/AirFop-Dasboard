@@ -1,15 +1,88 @@
+:root {
+  --dark-grey: #333;
+  --light-grey: #cccccc;
+  --bright-blue: #5bd1ff;
+  --dark-blue:#0876aa;
+}
 body{
   margin:0;
 }
 .App{
   padding:30px;
 }
+.right{
+  float:right;
+}
+.left{
+  float:left;
+}
+.grey-text{
+  color:var(--dark-grey);
+}
+/* .container{
+  width:70%;
+} */
+.center {
+  margin: 0 auto;
+  width: 50%;
+}
+
+.login {
+  padding: 60px 0;
+}
+
+.login form {
+  margin: 0 auto;
+  max-width: 320px;
+  border: 2px solid var(--dark-grey);
+  padding:20px 30px;
+}
+.btn-block{
+  background-color:var(--bright-blue);
+  padding:8px 20px;
+  width:50%;
+  border: 2px solid var(--dark-grey);
+  font-weight: bold;
+}
+.btn-block:hover{
+  background-color: #80DEFF;
+  cursor: pointer;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.disabledBtn {
+  padding:8px 20px;
+  width:50%;
+  background-color:var(--light-grey);
+  border: 2px solid var(--dark-grey);
+}
+.disabledBtn:hover {
+  cursor: auto;
+}
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3);
+  /* box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2); */
+  transition: 0.3s;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.3);
+  /* box-shadow: 0 16px 32px 0 rgba(0,0,0,0.3); */
+}
+
+.input-field{
+ margin:20px 0;
+}
 .nav{
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #333;
+  background-color: var(--dark-grey);
+}
+.nav ul {
+  list-style-type: none;
+  padding-left: 0px;
 }
 .nav li {
   float: left;
@@ -24,3 +97,42 @@ body{
 .nav li a:hover {
   color:white;
 }
+
+.status-box {
+  padding:0;
+  margin: 23.5px 15px 5px 5px;
+  float: left;
+}
+.status{
+  display: block;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  background: #171515;
+  border-radius: 50%;
+  font-size: 22px;
+  font-family:sans-serif;
+  font-weight:bold;
+  box-shadow: 0 0 6px var(--dark-grey);
+}
+.status-green {
+  color: #5f3;
+  text-shadow: 0 0 15px #1a9900;
+  border: 3px solid #5f3;
+}
+.status-yellow {
+  color: #FF0;
+  text-shadow: 0 0 15px #bdbd00;
+  border: 3px solid #FF0;
+}
+.status-red {
+  color: #ff4242;
+  text-shadow: 0 0 15px #F00;
+  border: 3px solid #ff4242;
+}
+.status-unkown {
+  color: #fff;
+  text-shadow: 0 0 15px #fff;
+}
+

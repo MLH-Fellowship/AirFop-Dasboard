@@ -1,9 +1,11 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Dashboard from './pages/Dashboard';
-import NavBar from './pages/NavBar';
-import NoMatch from './pages/NoMatch';
+import Dashboard from './components/pages/Dashboard';
+import NavBar from './components/layout/NavBar';
+import NoMatch from './components/pages/NoMatch';
+import ProjectDetails from './components/projects/ProjectDetails';
+import Login from './components/pages/Login';
 
 function App() {
   return (
@@ -14,6 +16,8 @@ function App() {
         <Route exact path="/">
           <Dashboard />
         </Route>
+        <Route  path="/project/:id" component={ProjectDetails} />
+        <Route  path="/login" component={Login} />
         <Route>
           <NoMatch />
         </Route>
