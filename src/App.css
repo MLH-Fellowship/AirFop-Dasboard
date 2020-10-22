@@ -16,6 +16,9 @@ body{
 .left{
   float:left;
 }
+.p-30{
+  padding:30px;
+}
 .grey-text{
   color:var(--dark-grey);
 }
@@ -70,6 +73,10 @@ body{
   /* box-shadow: 0 16px 32px 0 rgba(0,0,0,0.3); */
 }
 
+.project-card{
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3);
+  padding:30px;
+}
 .input-field{
  margin:20px 0;
 }

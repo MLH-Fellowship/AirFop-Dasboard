@@ -1,11 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-const ProjectDetails = ({project}) => {
+const AdminProjectDetails = ({project}) => {
     
     return (
         <div className='container'>
             <div className="project-card">
+                <p>Update</p>
                 <p>id:{project.id}</p>
                 <p>title:{project.title}</p>
                 <p>status:{project.status}</p>
@@ -25,4 +26,4 @@ const mapStateToProps = (state, ownProps) => {
     }
 }
 
-export default connect(mapStateToProps)(ProjectDetails);
+export default connect(mapStateToProps)(AdminProjectDetails);

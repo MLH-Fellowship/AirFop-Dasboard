@@ -1,14 +1,17 @@
 import React from 'react'
 import Project from './Project'
 import { connect } from 'react-redux'
+import {Link} from 'react-router-dom'
 
 const ProjectsList = ({projects}) => {
+    
     return (
         <div>
-            <h1>We are a list of Projects</h1>
             {projects && projects.length > 0 && (
-                projects.map((project, idx) => 
-                    <Project key={idx} project={project}/>
+                projects.map((project) => 
+                    <Link to={'/project/' + project.id} key={project.id} >
+                        <Project project={project}/>
+                    </Link>
                 )
             )}
         </div>
@@ -17,12 +20,8 @@ const ProjectsList = ({projects}) => {
 
 const mapStateToProps = (state) => {
     return {
-        projects: state.projects
+        projects: state.project.projects
     }
 }
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-//         updateMsg: (message) => { dispatch(updateMsg(message))}
-//     }
-// }
+
 export default connect(mapStateToProps)(ProjectsList);

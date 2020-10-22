@@ -1,23 +1,24 @@
 import React, { useState } from 'react'
+import {login} from '../../store/actions/userActions'
+import {connect} from 'react-redux'
 
-const Login = () => {
+const Login = ({login}) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const onSubmit = () => {
-    console.log('on submit')
+  const onSubmit = (e) => {
+    e.preventDefault()
+    login({email,password})
   }
-  // const onChange = () => {
-  //   console.log('on change')
-  // }
+
   const validateForm = () => {
     return email.length > 0 && password.length > 0;
   }
     
   return (
     <div className="login">
-      <form onSubmit={onSubmit} className='card'>
+      <form onSubmit={e=>onSubmit(e)} className='card'>
         <div className="input-field">
           <label htmlFor="email">Email{' '}</label>
             <input type="email" id="email" onChange={e=> setEmail(e.target.value)}/>
@@ -36,4 +37,9 @@ const Login = () => {
     
 }
 
-export default Login
+const mapDispatchToProps = (dispatch) => {
+  return{
+    login: (credentials) => dispatch(login(credentials))
+  }
+}
+export default connect(null,mapDispatchToProps)(Login);
