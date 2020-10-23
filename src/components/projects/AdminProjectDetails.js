@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 const AdminProjectDetails = ({project}) => {
     
     return (
+        <div className="App">
         <div className='container'>
             <div className="project-card">
                 <p>Update</p>
@@ -11,6 +12,7 @@ const AdminProjectDetails = ({project}) => {
                 <p>title:{project.title}</p>
                 <p>status:{project.status}</p>
             </div>
+        </div>
         </div>
     )
 }

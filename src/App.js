@@ -18,7 +18,6 @@ function App({user, isAuthenticated, isAdmin}) {
   return (
     <Router>
       <NavBar/>
-      <div className='App'>
       <Switch>
         <Route path="/" exact component={Dashboard}>
            {!isAuthenticated && <Redirect to={"/login"}/>}
@@ -34,7 +33,6 @@ function App({user, isAuthenticated, isAdmin}) {
         </Route>
         <Route component={NoMatch} />
       </Switch>
-      </div>
     </Router>
   );
 }

@@ -16,7 +16,7 @@ const CreateProject = ({createProject}) => {
     return title.length > 0;
   }
   return (
-    <div >
+    <div className="App">
       <form onSubmit={e=>onSubmit(e)} className='card p-30'>
         <div className="input-field">
             <h1 className="grey-text">New Project</h1>

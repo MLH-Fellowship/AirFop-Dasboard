@@ -22,9 +22,7 @@ body{
 .grey-text{
   color:var(--dark-grey);
 }
-/* .container{
-  width:70%;
-} */
+
 .center {
   margin: 0 auto;
   width: 50%;
@@ -142,4 +140,20 @@ body{
   color: #fff;
   text-shadow: 0 0 15px #fff;
 }
+.header{
+  clear:both;
+  margin: 0;
+  padding-bottom: 3px;
+  overflow: hidden;
+  background-color: var(--dark-grey);
+  color:white;
+  border-top: 1px solid hsla(0, 0%, 100%, 0.2);
+}
+.filter{
+  padding: 5px 20px;
+  /* clear:both; */
+}
 
+.form-check-input{
+  margin-left: 15px;;
+}

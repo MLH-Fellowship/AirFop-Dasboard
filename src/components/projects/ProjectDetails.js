@@ -4,12 +4,14 @@ import {connect} from 'react-redux'
 const ProjectDetails = ({project}) => {
     
     return (
+        <div className="App">
         <div className='container'>
             <div className="project-card">
                 <p>id:{project.id}</p>
                 <p>title:{project.title}</p>
                 <p>status:{project.status}</p>
             </div>
+        </div>
         </div>
     )
 }

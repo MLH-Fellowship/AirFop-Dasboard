@@ -1,6 +1,6 @@
 import React from 'react'
 import Project from './Project'
-import { connect } from 'react-redux'
+// import { connect } from 'react-redux'
 import {Link} from 'react-router-dom'
 
 const ProjectsList = ({projects}) => {
@@ -18,10 +18,11 @@ const ProjectsList = ({projects}) => {
     )
 }
 
-const mapStateToProps = (state) => {
-    return {
-        projects: state.project.projects
-    }
-}
+// const mapStateToProps = (state) => {
+//     return {
+//         projects: state.project.projects
+//     }
+// }
 
-export default connect(mapStateToProps)(ProjectsList);
+// export default connect(mapStateToProps)(ProjectsList);
+export default ProjectsList;

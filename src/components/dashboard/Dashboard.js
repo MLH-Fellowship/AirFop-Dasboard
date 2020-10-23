@@ -1,12 +1,45 @@
-import React from 'react'
+import React, {useState} from 'react'
 import ProjectsList from '../projects/ProjectsList'
+import Filter from './Filter'
+import { connect } from 'react-redux'
 
-const Dashboard = ({msg, updateMsg}) => {
+// might not need this var moment = require('moment');
+
+const Dashboard = ({projects}) => {
+    const [displayProjects, setDisplayProjects] = useState(projects);
+
+    const filterProjects = (greenSelected, yellowSelected, redSelected, startDate, endDate) => {
+        // instead of filtering the list, depending on how many projects there are, it might make snse to handle filtering with a db call. we may need pagination
+        // exmpale of formating the date if we need to do that : const start =  moment(startDate).format("MM/dd/yyyy");
+        let filteredProjects = projects;
+        if(greenSelected === false){
+            filteredProjects = filteredProjects.filter(project => {return project.status !== "green"})
+        }
+        if(yellowSelected === false){
+            filteredProjects = filteredProjects.filter(project => {return project.status !== "yellow"})
+        }
+        if(redSelected === false){
+            filteredProjects = filteredProjects.filter(project => {return project.status !== "red"})
+        }
+        setDisplayProjects(filteredProjects);
+        console.log('g:',greenSelected,'y:',yellowSelected, 'r:', redSelected, 'start:', startDate, 'end:', endDate)
+    }
+
     return (
         <div>
-            <ProjectsList/>
+            <header className="header">
+                <Filter filterProjects={filterProjects}/>
+            </header>
+            <div className="App">
+                <ProjectsList projects={displayProjects}/>
+            </div>
         </div>
     )
 }
 
-export default Dashboard;
+const mapStateToProps = (state) => {
+    return {
+        projects: state.project.projects
+    }
+}
+export default connect(mapStateToProps)(Dashboard);
