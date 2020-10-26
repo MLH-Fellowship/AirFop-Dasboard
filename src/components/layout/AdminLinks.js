@@ -23,5 +23,5 @@ const mapDispatchToProps = (dispatch) => {
     return{
       logout: () => dispatch(logout())
     }
-  }
+}
 export default connect(null,mapDispatchToProps)(AdminLinks);

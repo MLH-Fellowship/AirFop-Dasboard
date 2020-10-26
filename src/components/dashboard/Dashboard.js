@@ -3,11 +3,13 @@ import ProjectsList from '../projects/ProjectsList'
 import Filter from './Filter'
 import { connect } from 'react-redux'
 
+
 // might not need this var moment = require('moment');
 
-const Dashboard = ({projects}) => {
+const Dashboard = ({projects, myState}) => {
     const [displayProjects, setDisplayProjects] = useState(projects);
 
+    console.log('state: ', myState)
     const filterProjects = (greenSelected, yellowSelected, redSelected, startDate, endDate) => {
         // instead of filtering the list, depending on how many projects there are, it might make snse to handle filtering with a db call. we may need pagination
         // exmpale of formating the date if we need to do that : const start =  moment(startDate).format("MM/dd/yyyy");
@@ -27,10 +29,10 @@ const Dashboard = ({projects}) => {
 
     return (
         <div>
-            <header className="header">
-                <Filter filterProjects={filterProjects}/>
+            <header >
+                <Filter filterProjects={filterProjects}  projects={displayProjects} />
             </header>
-            <div className="App">
+            <div className='project-list'>
                 <ProjectsList projects={displayProjects}/>
             </div>
         </div>
@@ -39,7 +41,8 @@ const Dashboard = ({projects}) => {
 
 const mapStateToProps = (state) => {
     return {
-        projects: state.project.projects
+        projects: state.project.projects,
+        myState: state
     }
 }
 export default connect(mapStateToProps)(Dashboard);

@@ -11,8 +11,7 @@ const UserLinks = ({logout}) => {
     return (
         <>
         <ul className='right'>
-            <li ><NavLink to="/">User Link 1</NavLink></li>
-            <li ><NavLink to="/newproject">create</NavLink></li>
+            <li ><NavLink to="/">User Link 1</NavLink></li>            
             <li onClick={e=>onClick(e)}><NavLink to="/">User info</NavLink></li>
         </ul>
         </>

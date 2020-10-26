@@ -9,7 +9,9 @@ import ProjectDetails from './components/projects/ProjectDetails';
 import Login from './components/users/Login';
 import CreateProject from './components/projects/CreateProject';
 import AdminProjectDetails from './components/projects/AdminProjectDetails';
-import AdminOnlyContent from './components/layout/AdminOnlyContent'
+import AdminOnlyContent from './components/layout/AdminOnlyContent';
+// import Print from './components/report/Print';
+import Report from './components/report/Report'
 
 function App({user, isAuthenticated, isAdmin}) {
   const ProjectDetailsComponent = isAdmin ?  AdminProjectDetails :  ProjectDetails;
@@ -28,7 +30,10 @@ function App({user, isAuthenticated, isAdmin}) {
         <Route  path="/login" component={Login}>
           {isAuthenticated && <Redirect to={"/"}/>}
         </Route>
-        <Route exact path="/newproject" component={CreateProjectComponent}>
+        <Route path="/newproject" component={CreateProjectComponent}>
+          {!isAuthenticated && <Redirect to={"/login"}/>}
+        </Route>
+        <Route path="/print" component={Report}>
           {!isAuthenticated && <Redirect to={"/login"}/>}
         </Route>
         <Route component={NoMatch} />

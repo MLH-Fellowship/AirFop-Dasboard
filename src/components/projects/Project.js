@@ -23,11 +23,11 @@ export const Project = ({project}) => {
     }
 
     return (
-        <div style={{clear:'both'}}>
+        <div className='project'>
              <div className="status-box">
                 <div className={className}>{statusLabel}</div>
             </div>
-            <h1 className="left">{project.title}</h1>
+            <p className="left">{project.title}</p>
         </div>
     )
 }

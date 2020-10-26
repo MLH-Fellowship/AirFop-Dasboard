@@ -28,6 +28,31 @@ body{
   width: 50%;
 }
 
+.nav{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: var(--dark-grey);
+}
+.nav ul {
+  list-style-type: none;
+  padding-left: 0px;
+}
+.nav li {
+  float: left;
+}
+.nav li a {
+  display: block;
+  color: hsla(0, 0%, 100%, 0.7);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+.nav li a:hover {
+  color:white;
+}
+
 .login {
   padding: 60px 0;
 }
@@ -78,45 +103,31 @@ body{
 .input-field{
  margin:20px 0;
 }
-.nav{
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: var(--dark-grey);
-}
-.nav ul {
-  list-style-type: none;
-  padding-left: 0px;
-}
-.nav li {
-  float: left;
-}
-.nav li a {
-  display: block;
-  color: hsla(0, 0%, 100%, 0.7);
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-.nav li a:hover {
-  color:white;
+
+.project{
+  clear:both;
+  border-bottom: 0.5px solid var(--light-grey);
+  font-size:18px;
 }
 
+.project-list{
+  margin:0 40px;
+  /* border-bottom: 0.5px solid var(--light-grey); */
+}
 .status-box {
   padding:0;
-  margin: 23.5px 15px 5px 5px;
+  margin: 16px 15px 5px 5px;
   float: left;
 }
 .status{
   display: block;
-  width: 30px;
-  height: 30px;
+  width: 22px;
+  height: 22px;
   text-align: center;
-  line-height: 30px;
+  line-height: 22px;
   background: #171515;
   border-radius: 50%;
-  font-size: 22px;
+  font-size: 16px;
   font-family:sans-serif;
   font-weight:bold;
   box-shadow: 0 0 6px var(--dark-grey);
@@ -124,17 +135,17 @@ body{
 .status-green {
   color: #5f3;
   text-shadow: 0 0 15px #1a9900;
-  border: 3px solid #5f3;
+  border: 2px solid #5f3;
 }
 .status-yellow {
   color: #FF0;
   text-shadow: 0 0 15px #bdbd00;
-  border: 3px solid #FF0;
+  border: 2px solid #FF0;
 }
 .status-red {
   color: #ff4242;
   text-shadow: 0 0 15px #F00;
-  border: 3px solid #ff4242;
+  border: 2px solid #ff4242;
 }
 .status-unkown {
   color: #fff;
@@ -156,4 +167,24 @@ body{
 
 .form-check-input{
   margin-left: 15px;;
+}
+
+.datePicker{
+  /* background-color: var(--light-grey); */
+  border-radius: 2px;
+  width:80px;
+  padding: 2px;
+  /* z-index: 10; */
+}
+.status-filter-grid{
+  display: grid;
+  grid-template-columns: 100px auto;
+}
+.filter-grid{
+  display: grid;
+  grid-template-columns: 100px 140px 140px 170px 120px;
+}
+
+.grid-item {
+  padding: 20px;
 }

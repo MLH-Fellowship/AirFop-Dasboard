@@ -6,11 +6,11 @@ import {Link} from 'react-router-dom'
 const ProjectsList = ({projects}) => {
     
     return (
-        <div>
+        <div >
             {projects && projects.length > 0 && (
                 projects.map((project) => 
                     <Link to={'/project/' + project.id} key={project.id} >
-                        <Project project={project}/>
+                        <Project project={project} />
                     </Link>
                 )
             )}
