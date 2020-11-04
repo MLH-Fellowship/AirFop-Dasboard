@@ -3,11 +3,11 @@ import StatusFilter from './StatusFilter'
 import DateRangeFilter from './DateRangeFilter'
 import { connect } from 'react-redux'
 import { updateFilter } from '../../store/actions/projectActions'
-import Report from '../report/Report'
 
-const Filter = ({filterProjects, projects,updateFilter, greenSelected, yellowSelected, redSelected, startDate, endDate, showAll}) => {
+const Filter = ({filterProjects, projects, updateFilter, greenSelected, yellowSelected, redSelected, startDate, endDate, showAll}) => {
   
   const handleCheckboxChange = (e) => {
+    console.log(projects, 'P')
     const id = e.target.id    
     if(id === 'green'){
       filterProjects(!greenSelected, yellowSelected, redSelected, startDate,endDate)
@@ -34,16 +34,12 @@ const Filter = ({filterProjects, projects,updateFilter, greenSelected, yellowSel
       <div className="header">
         <StatusFilter
           filterProjects={filterProjects}
-          greenSelected={greenSelected}
-          yellowSelected={yellowSelected}
-          redSelected={redSelected}
           handleCheckboxChange={handleCheckboxChange}
         />
         <DateRangeFilter
           handleCheckboxChange={handleCheckboxChange}
         />
       </div>
-      <Report projects={projects}/>
     </div>
   )
 }

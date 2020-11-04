@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import ProjectsList from '../projects/ProjectsList'
 import Filter from './Filter'
+import Report from '../report/Report'
 import { connect } from 'react-redux'
 
 
@@ -31,6 +32,7 @@ const Dashboard = ({projects, myState}) => {
         <div>
             <header >
                 <Filter filterProjects={filterProjects}  projects={displayProjects} />
+                <Report projects={displayProjects}/>
             </header>
             <div className='project-list'>
                 <ProjectsList projects={displayProjects}/>

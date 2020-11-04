@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 const StatusFilter = ({ greenSelected, yellowSelected,redSelected, handleCheckboxChange}) => {
   return (
@@ -41,4 +42,13 @@ const StatusFilter = ({ greenSelected, yellowSelected,redSelected, handleCheckbo
   )
 }
 
-export default StatusFilter;
+const mapStateToProps = (state) => {
+  return {
+    greenSelected: state.project.greenSelected,
+    yellowSelected: state.project.yellowSelected,
+    redSelected: state.project.redSelected,
+  }
+}
+
+
+export default connect(mapStateToProps)(StatusFilter);
