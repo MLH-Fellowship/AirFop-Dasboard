@@ -1,6 +1,5 @@
 import React from 'react';
 import { Page, Text, View, Document, StyleSheet, PDFDownloadLink } from '@react-pdf/renderer';
-import ReactDOM from 'react-dom';
 import { connect } from 'react-redux'
 var moment = require('moment');
 
@@ -36,7 +35,7 @@ const MyDocument = ({projects, statusFilter, dateFilter, createdOn}) => (
       <Text style={{fontWeight:'bold', fontSize:14, paddingBottom:'10px'}}>Projects:</Text>
         {projects && projects.length > 0 && projects.map(
           project => (
-          <Text key={project.id} style={{ borderBottom:'1', borderBottomColor:'#cccccc', padding:'10px'}}>{project.title}{" "}({project.id}) - Status: {project.status} </Text>
+          <Text key={project.projectName} style={{ borderBottom:'1', borderBottomColor:'#cccccc', padding:'10px'}}>{project.projectName}{" "}({project.number}) - Status: {project.status} </Text>
           )
         )}
       </View>
@@ -63,10 +62,10 @@ const Report = ({projects,  greenSelected, yellowSelected, redSelected, startDat
       <div>
       <PDFDownloadLink document={<MyDocument projects={projects} statusFilter={statusFilter} dateFilter={dateFilter} createdOn={createdOn} />} fileName="report.pdf">
         {({ blob, url, loading, error }) => (
-            loading ? 'Loading document...' :
-            <div style={{}}>
-              <button style={{ width:'25%', margin:'10px 40px' }} className= "btn-block" >Save Report</button>
-            </div>
+          loading ? 'Loading document...' :
+          <div style={{}}>
+            <button  style={{width:'100%'}} className= "btn-block" >Save Report</button>
+          </div>
         )}
       </PDFDownloadLink>
     </div>

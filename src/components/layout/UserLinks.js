@@ -10,8 +10,7 @@ const UserLinks = ({logout}) => {
     }
     return (
         <>
-        <ul className='right'>
-            <li ><NavLink to="/">User Link 1</NavLink></li>            
+        <ul className='right'>        
             <li onClick={e=>onClick(e)}><NavLink to="/">User info</NavLink></li>
         </ul>
         </>

@@ -7,9 +7,12 @@ const ProjectDetails = ({project}) => {
         <div className="App">
         <div className='container'>
             <div className="project-card">
-                <p>id:{project.id}</p>
-                <p>title:{project.title}</p>
+            {project && (
+                <>
+                <p>project name: {project.projectName}</p>
                 <p>status:{project.status}</p>
+                </>
+            )}
             </div>
         </div>
         </div>
@@ -17,14 +20,16 @@ const ProjectDetails = ({project}) => {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    const projectId = ownProps.match.params.id;
+    const projectName = ownProps.match.params.projectName;
     //make a call to the database for this project 
     const project = state.project.projects ? 
-    state.project.projects.find(p=>p.id.toString()===projectId):
+    state.project.projects.find(p=>p.projectName===projectName):
     null
+    console.log('found:', project)
     return {
         project
     }
 }
 
 export default connect(mapStateToProps)(ProjectDetails);
+                

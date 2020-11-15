@@ -14,3 +14,10 @@ export const logout = () => {
         dispatch({type:'LOGIN'})
     }
 }
+export const createUser = (user) => {
+    return (dispatch, getState) => {
+        // make call to db
+
+        dispatch({type:'CREATE_USER', user})
+    }
+}

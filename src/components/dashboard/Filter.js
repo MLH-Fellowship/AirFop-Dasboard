@@ -3,6 +3,7 @@ import StatusFilter from './StatusFilter'
 import DateRangeFilter from './DateRangeFilter'
 import { connect } from 'react-redux'
 import { updateFilter } from '../../store/actions/projectActions'
+import Report from '../report/Report'
 
 const Filter = ({filterProjects, projects, updateFilter, greenSelected, yellowSelected, redSelected, startDate, endDate, showAll}) => {
   
@@ -37,7 +38,9 @@ const Filter = ({filterProjects, projects, updateFilter, greenSelected, yellowSe
           handleCheckboxChange={handleCheckboxChange}
         />
         <DateRangeFilter
+          style={{ float:'left' }}
           handleCheckboxChange={handleCheckboxChange}
+          projects={projects}
         />
       </div>
     </div>

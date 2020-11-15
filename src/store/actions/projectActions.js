@@ -32,3 +32,10 @@ export const updateFilter = (filter, value) => {
     }
     return { type:TYPE, value }
 }
+
+export const getProjects = (filters) => {
+    return (dispatch, getState) => {
+        //call to db and set projects results 
+        dispatch({ type:'GET_PROJECTS', filters })
+    }
+}

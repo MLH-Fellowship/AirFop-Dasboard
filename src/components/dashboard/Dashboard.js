@@ -3,6 +3,7 @@ import ProjectsList from '../projects/ProjectsList'
 import Filter from './Filter'
 import Report from '../report/Report'
 import { connect } from 'react-redux'
+import {getProjects} from '../../store/actions/projectActions'
 
 
 // might not need this var moment = require('moment');
@@ -30,9 +31,11 @@ const Dashboard = ({projects, myState}) => {
 
     return (
         <div>
-            <header >
+            <header style={{ marginBottom:'40px' }}>
                 <Filter filterProjects={filterProjects}  projects={displayProjects} />
-                <Report projects={displayProjects}/>
+                <div style={{ width:'130px', margin:'10px 40px' }}>
+                    <Report projects={displayProjects} />
+                </div>
             </header>
             <div className='project-list'>
                 <ProjectsList projects={displayProjects}/>
@@ -47,4 +50,11 @@ const mapStateToProps = (state) => {
         myState: state
     }
 }
-export default connect(mapStateToProps)(Dashboard);
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+      getProjects: (filters) => dispatch(getProjects(filters))
+    }
+  }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

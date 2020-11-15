@@ -2,8 +2,9 @@ import React, {useState} from 'react'
 import DatePickerTool from './DatePicker'
 import { connect } from 'react-redux'
 import { updateFilter } from '../../store/actions/projectActions'
+import Report from '../report/Report'
 
-const DateRange = ({showAll, startDate, endDate, updateFilter, handleCheckboxChange}) => {
+const DateRange = ({showAll, projects, startDate, endDate, updateFilter, handleCheckboxChange}) => {
     const [quickSelect, setQuickSelect] = useState("");
     const setStartDate = (date) => {
         updateFilter('start', date);
@@ -66,11 +67,11 @@ const DateRange = ({showAll, startDate, endDate, updateFilter, handleCheckboxCha
         <label className="form-check">Filter Dates: </label>
         <div>
             <label className="form-check form-check-input">Start </label>
-            <DatePickerTool date={startDate} setDate={setStartDate}/>
+            <DatePickerTool date={startDate} setDate={setStartDate} className='datePicker'/>
         </div>
         <div>
             <label className="form-check form-check-input">End </label>
-            <DatePickerTool date={endDate} setDate={setEndDate}/>
+            <DatePickerTool date={endDate} setDate={setEndDate} className='datePicker'/>
         </div>
         <div>
         <label className="form-check form-check-input">Quick</label>

@@ -2,10 +2,10 @@ import React from 'react'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const DatePickerTool = ({date, setDate}) => {
+const DatePickerTool = ({date, setDate, className}) => {
   return (
     <DatePicker 
-      className='datePicker' 
+      className={className} 
       selected={date} dateFormat="MM/dd/yyyy" 
       onChange={date => setDate(date)}
       peekNextMonth

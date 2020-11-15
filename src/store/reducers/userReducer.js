@@ -20,6 +20,12 @@ const userReducer = ( state = initState, action) => {
                 isAuthenticated: false,
                 isAdmin: false
             }
+        case 'CREATE_USER':
+            console.log('CERATE_USER', action.user)
+            return {
+                ...state,
+                user: action.user
+            }
         default:
             return state
     }

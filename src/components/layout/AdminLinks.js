@@ -12,7 +12,7 @@ const AdminLinks = ({logout}) => {
         <>
         <ul className='right'>
             <li ><NavLink to="/newproject">New Project</NavLink></li>
-            <li ><NavLink to="/">Admin Link 2</NavLink></li>
+            <li ><NavLink to="/newuser">New User</NavLink></li>
             <li onClick={e=>onClick(e)}><NavLink to="/">Admin info</NavLink></li>
         </ul>
         </>
