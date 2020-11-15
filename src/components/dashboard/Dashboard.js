@@ -33,9 +33,9 @@ const Dashboard = ({projects, myState}) => {
         <div>
             <header style={{ marginBottom:'40px' }}>
                 <Filter filterProjects={filterProjects}  projects={displayProjects} />
-                <div style={{ width:'130px', margin:'10px 40px' }}>
+                {/* <div style={{ width:'130px', margin:'10px 40px' }}>
                     <Report projects={displayProjects} />
-                </div>
+                </div> */}
             </header>
             <div className='project-list'>
                 <ProjectsList projects={displayProjects}/>

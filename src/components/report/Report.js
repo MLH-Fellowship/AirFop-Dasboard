@@ -64,7 +64,7 @@ const Report = ({projects,  greenSelected, yellowSelected, redSelected, startDat
         {({ blob, url, loading, error }) => (
           loading ? 'Loading document...' :
           <div style={{}}>
-            <button  style={{width:'100%'}} className= "btn-block" >Save Report</button>
+            <button  style={{width:'100%'}} className= "btn small-btn-block" >Save Report</button>
           </div>
         )}
       </PDFDownloadLink>

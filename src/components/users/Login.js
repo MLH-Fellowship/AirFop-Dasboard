@@ -6,6 +6,7 @@ const Login = ({login}) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [forgot, setForgot] = useState("Forgot Password?")
 
   const onSubmit = (e) => {
     e.preventDefault()
@@ -16,23 +17,49 @@ const Login = ({login}) => {
     return email.length > 0 && password.length > 0;
   }
     
+  const forgotPassword = (e) => {
+    e.preventDefault();
+    setForgot("Please check your email for password reset instructions")
+  }
+
   return (
-    <div className="login">
-      <form onSubmit={e=>onSubmit(e)} className='card'>
-        <div className="input-field">
-          <label htmlFor="email">Email{' '}</label>
-            <input type="email" id="email" onChange={e=> setEmail(e.target.value)}/>
+    <div className="App">
+      <div className="card p-30 m-30">
+        <form onSubmit={e=>onSubmit(e)} style={{width:'70%', margin:'auto', padding:'20px'}}>
+          <h1 style={{width:'70%', margin:'auto', padding:'20px'}} className="grey-text">Login</h1>
+          <div className='container'>
+            <div className='field'>
+              <input 
+                type="email" 
+                id="email" 
+                required 
+                onChange={e=> setEmail(e.target.value)}
+                className="form-input"
+                placeholder="Email"
+              />
+            </div>
+            <div className='field'>
+              <input
+                className="form-input"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Password"
+                type="password"
+                name="password"
+                minLength="6"
+                required
+              />
+            </div>
+            <div>
+              <button style={{width:'250px', margin:'30px 0'}} className={validateForm() ? "btn btn-block" : "disabledBtn"} disabled={!validateForm()}>LOGIN</button>
+            </div>
+            <div>
+              <p className={forgot === "Forgot Password?" ? 'forgot-password': 'forgot-password-red red-text'} onClick={e => forgotPassword(e)} id='forgot-password'>{forgot}</p>
+            </div>
+            </div>
+          </form>
         </div>
-        <div className="input-field">
-            <label htmlFor="password">Password{' '}</label>
-            <input type="password" id="password" onChange={e=> setPassword(e.target.value)}/>
-        </div>
-        <div className="input-field">
-            <button className={validateForm() ? "btn-block" : "disabledBtn"} disabled={!validateForm()}>Login</button>
-        </div>
-        <p className="grey-text">Forgot Password?</p>
-      </form>
-    </div>
+      </div>
   )
     
 }

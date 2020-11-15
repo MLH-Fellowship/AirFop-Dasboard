@@ -31,19 +31,27 @@ const Filter = ({filterProjects, projects, updateFilter, greenSelected, yellowSe
   }
 
   return (
-    <div >
+    
       <div className="header">
-        <StatusFilter
+      <StatusFilter
           filterProjects={filterProjects}
           handleCheckboxChange={handleCheckboxChange}
         />
+      <div class="header-grid">
+        <div class="filter-col">
         <DateRangeFilter
-          style={{ float:'left' }}
+          // style={{ float:'left' }}
           handleCheckboxChange={handleCheckboxChange}
           projects={projects}
         />
+        </div>
+        <div class="" >
+        {/* style={{width:'70%', margin:'5px'}} */}
+        <Report projects={projects} />
+        </div>
       </div>
-    </div>
+      </div>
+    
   )
 }
 

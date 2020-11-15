@@ -219,7 +219,7 @@ const CreateProject = ({createProject}) => {
           </tbody>
           </table>     
           <div className="input-field" style={{width:'70%', margin:'30px auto'}}>
-            <button style={{width:'250px'}} className={validateForm() ? "btn-block" : "disabledBtn"} disabled={!validateForm()}>Create</button>
+            <button style={{width:'250px'}} className={validateForm() ? "btn btn-block" : "disabledBtn"} disabled={!validateForm()}>Create</button>
           </div>
         </form>
       </div> 

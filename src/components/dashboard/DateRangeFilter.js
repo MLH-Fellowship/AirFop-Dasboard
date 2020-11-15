@@ -63,19 +63,19 @@ const DateRange = ({showAll, projects, startDate, endDate, updateFilter, handleC
     }
 
   return (
-    <div className='filter-grid form-check filter'>
-        <label className="form-check">Filter Dates: </label>
+    <div className='filter-grid  filter'>
+        <label className="datePicker">Filter Dates: </label>
         <div>
-            <label className="form-check form-check-input">Start </label>
+            <label className=" -input">Start </label>
             <DatePickerTool date={startDate} setDate={setStartDate} className='datePicker'/>
         </div>
         <div>
-            <label className="form-check form-check-input">End </label>
+            <label className=" -input">End </label>
             <DatePickerTool date={endDate} setDate={setEndDate} className='datePicker'/>
         </div>
         <div>
-        <label className="form-check form-check-input">Quick</label>
-            <select value={quickSelect}className='datePicker ' style={{width:'100px', marginLeft:'5px'}} onChange = {e => onQuickSelectChange(e)}>
+        <label>Quick</label>
+            <select value={quickSelect}className='datePicker ' style={{width:'120px', marginLeft:'5px'}} onChange = {e => onQuickSelectChange(e)}>
                 <option value="">Choose One</option>
                 <option value="oneMonth">1 Month</option>
                 <option value="threeMonths">3 Months</option>
@@ -83,7 +83,7 @@ const DateRange = ({showAll, projects, startDate, endDate, updateFilter, handleC
                 <option value="oneYear">1 year</option>
             </select>
         </div>
-            <button id='clear' className="form-check-input" onClick={e=>clear(e)}>clear</button>
+            <button id='clear' className="-input" onClick={e=>clear(e)}>clear</button>
     </div>
   )
 }
