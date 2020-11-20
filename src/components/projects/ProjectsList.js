@@ -1,9 +1,8 @@
 import React from 'react'
 import Project from './Project'
-// import { connect } from 'react-redux'
-// import {Link} from 'react-router-dom'
+import { connect } from 'react-redux'
 
-const ProjectsList = ({projects}) => {
+const ProjectsList = ({projects, isAdmin}) => {
     
     return (
         <div>
@@ -23,9 +22,10 @@ const ProjectsList = ({projects}) => {
                 </tr>
                 {projects && projects.length > 0 && (
                     projects.map((project) => 
-                        // <Link to={'/project/' + project.projectName} key={project.projectName} >
-                            <Project project={project} key={project.projectName}/>
-                        // </Link>
+                        <Project 
+                            project={project} 
+                            key={project.projectName}
+                        />
                     )
                 )}
                 </tbody>
@@ -34,11 +34,15 @@ const ProjectsList = ({projects}) => {
     )
 }
 
-// const mapStateToProps = (state) => {
-//     return {
-//         projects: state.project.projects
-//     }
-// }
+const mapStateToProps = (state) => {
+    return {
+        // will likely want to add this back
+        // projects: state.project.projects,
+        // user: state.user.user,
+        isAdmin: state.user.isAdmin
+        // myState: state
+    }
+}
 
-// export default connect(mapStateToProps)(ProjectsList);
-export default ProjectsList;
+export default connect(mapStateToProps)(ProjectsList);
+// export default ProjectsList;

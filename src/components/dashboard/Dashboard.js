@@ -1,12 +1,10 @@
 import React, {useState} from 'react'
 import ProjectsList from '../projects/ProjectsList'
 import Filter from './Filter'
-import Report from '../report/Report'
 import { connect } from 'react-redux'
 import {getProjects} from '../../store/actions/projectActions'
+import {UserMenu} from '../layout/NavUserIcon'
 
-
-// might not need this var moment = require('moment');
 
 const Dashboard = ({projects, myState}) => {
     const [displayProjects, setDisplayProjects] = useState(projects);
@@ -31,15 +29,28 @@ const Dashboard = ({projects, myState}) => {
 
     return (
         <div>
-            <header style={{ marginBottom:'40px' }}>
-                <Filter filterProjects={filterProjects}  projects={displayProjects} />
-                {/* <div style={{ width:'130px', margin:'10px 40px' }}>
-                    <Report projects={displayProjects} />
-                </div> */}
-            </header>
-            <div className='project-list'>
-                <ProjectsList projects={displayProjects}/>
-            </div>
+            {projects && projects.length > 0 && (
+                <>
+                <UserMenu/>
+                <header style={{ marginBottom:'40px' }}>
+                    <Filter filterProjects={filterProjects}  projects={displayProjects} showReportBtn={true} />
+                </header>
+                <div className='project-list'>
+                    <ProjectsList projects={projects}/>
+                </div>
+                </>
+            )}
+            {(!projects || projects.length === 0) && 
+                <div className="App">
+                    <div className="card p-30 m-30">
+                    <header className='m-20'>
+                        <h1  className='grey-text fs-20'>Filter by status and/or date range to display matching projects</h1>
+                        <UserMenu/>
+                        <Filter filterProjects={filterProjects}  projects={[]} showReportBtn={false}/>
+                    </header>
+                    </div>
+                </div>
+            }
         </div>
     )
 }
@@ -47,6 +58,8 @@ const Dashboard = ({projects, myState}) => {
 const mapStateToProps = (state) => {
     return {
         projects: state.project.projects,
+        user: state.user.user,
+        isAdmin: state.user.isAdmin,
         myState: state
     }
 }

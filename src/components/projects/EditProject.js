@@ -3,24 +3,69 @@ import {createProject} from '../../store/actions/projectActions'
 import {connect} from 'react-redux'
 import DatePickerTool from '../dashboard/DatePicker'
 import Select from 'react-select'
+var moment = require('moment');
 
-const CreateProject = ({createProject}) => {
-  const [projectName, setProjectName] = useState("");
-  const [name, setName] = useState("");
-  const [number, setNumber] = useState("");
-  const [funding, setFunding] = useState("");
-  const [phase, setPhase] = useState("");
-  const [awardDate, setAwardDate] = useState("");
-  const [POP, setPOP] = useState("");
-  const [customer, setCustomer] = useState("");
-  const [contractor, setContractor] = useState("");
-  const [PM, setPM] = useState("");
-  const [status, setStatus] = useState("");
-  const [statusComment, setStatusComment] = useState("");
+const EditProject = ({createProject, project}) => {
+  const [projectName, setProjectName] = useState(project.projectName);
+  const [name, setName] = useState(project.name ? project.name : "");
+  const [number, setNumber] = useState(project.number);
+  const [funding, setFunding] = useState(project.funding ? project.funding : "");
+  const [awardDate, setAwardDate] = useState(project.awardDate ? moment(project.awardDate).toDate() : null);
+  const [POP, setPOP] = useState(project.POP ? project.POP : "");
+  const [customer, setCustomer] = useState(project.customer ? project.customer : "");
+  const [contractor, setContractor] = useState(project.contractor ? project.contractor : "");
+  const [PM, setPM] = useState(project.PM ? project.PM : "");
+
+  const phaseOptions = [
+    { value: '', label: 'Select Phase' },
+    { value: 'Pre-award', label: 'Pre-award' },
+    { value: 'Exclusion', label: 'Exclusion' },
+    { value: 'Closeout', label: 'Closeout' }
+  ]
+  let initPhase;
+  switch (project.phase){
+    case 'Pre-award':
+      initPhase = phaseOptions[1]; 
+      break;
+    case 'Exclusion':
+      initPhase = phaseOptions[2];
+      break;
+    case 'Closeout':
+      initPhase = phaseOptions[3];
+      break;
+    default:
+      initPhase = phaseOptions[0];
+  }
+  console.log(initPhase, 'ip');
+  const [phase, setPhase] = useState(initPhase);
+
+  const statusOptions = [
+    { value: '', label: 'Select Status' },
+    { value: 'green', label: 'Green' },
+    { value: 'yellow', label: 'Yellow' },
+    { value: 'red', label: 'Red' }
+  ]
+
+  let initStatus;
+  switch (project.status){
+    case 'green':
+      initStatus = statusOptions[1]; 
+      break;
+    case 'yellow':
+      initStatus = statusOptions[2];
+      break;
+    case 'red':
+      initStatus = statusOptions[3];
+      break;
+    default:
+      initStatus = statusOptions[0];
+  }
+
+  const [status, setStatus] = useState(initStatus);
+  const [statusComment, setStatusComment] = useState(project.statusComment ? project.statusComment : "");
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log('stat: ', status)
     createProject({
       projectName,
       name,
@@ -35,7 +80,6 @@ const CreateProject = ({createProject}) => {
       status,
       statusComment
     }); 
-    setProjectName(''); setName(''); setNumber(''); setFunding(''); setPhase(''); setAwardDate(''); setPOP(''); setCustomer(''); setContractor(''); setPM(''); setStatus(''); setStatusComment('');
   }
 
   const validateForm = () => {
@@ -64,24 +108,12 @@ const CreateProject = ({createProject}) => {
     }
   };
 
-  const phaseOptions = [
-    { value: '', label: 'Select Phase' },
-    { value: 'Pre-award', label: 'Pre-award' },
-    { value: 'Exclusion', label: 'Exclusion' },
-    { value: 'Closeout', label: 'Closeout' }]
-  
-    const statusOptions = [
-    { value: '', label: 'Select Status' },
-    { value: 'green', label: 'Green' },
-    { value: 'yellow', label: 'Yellow' },
-    { value: 'red', label: 'Red' }]
-  
   return (
     <div className="App">
       <div className="card p-30 m-30">
         <form onSubmit={e=>onSubmit(e)} className='new-project'>
-          <h1  style={{width:'70%', margin:'auto', padding:'20px'}}className="grey-text">New Project</h1>
-          <table id="new-project-table" style={{width:'70%', margin:'auto'}} >
+        <h1  style={{width:'70%', margin:'auto', padding:'20px'}}className="grey-text">UPDATE PROJECT: {project.projectName}</h1>
+          <table id="edit-project-table" style={{width:'70%', margin:'auto'}} >
           <tbody>
             <tr>
               <td className='tableData' colSpan="2">
@@ -104,7 +136,7 @@ const CreateProject = ({createProject}) => {
               <label>Name</label>
                 <input
                   type="text" 
-                  id="name"  
+                  id="name" 
                   onChange={e=> setName(e.target.value)}
                   className="form-input"
                   value={name}
@@ -200,7 +232,7 @@ const CreateProject = ({createProject}) => {
             <td className='tableData'>
               <label>Phase</label>
               <Select
-                defaultValue={phaseOptions[0]}
+                defaultValue={initPhase}
                 label="phase"
                 options={phaseOptions}
                 styles={colourStyles}
@@ -211,7 +243,7 @@ const CreateProject = ({createProject}) => {
               <td className='tableData'>
               <label>Status</label>
               <Select
-                defaultValue={statusOptions[0]}
+                defaultValue={initStatus}
                 label="phase"
                 options={statusOptions}
                 styles={colourStyles}
@@ -237,12 +269,24 @@ const CreateProject = ({createProject}) => {
           </tbody>
           </table>     
           <div className="input-field" style={{width:'70%', margin:'30px auto'}}>
-            <button style={{width:'250px'}} className={validateForm() ? "btn btn-block" : "disabledBtn"} disabled={!validateForm()}>CREATE</button>
+            <button style={{width:'250px'}} className={validateForm() ? "btn btn-block" : "disabledBtn"} disabled={!validateForm()}>UPDATE</button>
           </div>
         </form>
       </div> 
     </div>
   )
+}
+
+const mapStateToProps = (state, ownProps) => {
+    const projectName = ownProps.match.params.projectName;
+    //make a call to the database for this project 
+    const project = state.project.projects ? 
+    state.project.projects.find(p=>p.projectName===projectName):
+    null
+    console.log('found:', project)
+    return {
+      project
+    }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -251,4 +295,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(CreateProject);
+export default connect(mapStateToProps, mapDispatchToProps)(EditProject);

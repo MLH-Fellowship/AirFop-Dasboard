@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { updateFilter } from '../../store/actions/projectActions'
 import Report from '../report/Report'
 
-const Filter = ({filterProjects, projects, updateFilter, greenSelected, yellowSelected, redSelected, startDate, endDate, showAll}) => {
+const Filter = ({filterProjects, projects, updateFilter, greenSelected, yellowSelected, redSelected, startDate, endDate, showAll, showReportBtn}) => {
   
   const handleCheckboxChange = (e) => {
     console.log(projects, 'P')
@@ -31,27 +31,25 @@ const Filter = ({filterProjects, projects, updateFilter, greenSelected, yellowSe
   }
 
   return (
-    
-      <div className="header">
+    <div className="header">
       <StatusFilter
-          filterProjects={filterProjects}
-          handleCheckboxChange={handleCheckboxChange}
-        />
-      <div class="header-grid">
-        <div class="filter-col">
-        <DateRangeFilter
-          // style={{ float:'left' }}
-          handleCheckboxChange={handleCheckboxChange}
-          projects={projects}
-        />
+        filterProjects={filterProjects}
+        handleCheckboxChange={handleCheckboxChange}
+      />
+      <div className="header-grid">
+        <div className="filter-col">
+          <DateRangeFilter
+            handleCheckboxChange={handleCheckboxChange}
+            projects={projects}
+          />
         </div>
-        <div class="" >
-        {/* style={{width:'70%', margin:'5px'}} */}
-        <Report projects={projects} />
+        <div className="" >
+        {showReportBtn &&
+          <Report projects={projects} />
+        }
         </div>
       </div>
-      </div>
-    
+    </div>
   )
 }
 

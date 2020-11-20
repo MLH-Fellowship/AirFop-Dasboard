@@ -1,10 +1,10 @@
 import {projects} from '../../data/Data'
-
 const initState = {
-    projects,
-    greenSelected:true,
-    yellowSelected:true,
-    redSelected:true,
+    projects:projects,
+    // projects:[],
+    greenSelected:false,
+    yellowSelected:false,
+    redSelected:false,
     startDate:null,
     endDate:null,
     showAll:true
@@ -19,10 +19,10 @@ const projectReducer = ( state = initState, action) => {
                 projects:[...state.projects, action.project]
             }
         case "GET_PROJECTS":
-            console.log('GET_PROJECTS', action.filters);
+            console.log('GET_PROJECTS', action.projects);
             return {
                 ...state,
-                filters:action.filters
+                projects:action.projects
             }
         case "UPDATE_GREEN_SELECTED":
             console.log('UPDATE_GREEN_SELECTED');

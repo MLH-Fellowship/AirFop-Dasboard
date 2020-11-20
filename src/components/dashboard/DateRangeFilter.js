@@ -1,10 +1,10 @@
 import React, {useState} from 'react'
 import DatePickerTool from './DatePicker'
 import { connect } from 'react-redux'
-import { updateFilter } from '../../store/actions/projectActions'
+import { updateFilter,  getProjects } from '../../store/actions/projectActions'
 import Report from '../report/Report'
 
-const DateRange = ({showAll, projects, startDate, endDate, updateFilter, handleCheckboxChange}) => {
+const DateRange = ({showAll, projects, getProjects, startDate, endDate, updateFilter, handleCheckboxChange}) => {
     const [quickSelect, setQuickSelect] = useState("");
     const setStartDate = (date) => {
         updateFilter('start', date);
@@ -61,6 +61,12 @@ const DateRange = ({showAll, projects, startDate, endDate, updateFilter, handleC
         setQuickSelect("");
         handleCheckboxChange(e);
     }
+    
+    const search = (e) => {
+        e.preventDefault();
+        getProjects();
+        // handleCheckboxChange(e);
+    }
 
   return (
     <div className='filter-grid  filter'>
@@ -83,6 +89,7 @@ const DateRange = ({showAll, projects, startDate, endDate, updateFilter, handleC
                 <option value="oneYear">1 year</option>
             </select>
         </div>
+            <button id='search' className="-input" onClick={e=>search(e)}>search</button>
             <button id='clear' className="-input" onClick={e=>clear(e)}>clear</button>
     </div>
   )
@@ -98,7 +105,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        updateFilter: (label,value) => dispatch(updateFilter(label,value))
+        updateFilter: (label,value) => dispatch(updateFilter(label,value)),
+        getProjects: () => dispatch(getProjects())
     }
   }
 export default connect(mapStateToProps, mapDispatchToProps)(DateRange);

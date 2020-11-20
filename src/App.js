@@ -8,14 +8,13 @@ import NoMatch from './components/layout/NoMatch';
 import ProjectDetails from './components/projects/ProjectDetails';
 import Login from './components/users/Login';
 import CreateProject from './components/projects/CreateProject';
+import EditProject from './components/projects/EditProject';
 import CreateUser from './components/users/CreateUser';
-import AdminProjectDetails from './components/projects/AdminProjectDetails';
 import AdminOnlyContent from './components/layout/AdminOnlyContent';
 // import Print from './components/report/Print';
 import Report from './components/report/Report'
 
 function App({user, isAuthenticated, isAdmin}) {
-  const ProjectDetailsComponent = isAdmin ?  AdminProjectDetails :  ProjectDetails;
   const CreateProjectComponent = isAdmin ? CreateProject : AdminOnlyContent;
   const CreateUserComponent = isAdmin ? CreateUser : AdminOnlyContent;
   
@@ -26,7 +25,10 @@ function App({user, isAuthenticated, isAdmin}) {
         <Route path="/" exact component={Dashboard}>
            {!isAuthenticated && <Redirect to={"/login"}/>}
         </Route>
-        <Route  path="/project/:projectName" component={ProjectDetailsComponent}>
+        <Route  path="/project/:projectName" component={ProjectDetails}>
+          {!isAuthenticated && <Redirect to={"/login"}/>}
+        </Route>
+        <Route  path="/edit/:projectName" component={EditProject}>
           {!isAuthenticated && <Redirect to={"/login"}/>}
         </Route>
         <Route  path="/login" component={Login}>

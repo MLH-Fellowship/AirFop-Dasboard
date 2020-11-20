@@ -4,11 +4,12 @@ import AdminLinks from './AdminLinks'
 import UserLinks from './UserLinks'
 import SignedOutLinks from './SignedOutLinks'
 import { connect } from 'react-redux'
+import NavUserIcon from './NavUserIcon'
 
 const NavBar = ({user, isAuthenticated, isAdmin}) => {
     let links; 
     if(user && isAuthenticated && isAdmin){
-        links = <AdminLinks/>
+        links = <AdminLinks user={user}/>
     }else if (user && isAuthenticated){
         links = <UserLinks/>
     }else {
@@ -17,7 +18,7 @@ const NavBar = ({user, isAuthenticated, isAdmin}) => {
     return (
         <>
         <ul className='nav'>
-            <li className='left'><NavLink to="/">Home</NavLink></li>
+            <li className='left block'><NavLink to="/">Home</NavLink></li>
             {links}
         </ul>
         </>

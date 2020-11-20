@@ -30,6 +30,7 @@ export const Project = ({project}) => {
         <>
         <tr>        
             <td>
+                {/* {action} */}
                 <Link to={'/project/' + project.projectName} key={project.projectName} >
                     {project.projectName}
                 </Link> 
