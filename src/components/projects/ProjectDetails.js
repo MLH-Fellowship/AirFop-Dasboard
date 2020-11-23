@@ -1,9 +1,10 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {connect} from 'react-redux'
 import FileDialog from '../layout/OpenFile'
 import {Link} from 'react-router-dom';
+import {getProjectById} from '../../store/actions/projectActions'
 
-const ProjectDetails = ({project, isAdmin}) => {
+const ProjectDetails = ({project, isAdmin, id, getProjectById}) => {
     const plusIconClass = "folderIcon far fa-plus-square "
     const minusIconClass = "folderIcon far fa-minus-square"
     // fas fa-folder-plus fas fa-folder-minus
@@ -41,6 +42,10 @@ const ProjectDetails = ({project, isAdmin}) => {
         e.preventDefault();
         func(value);
     }
+
+    useEffect(() => {
+        getProjectById(id);
+    }, [])
 
     return (
         <div className="App">
@@ -167,9 +172,16 @@ const mapStateToProps = (state, ownProps) => {
     console.log('found:', project)
     return {
         project,
-        isAdmin: state.user.isAdmin
+        isAdmin: state.user.isAdmin,
+        id:projectName
     }
 }
 
-export default connect(mapStateToProps)(ProjectDetails);
+const mapDispatchToProps = (dispatch) => {
+    return{
+      getProjectById: (id) => dispatch(getProjectById(id))
+    }
+  }
+  
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectDetails);
                 

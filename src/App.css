@@ -51,9 +51,31 @@ body{
 .nav li a:hover {
   color:white;
 }
+#nav-user-icon{
+  float: left;
+  padding:5px;
+}
+
+#nav-user-icon:hover  #nav-user-dropdown{
+  display: block;
+}
+
+#nav-user-dropdown{
+  display: none;
+  font-weight: 300;
+  text-transform: none;
+  display: none;
+  position: absolute;
+  width:170px;
+  right:0;
+  margin-top:50px;
+  background-color: #f2f2f2;
+  border: 0.2px solid var(--light-grey);
+}
+/* 
 .block{
   display:block;
-}
+} */
 
 /* .login {
   padding: 60px 0;
@@ -199,7 +221,6 @@ body{
   margin: 5px 0 0 0;
 }
 
-
 .new-project-datePicker{
   /* background-color: var(--light-grey); */
   border-radius: 2px;
@@ -217,7 +238,7 @@ body{
 }
 .filter-grid{
   display: grid;
-  grid-template-columns: 100px 160px 160px 200px 120px 120px;
+  grid-template-columns: 105px 160px 150px 180px 140px 120px;
 }
 .datePicker{
   font-size: 16px;
@@ -254,10 +275,7 @@ th, td{
   padding: 7px;
 }
 
-
-#projects tr:hover td {
-  border: 1px solid white;
-}
+#projects tr:hover td { border: 1px solid white; }
 
 td a {
   color:var(--dark-blue);
@@ -357,9 +375,7 @@ input:focus-within {
   background-color: #f2f2f2;
 }
 
-input:focus {
-  outline:none;
-}
+input:focus { outline:none; }
 
 select option:active {
   background-color: var(--dark-blue);
@@ -379,9 +395,7 @@ select option:active {
   grid-template-columns: auto auto auto auto auto;
   grid-gap: 10px;
 }
-.filter-col{
-  grid-column: 1 / 4;
-}
+.filter-col{ grid-column: 1 / 4; }
 
 .status-check-box{
   margin-right: 15px;
@@ -400,46 +414,38 @@ select option:active {
   padding: 7px;
 }
 
-
-#this{
-  float: left;
-  padding:5px;
-}
-
-#this:hover  #that{
-  display: block;
-}
-
-#that{
-  display: none;
-  font-weight: 300;
-  text-transform: none;
-  display: none;
-  position: absolute;
-  width:170px;
-  right:0;
-  margin-top:50px;
-  background-color: #f2f2f2;
-  border: 0.2px solid var(--light-grey);
-}
-
+/* 
 .thatag{
   text-align: right;
   color: red;
-}
+} */
     
-/* .action-icon{
+.action-icon, #clear, #search{
   text-decoration:none;
-  padding-right: 20px;
+  padding: 0 20px;
   font-weight: bold;
 }
 
 .action-icon:hover{
   cursor: pointer;
   text-decoration: underline;
-} */
+} 
+
+#search, #clear{
+  font-size:18px;
+  color: hsla(0, 0%, 100%, 0.7);
+  padding-top: 5px;
+}
+
+#search:hover, #clear:hover{
+  /* color:var( --light-grey); */
+  color:white;
+  cursor: pointer;
+}
+
 
 #new-project-table label, #edit-project-table label{
   font-size:12px;
   color:#757575;
 }
+

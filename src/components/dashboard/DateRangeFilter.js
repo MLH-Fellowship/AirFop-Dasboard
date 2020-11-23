@@ -89,8 +89,10 @@ const DateRange = ({showAll, projects, getProjects, startDate, endDate, updateFi
                 <option value="oneYear">1 year</option>
             </select>
         </div>
-            <button id='search' className="-input" onClick={e=>search(e)}>search</button>
-            <button id='clear' className="-input" onClick={e=>clear(e)}>clear</button>
+            {/* <button id='search' className="-input" onClick={e=>search(e)}>SEARCH</button> */}
+            <i id='search' onClick={e=>search(e)} class="action-icon fas fa-search"> SEARCH</i>
+            <i id='clear' onClick={e=>clear(e)} class="action-icon fas fa-times"> CLEAR</i>
+            {/* <button id='clear' className="-input" onClick={e=>clear(e)}>clear</button> */}
     </div>
   )
 }

@@ -7,6 +7,29 @@ export const createProject = (project) => {
     }
 }
 
+export const getProjects = (filters) => {
+    return (dispatch, getState) => {
+        //call to db and set projects results 
+        dispatch({ type:'GET_PROJECTS', projects })
+    }
+}
+
+export const getProjectById = (id) => {
+    return (dispatch, getState) => {
+        //call to db and set projects results 
+        dispatch({ type:'GET_PROJECT_BY_ID', id, project:{} })
+    }
+}
+
+export const updateProject = (project) => {
+    return (dispatch, getState) => {
+        //call to db
+        dispatch({ type:'UPDATE_PROJECT', project })
+    }
+}
+
+
+
 export const updateFilter = (filter, value) => {
 
     let TYPE;
@@ -33,11 +56,4 @@ export const updateFilter = (filter, value) => {
         default: console.log("error")
     }
     return { type:TYPE, value }
-}
-
-export const getProjects = (filters) => {
-    return (dispatch, getState) => {
-        //call to db and set projects results 
-        dispatch({ type:'GET_PROJECTS', projects })
-    }
 }

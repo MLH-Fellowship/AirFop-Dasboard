@@ -18,11 +18,24 @@ const projectReducer = ( state = initState, action) => {
                 ...state,
                 projects:[...state.projects, action.project]
             }
+        case "UPDATE_PROJECT":
+            console.log('update project', action.project);
+            return {
+                ...state,
+                project: action.project
+            }
         case "GET_PROJECTS":
             console.log('GET_PROJECTS', action.projects);
             return {
                 ...state,
                 projects:action.projects
+            }
+        case "GET_PROJECT_BY_ID":
+            console.log('GET_PROJECT_BY_ID', action.id);
+            return {
+                ...state,
+                project:action.project,
+                id: action.id
             }
         case "UPDATE_GREEN_SELECTED":
             console.log('UPDATE_GREEN_SELECTED');

@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import {createProject} from '../../store/actions/projectActions'
+import {updateProject} from '../../store/actions/projectActions'
 import {connect} from 'react-redux'
 import DatePickerTool from '../dashboard/DatePicker'
 import Select from 'react-select'
+
 var moment = require('moment');
 
-const EditProject = ({createProject, project}) => {
+const EditProject = ({updateProject, project}) => {
   const [projectName, setProjectName] = useState(project.projectName);
   const [name, setName] = useState(project.name ? project.name : "");
   const [number, setNumber] = useState(project.number);
@@ -66,7 +67,7 @@ const EditProject = ({createProject, project}) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    createProject({
+    updateProject({
       projectName,
       name,
       number,
@@ -291,7 +292,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return{
-    createProject: (project) => dispatch(createProject(project))
+    updateProject: (project) => dispatch(updateProject(project))
   }
 }
 

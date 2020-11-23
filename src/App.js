@@ -17,6 +17,7 @@ import Report from './components/report/Report'
 function App({user, isAuthenticated, isAdmin}) {
   const CreateProjectComponent = isAdmin ? CreateProject : AdminOnlyContent;
   const CreateUserComponent = isAdmin ? CreateUser : AdminOnlyContent;
+  const EditProjectComponent = isAdmin ? EditProject : AdminOnlyContent;
   
   return (
     <Router>
@@ -28,7 +29,7 @@ function App({user, isAuthenticated, isAdmin}) {
         <Route  path="/project/:projectName" component={ProjectDetails}>
           {!isAuthenticated && <Redirect to={"/login"}/>}
         </Route>
-        <Route  path="/edit/:projectName" component={EditProject}>
+        <Route  path="/edit/:projectName" component={EditProjectComponent}>
           {!isAuthenticated && <Redirect to={"/login"}/>}
         </Route>
         <Route  path="/login" component={Login}>
