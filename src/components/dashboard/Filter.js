@@ -2,8 +2,9 @@ import React from 'react'
 import StatusFilter from './StatusFilter'
 import DateRangeFilter from './DateRangeFilter'
 import { connect } from 'react-redux'
-import { updateFilter } from '../../store/actions/projectActions'
+import { updateFilter, getProjects } from '../../store/actions/projectActions'
 import Report from '../report/Report'
+import Search from './Search'
 
 const Filter = ({filterProjects, projects, updateFilter, greenSelected, yellowSelected, redSelected, startDate, endDate, showAll, showReportBtn}) => {
   
@@ -32,23 +33,37 @@ const Filter = ({filterProjects, projects, updateFilter, greenSelected, yellowSe
 
   return (
     <div className="header">
-      <StatusFilter
-        filterProjects={filterProjects}
-        handleCheckboxChange={handleCheckboxChange}
-      />
-      <div className="header-grid">
-        <div className="filter-col">
-          <DateRangeFilter
-            handleCheckboxChange={handleCheckboxChange}
-            projects={projects}
-          />
-        </div>
-        <div className="" >
-        {showReportBtn &&
-          <Report projects={projects} />
-        }
-        </div>
-      </div>
+       <table style={{width:'100%', margin:'0'}}>
+        <tbody>
+          <tr>
+            <th className="header-label">
+              Filter by Date Range & Status
+            </th>
+            <th className="header-label">
+              Search by Project Name
+            </th>
+          </tr>
+          <tr>        
+            <td id='filter-grid' style={{padding:'10px'}}>
+              <StatusFilter
+                className='filter'
+                filterProjects={filterProjects}
+                handleCheckboxChange={handleCheckboxChange}
+              />
+                <DateRangeFilter
+                className='filter'
+                handleCheckboxChange={handleCheckboxChange}
+                projects={projects}
+              />
+            </td>
+            <td style={{width:'30vw'}} >
+              <Search
+                className='filter'
+              />
+            </td>  
+          </tr>
+        </tbody>
+      </table>     
     </div>
   )
 }
@@ -66,7 +81,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return{
-    updateFilter: (label,value) => dispatch(updateFilter(label,value))
+    updateFilter: (label,value) => dispatch(updateFilter(label,value)),
+    getProjects: (filters) => dispatch(getProjects(filters))
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Filter);

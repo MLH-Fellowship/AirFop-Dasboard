@@ -69,30 +69,38 @@ const DateRange = ({showAll, projects, getProjects, startDate, endDate, updateFi
     }
 
   return (
-    <div className='filter-grid  filter'>
-        <label className="datePicker">Filter Dates: </label>
-        <div>
-            <label className=" -input">Start </label>
-            <DatePickerTool date={startDate} setDate={setStartDate} className='datePicker'/>
+    <div>
+        {/* <label className='left'>Date Range: </label> */}
+        <div id='date-grid'>
+        {/* <div> */}
+            <span>
+                <label className="date-filter datePicker">Start</label>
+                <DatePickerTool date={startDate} setDate={setStartDate} className='datePicker'/>
+            </span>
+            <span>
+                <label className="date-filter datePicker">End</label>
+                <DatePickerTool date={endDate} setDate={setEndDate} className='datePicker'/>
+            </span>
+            <span>
+                <label className="date-filter datePicker">Quick</label>
+                <select value={quickSelect} className='datePicker' style={{width:'120px'}} onChange = {e => onQuickSelectChange(e)}>
+                    <option value="">Choose One</option>
+                    <option value="oneMonth">1 Month</option>
+                    <option value="threeMonths">3 Months</option>
+                    <option value="sixMonths">6 months</option>
+                    <option value="oneYear">1 year</option>
+                </select>
+            </span>
+            {/* <span style={{margin:'-3px 0 0 10px', float:'right'}}> */}
+            <span >
+                <button id='filter'>
+                    <i  onClick={e=>search(e)} class="fas fa-filter"> FILTER</i>    
+                </button>
+                <button id='clear'>
+                    <i onClick={e=>clear(e)} class="fas fa-times"> CLEAR</i>    
+                </button>
+            </span>
         </div>
-        <div>
-            <label className=" -input">End </label>
-            <DatePickerTool date={endDate} setDate={setEndDate} className='datePicker'/>
-        </div>
-        <div>
-        <label>Quick</label>
-            <select value={quickSelect}className='datePicker ' style={{width:'120px', marginLeft:'5px'}} onChange = {e => onQuickSelectChange(e)}>
-                <option value="">Choose One</option>
-                <option value="oneMonth">1 Month</option>
-                <option value="threeMonths">3 Months</option>
-                <option value="sixMonths">6 months</option>
-                <option value="oneYear">1 year</option>
-            </select>
-        </div>
-            {/* <button id='search' className="-input" onClick={e=>search(e)}>SEARCH</button> */}
-            <i id='search' onClick={e=>search(e)} class="action-icon fas fa-search"> SEARCH</i>
-            <i id='clear' onClick={e=>clear(e)} class="action-icon fas fa-times"> CLEAR</i>
-            {/* <button id='clear' className="-input" onClick={e=>clear(e)}>clear</button> */}
     </div>
   )
 }

@@ -3,16 +3,14 @@ import { connect } from 'react-redux'
 
 const StatusFilter = ({ greenSelected, yellowSelected,redSelected, handleCheckboxChange}) => {
   return (
-    <div className=" filter status-filter-grid">
-      <label className="">Filter Status: </label>
-      <div>
+    <div>
+      {/* <label>Status: </label> */}
       <label className="status-check-box">
         <input
           type="checkbox"
           id='green'
           checked={greenSelected}
           onChange={e=>handleCheckboxChange(e)}
-          
         />
         {" "}Green
       </label>
@@ -22,7 +20,6 @@ const StatusFilter = ({ greenSelected, yellowSelected,redSelected, handleCheckbo
           id='yellow'
           checked={yellowSelected}
           onChange={e=>handleCheckboxChange(e)}
-          
         />
         {" "}Yellow
       </label>
@@ -32,12 +29,9 @@ const StatusFilter = ({ greenSelected, yellowSelected,redSelected, handleCheckbo
           id='red'
           checked={redSelected}
           onChange={e=>handleCheckboxChange(e)}
-          
         />
         {" "}Red
       </label>
-      </div>
-      
     </div>
   )
 }

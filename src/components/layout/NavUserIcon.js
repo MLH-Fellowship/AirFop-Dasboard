@@ -5,29 +5,31 @@ import {connect} from 'react-redux'
 
 
 const NavUserIcon = ({logout, user}) => {
-    const name  =  user ? user.email.substring(0, user.email.lastIndexOf("@")) : 'User'
+    const name  =  user && user.email? user.email.substring(0, user.email.lastIndexOf("@")) : 'User'
     return (
         <div id="nav-user-icon">
             <li style={{ padding:'0', marginRight:'25px'}}>
-                <NavLink style={{fontSize:'20px'}} to="/"><i className="fas fa-user-circle"></i> {name}</NavLink>
+                <NavLink to="/"><i className="fas fa-user-circle"></i> {name}</NavLink>
             </li>
-            <UserMenu logout={logout} email={user.email}/>
+            {user && <UserMenu logout={logout} user={user}/>}
         </div>
     )
 }
 
-export const UserMenu = ({logout, email}) => {
+export const UserMenu = ({logout, user}) => {
     return (
 
         <ul id="nav-user-dropdown">
+            {user && user.email &&
+                <li>
+                    <p>{user.email}</p>
+                </li>
+            }
             <li>
-            <a style={{color:'#333'}}>{email}</a>
+            <a>reset password</a>
             </li>
             <li>
-            <a style={{color:'#333'}}>reset password</a>
-            </li>
-            <li>
-            <a style={{color:'#333'}} onClick={logout}>logout</a>
+            <a onClick={logout}>logout</a>
             </li>
         </ul>
 

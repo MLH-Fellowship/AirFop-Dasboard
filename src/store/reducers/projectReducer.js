@@ -2,9 +2,9 @@ import {projects} from '../../data/Data'
 const initState = {
     projects:projects,
     // projects:[],
-    greenSelected:false,
-    yellowSelected:false,
-    redSelected:false,
+    greenSelected:true,
+    yellowSelected:true,
+    redSelected:true,
     startDate:null,
     endDate:null,
     showAll:true
