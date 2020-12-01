@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import {connect} from 'react-redux'
-import FileDialog from '../layout/OpenFile'
 import {Link} from 'react-router-dom';
 import {getProjectById} from '../../store/actions/projectActions'
 
