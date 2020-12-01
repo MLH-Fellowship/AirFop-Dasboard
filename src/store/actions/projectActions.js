@@ -28,8 +28,6 @@ export const updateProject = (project) => {
     }
 }
 
-
-
 export const updateFilter = (filter, value) => {
 
     let TYPE;
@@ -56,4 +54,5 @@ export const updateFilter = (filter, value) => {
         default: console.log("error")
     }
     return { type:TYPE, value }
+
 }

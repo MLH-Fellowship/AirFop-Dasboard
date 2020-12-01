@@ -1,6 +1,7 @@
 import React from 'react'
 import Project from './Project'
 import { connect } from 'react-redux'
+import {Link} from 'react-router-dom'
 
 const ProjectsList = ({projects, isAdmin}) => {
     
@@ -29,7 +30,7 @@ const ProjectsList = ({projects, isAdmin}) => {
                     )
                 )}
                 </tbody>
-            </table>     
+            </table>
         </div>
     )
 }
@@ -46,3 +47,4 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps)(ProjectsList);
 // export default ProjectsList;
+
