@@ -7,6 +7,7 @@ const ProjectDetails = ({project, isAdmin, id, getProjectById}) => {
     const plusIconClass = "folderIcon far fa-plus-square "
     const minusIconClass = "folderIcon far fa-minus-square"
     // fas fa-folder-plus fas fa-folder-minus
+    
     const [showI, setShowI]= useState(false);
     const [showII, setShowII]= useState(false);
     const [showIII, setShowIII]= useState(false);
@@ -182,4 +183,4 @@ const mapDispatchToProps = (dispatch) => {
   }
   
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectDetails);
-
+                
