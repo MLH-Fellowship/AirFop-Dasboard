@@ -1,4 +1,6 @@
-import React from 'react'
+import React from 'react';
+import {Link} from 'react-router-dom';
+var moment = require('moment');
 
 export const Project = ({project}) => {
     let className='';
@@ -22,13 +24,30 @@ export const Project = ({project}) => {
             statusLabel='U'
     }
 
+    const date = project.awardDate ? moment(project.awardDate).format("MM/DD/yyyy") : 'None'
+    
     return (
-        <div style={{clear:'both'}}>
-             <div className="status-box">
-                <div className={className}>{statusLabel}</div>
-            </div>
-            <h1 className="left">{project.title}</h1>
-        </div>
+        <>
+        <tr>        
+            <td>
+                {/* {action} */}
+                <Link to={'/project/' + project.projectName} key={project.projectName} >
+                    {project.projectName}
+                </Link> 
+            </td>
+            <td>{project.funding}</td>
+            <td>{project.phase}</td>
+            <td>{date}</td>
+            <td>{project.pop}</td>
+            <td>{project.customer}</td>
+            <td>{project.contractor}</td>
+            <td>{project.PM}</td>
+            <td>
+                <span className={className}>{statusLabel}</span>
+            </td>
+            <td>{project.statusComment}</td>
+        </tr>
+        </>
     )
 }
 

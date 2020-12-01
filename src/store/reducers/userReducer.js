@@ -6,6 +6,12 @@ const initState = {
 
 const userReducer = ( state = initState, action) => {
     switch(action.type){
+        case 'EXAMPLE':
+            console.log('EXAMPLE: ', action.example)
+            return {
+                ...state,
+                example: action.example
+            }
         case 'LOGIN':
             return {
                 ...state,
@@ -19,6 +25,12 @@ const userReducer = ( state = initState, action) => {
                 user: false,
                 isAuthenticated: false,
                 isAdmin: false
+            }
+        case 'CREATE_USER':
+            console.log('CERATE_USER', action.user)
+            return {
+                ...state,
+                user: action.user
             }
         default:
             return state

@@ -8,31 +8,44 @@ import NoMatch from './components/layout/NoMatch';
 import ProjectDetails from './components/projects/ProjectDetails';
 import Login from './components/users/Login';
 import CreateProject from './components/projects/CreateProject';
-import AdminProjectDetails from './components/projects/AdminProjectDetails';
-import AdminOnlyContent from './components/layout/AdminOnlyContent'
+import EditProject from './components/projects/EditProject';
+import CreateUser from './components/users/CreateUser';
+import AdminOnlyContent from './components/layout/AdminOnlyContent';
+// import Print from './components/report/Print';
+import Report from './components/report/Report'
 
 function App({user, isAuthenticated, isAdmin}) {
-  const ProjectDetailsComponent = isAdmin ?  AdminProjectDetails :  ProjectDetails;
   const CreateProjectComponent = isAdmin ? CreateProject : AdminOnlyContent;
+  const CreateUserComponent = isAdmin ? CreateUser : AdminOnlyContent;
+  const EditProjectComponent = isAdmin ? EditProject : AdminOnlyContent;
   
   return (
     <Router>
       <NavBar/>
-      <div className='App'>
       <Switch>
         <Route path="/" exact component={Dashboard}>
            {!isAuthenticated && <Redirect to={"/login"}/>}
         </Route>
-        <Route  path="/project/:id" component={ProjectDetailsComponent}>
+        <Route  path="/project/:projectName" component={ProjectDetails}>
           {!isAuthenticated && <Redirect to={"/login"}/>}
         </Route>
-        <Route  path="/login" component={Login}/>
-        <Route exact path="/newproject" component={CreateProjectComponent}>
+        <Route  path="/edit/:projectName" component={EditProjectComponent}>
+          {!isAuthenticated && <Redirect to={"/login"}/>}
+        </Route>
+        <Route  path="/login" component={Login}>
+          {isAuthenticated && <Redirect to={"/"}/>}
+        </Route>
+        <Route path="/newproject" component={CreateProjectComponent}>
+          {!isAuthenticated && <Redirect to={"/login"}/>}
+        </Route>
+        <Route path="/newuser" component={CreateUserComponent}>
+          {!isAuthenticated && <Redirect to={"/login"}/>}
+        </Route>
+        <Route path="/print" component={Report}>
           {!isAuthenticated && <Redirect to={"/login"}/>}
         </Route>
         <Route component={NoMatch} />
       </Switch>
-      </div>
     </Router>
   );
 }
