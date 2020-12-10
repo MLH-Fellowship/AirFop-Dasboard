@@ -1,10 +1,11 @@
 import React, {useState, useEffect, useImperativeHandle} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom';
-import {getProjectById, getProjectByName} from '../../store/actions/projectActions'
+import {getProjectById, getProjectByName, deleteProject,updateFilter} from '../../store/actions/projectActions'
 import FileDialouge from '../layout/FileDialouge'
+import {Redirect} from "react-router-dom";
 
-const ProjectDetails = ({project, isAdmin, id,name, getProjectByName, ref}) => {
+const ProjectDetails = ({project, deleteProject, isAdmin, id,name, getProjectByName, ref}) => {
     const plusIconClass = "folderIcon far fa-plus-square "
     const minusIconClass = "folderIcon far fa-minus-square"
     // fas fa-folder-plus fas fa-folder-minus
@@ -15,6 +16,7 @@ const ProjectDetails = ({project, isAdmin, id,name, getProjectByName, ref}) => {
     const [showV, setShowV]=useState(false);
     const [showVI, setShowVI]=useState(false);
     const [showMisc, setShowMisc]=useState(false);
+    const [deleted, setDeleted]=useState(false);
 
     let className='';
     let statusLabel = '';
@@ -55,6 +57,19 @@ const ProjectDetails = ({project, isAdmin, id,name, getProjectByName, ref}) => {
         getProjectByName(name);
     }, [])
 
+    const del = (e) => {
+        e.preventDefault();
+        updateFilter('showSearch',false)
+        console.log('del')
+        deleteProject(project.id)
+        setDeleted(true);
+    }
+
+    if(deleted){
+        return(
+            <Redirect to="/"/>
+        )
+    } else{
     return (
         <div className="App">
             {/* <input id="fileInput" ref={ref} type="file" style={{display:"none"}} />
@@ -70,7 +85,7 @@ const ProjectDetails = ({project, isAdmin, id,name, getProjectByName, ref}) => {
                             <Link to={'/edit/' + project.project_name} key={project.project_name}  className='action-icon blue-text'>
                                 <i className="fas fa-pencil-alt"></i> <b>UPDATE</b>
                             </Link>
-                            <span className='action-icon red-text'><i className="fas fa-trash-alt"></i> DELETE</span>
+                            <span className='action-icon red-text'><i onClick={e=>del(e)} className="fas fa-trash-alt"></i> DELETE</span>
                         </div>
                     )
                 } 
@@ -172,7 +187,7 @@ const ProjectDetails = ({project, isAdmin, id,name, getProjectByName, ref}) => {
             </p>
             </div>
         </div>
-    )
+    )}
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -186,8 +201,10 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
     return{
-      getProjectById: (id) => dispatch(getProjectById(id)),
-      getProjectByName: (name) => dispatch(getProjectByName(name))
+        updateFilter: (label,value) => dispatch(updateFilter(label,value)),
+        getProjectById: (id) => dispatch(getProjectById(id)),
+        getProjectByName: (name) => dispatch(getProjectByName(name)),
+        deleteProject: (id) => dispatch(deleteProject(id))
     }
   }
   

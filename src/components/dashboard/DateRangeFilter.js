@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react'
 import DatePickerTool from './DatePicker'
 import { connect } from 'react-redux'
-import { updateFilter,  getProjects } from '../../store/actions/projectActions'
+import { updateFilter,  getProjects, getProjectByName } from '../../store/actions/projectActions'
 import Report from '../report/Report'
 var moment = require('moment');
 
-const DateRange = ({showAll,showProjects,showSearch, projects, getProjects,greenSelected, yellowSelected, redSelected, startDate, endDate, updateFilter, handleCheckboxChange}) => {
+const DateRange = ({showAll,showProjects,showSearch,searchText, projects, getProjects,greenSelected, yellowSelected, redSelected, startDate, endDate, updateFilter, handleCheckboxChange}) => {
     useEffect(() => {
         if(showProjects && !showSearch){
         let filters = {}
@@ -27,6 +27,9 @@ const DateRange = ({showAll,showProjects,showSearch, projects, getProjects,green
         console.log(filters)
         
         getProjects(filters);
+        }else if(showSearch){
+            console.log('should be getting')
+            getProjectByName(searchText);
         }
      }, [])
     const [quickSelect, setQuickSelect] = useState("");
@@ -142,6 +145,7 @@ const mapStateToProps = (state) => {
         showAll: state.project.showAll,
         showProjects: state.project.showProjects,
         showSearch: state.project.showSearch,
+        searchText: state.project.search,
         greenSelected: state.project.greenSelected,
         yellowSelected: state.project.yellowSelected,
         redSelected: state.project.redSelected
@@ -151,7 +155,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return{
         updateFilter: (label,value) => dispatch(updateFilter(label,value)),
-        getProjects: (filters) => dispatch(getProjects(filters))
+        getProjects: (filters) => dispatch(getProjects(filters)),
+        getProjectByName: (name) => dispatch(getProjectByName(name))
     }
   }
 export default connect(mapStateToProps, mapDispatchToProps)(DateRange);

@@ -3,6 +3,7 @@ import {createProject} from '../../store/actions/projectActions'
 import {connect} from 'react-redux'
 import DatePickerTool from '../dashboard/DatePicker'
 import Select from 'react-select'
+import {Redirect} from "react-router-dom";
 
 const CreateProject = ({createProject}) => {
   const [project_name, setProject_name] = useState("");
@@ -17,10 +18,12 @@ const CreateProject = ({createProject}) => {
   const [pm, setPm] = useState("");
   const [status, setStatus] = useState("");
   const [status_comment, setStatusComment] = useState("");
+  const [created, setCreated] = useState(false);
 
   const onSubmit = (e) => {
     e.preventDefault();
     console.log('stat: ', status)
+    setCreated(true);
     createProject({
       project_name,
       // name,
@@ -76,6 +79,11 @@ const CreateProject = ({createProject}) => {
     { value: 'Yellow', label: 'Yellow' },
     { value: 'Red', label: 'Red' }]
   
+    if(created){
+      return(
+          <Redirect to="/"/>
+      )
+  } else{
   return (
     <div className="App">
       <div className="card p-30 m-30">
@@ -242,7 +250,7 @@ const CreateProject = ({createProject}) => {
         </form>
       </div> 
     </div>
-  )
+  )}
 }
 
 const mapDispatchToProps = (dispatch) => {

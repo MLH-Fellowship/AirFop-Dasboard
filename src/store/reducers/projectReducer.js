@@ -71,6 +71,15 @@ const projectReducer = ( state = initState, action) => {
                 showSearch:true,
                 search:action.name
             }
+        case "DELETE_PROJECT":
+            console.log('DELETE_PROJECT');
+            return {
+                ...state,
+                showSearch:false,
+                search:null,
+                // projects:[],
+                project:[]
+            }
         case "UPDATE_GREEN_SELECTED":
             console.log('UPDATE_GREEN_SELECTED');
             return {

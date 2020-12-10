@@ -15,7 +15,7 @@ export const createProject = (project) => {
         }) 
         .catch((err)=>{
             console.log(err)
-            dispatch({type:'EXAMPLE_ERROR', err})
+            dispatch({type:'CREATE_PROJECT', err})
         })
     }
 }
@@ -56,6 +56,24 @@ export const getProjectById = (id) => {
     }
 }
 
+export const deleteProject = (id) => {
+    return (dispatch) => {
+        fetch(`/projects/${id}`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' }
+        })
+        .then(res => res.json())
+        .then(json => {
+            console.log(json)
+            dispatch({ type:'DELETE_PROJECT', id, json })
+        }) 
+        .catch((err)=>{
+            console.log('dpe', err)
+            dispatch({type:'DELETE_PROJECT', err})
+        })
+    }
+}
+
 export const getProjectByName = (name) => {
     console.log('name from action', name)
     return (dispatch) => {
@@ -85,22 +103,6 @@ export const updateProject = (id, project) => {
         .then(res => {
             console.log('res',res)
             dispatch({ type:'UPDATE_PROJECT', project, id, res })
-        }) 
-        .catch((err)=>{
-            dispatch({type:'EXAMPLE_ERROR', err})
-        })
-    }
-}
-
-export const deleteProject = (id) => {
-    return (dispatch, getState) => {
-        fetch(`/projects/${id}`, {
-            method:"DELETE"
-        })
-        .then(res => res.json())
-        .then(project => {
-            console.log(project)
-            dispatch({ type:'GET_PROJECT_BY_ID', id, project })
         }) 
         .catch((err)=>{
             dispatch({type:'EXAMPLE_ERROR', err})
