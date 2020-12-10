@@ -5,37 +5,37 @@ import DatePickerTool from '../dashboard/DatePicker'
 import Select from 'react-select'
 
 const CreateProject = ({createProject}) => {
-  const [projectName, setProjectName] = useState("");
+  const [project_name, setProject_name] = useState("");
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
-  const [funding, setFunding] = useState("");
+  const [funding_source, setFunding] = useState("");
   const [phase, setPhase] = useState("");
-  const [awardDate, setAwardDate] = useState("");
-  const [POP, setPOP] = useState("");
+  const [award_date, setAward] = useState("");
+  const [pop, setPop] = useState("");
   const [customer, setCustomer] = useState("");
   const [contractor, setContractor] = useState("");
-  const [PM, setPM] = useState("");
+  const [pm, setPm] = useState("");
   const [status, setStatus] = useState("");
-  const [statusComment, setStatusComment] = useState("");
+  const [status_comment, setStatusComment] = useState("");
 
   const onSubmit = (e) => {
     e.preventDefault();
     console.log('stat: ', status)
     createProject({
-      projectName,
-      name,
-      number,
-      funding,
+      project_name,
+      // name,
       phase:phase.value,
-      awardDate,
-      POP,
+      award_date,
+      pop,
       customer,
       contractor,
-      PM,
+      pm,
       status,
-      statusComment
+      status_comment,
+      // project_num:4,
+      funding_source,
     }); 
-    setProjectName(''); setName(''); setNumber(''); setFunding(''); setPhase(''); setAwardDate(''); setPOP(''); setCustomer(''); setContractor(''); setPM(''); setStatus(''); setStatusComment('');
+    // setProject_name(''); setName(''); setNumber(''); setFunding(''); setPhase(''); setAward(''); setPop(''); setCustomer(''); setContractor(''); setPm(''); setStatus(''); setStatusComment('');
   }
 
   const validateForm = () => {
@@ -72,9 +72,9 @@ const CreateProject = ({createProject}) => {
   
     const statusOptions = [
     { value: '', label: 'Select Status' },
-    { value: 'green', label: 'Green' },
-    { value: 'yellow', label: 'Yellow' },
-    { value: 'red', label: 'Red' }]
+    { value: 'Green', label: 'Green' },
+    { value: 'Yellow', label: 'Yellow' },
+    { value: 'Red', label: 'Red' }]
   
   return (
     <div className="App">
@@ -88,13 +88,13 @@ const CreateProject = ({createProject}) => {
                 <label>Project Name</label>
                 <input 
                   type="text" 
-                  id="projectName"
+                  id="project_name"
                   className="form-input"
                   required 
-                  onChange={e=> setProjectName(e.target.value)}
-                  value={projectName}
+                  onChange={e=> setProject_name(e.target.value)}
+                  value={project_name}
                   placeholder="Project Name (UUID name + number + funding source)" 
-                  name="projectName"
+                  name="project_name"
                 />
               </td>
             </tr>
@@ -130,8 +130,8 @@ const CreateProject = ({createProject}) => {
                   type="text" 
                   onChange={e=> setFunding(e.target.value)}
                   className="form-input"
-                  value={funding}
-                  name="funding"
+                  value={funding_source}
+                  name="funding_source"
                 />
               </td>
               <td className='tableData'>
@@ -160,28 +160,28 @@ const CreateProject = ({createProject}) => {
                 />
               </td>
               <td className='tableData'>
-              <label>PM</label>
+              <label>pm</label>
                 <input
                   type="text" 
-                  id="PM" 
-                  onChange={e=> setPM(e.target.value)}
+                  id="pm" 
+                  onChange={e=> setPm(e.target.value)}
                   className="form-input"
-                  value={PM}
-                  name="PM"
+                  value={pm}
+                  name="pm"
                 />
               </td>
             </tr>
 
             <tr>
               <td className='tableData'>
-              <label>POP</label>
+              <label>pop</label>
                 <input
                   type="text" 
-                  id="POP" 
-                  onChange={e=> setPOP(e.target.value)}
+                  id="pop" 
+                  onChange={e=> setPop(e.target.value)}
                   className="form-input"
-                  value={POP}
-                  name="POP"
+                  value={pop}
+                  name="pop"
                 />
               </td>
               <td className='tableData' style={{width:'50%'}}>
@@ -189,8 +189,8 @@ const CreateProject = ({createProject}) => {
                 <label>Award Date</label>
                 <br/>
                 <DatePickerTool 
-                  date={awardDate} 
-                  setDate={setAwardDate} 
+                  date={award_date} 
+                  setDate={setAward} 
                   className='new-project-datePicker'
                 />
               </td>
@@ -226,11 +226,11 @@ const CreateProject = ({createProject}) => {
               <label>Status Comment</label>
                 <input
                   type="text" 
-                  id="statusComment" 
+                  id="status_comment" 
                   onChange={e=> setStatusComment(e.target.value)}
                   className="form-input"
-                  value={statusComment}
-                  name="statusComment"
+                  value={status_comment}
+                  name="status_comment"
                 />
               </td>
             </tr>

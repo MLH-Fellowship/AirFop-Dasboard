@@ -25,7 +25,7 @@ const ProjectsList = ({projects, isAdmin}) => {
                     projects.map((project) => 
                         <Project 
                             project={project} 
-                            key={project.projectName}
+                            key={project.project_name}
                         />
                     )
                 )}

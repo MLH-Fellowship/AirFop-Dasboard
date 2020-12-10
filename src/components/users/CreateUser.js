@@ -4,18 +4,20 @@ import {connect} from 'react-redux'
 
 const CreateUser = ({createUser}) => {
 
+    const [first_name, setFirstName] = useState("");
+    const [last_name, setLastName] = useState("");
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
     const [password2, setPassword2] = useState("");
-    const [isAdmin, setIsAdmin] = useState(false);
+    const [is_admin, setIsAdmin] = useState(false);
 
     const onSubmit = (e) => {
         e.preventDefault();
-        createUser({email:userName,password,isAdmin});
+        createUser({first_name, last_name, email:userName,password,is_admin});
         setUserName('');
         setPassword('');
         setPassword2('');
-        console.log({email:userName,password,isAdmin})
+        console.log({email:userName,password,is_admin})
     }
 
     const validateForm = () => {
@@ -27,6 +29,26 @@ const CreateUser = ({createUser}) => {
                 <form onSubmit={e=>onSubmit(e)} className='new-project'>
                     <h1  style={{width:'70%', margin:'auto', padding:'20px'}}className="grey-text">New User</h1>
                     <div className='container'>
+                        <div className='field'>
+                            <input 
+                                type="text" 
+                                id="first_name" 
+                                required 
+                                onChange={e=> setFirstName(e.target.value)}
+                                className="form-input"
+                                placeholder="First Name"
+                            />
+                        </div>
+                        <div className='field'>
+                            <input 
+                                type="text" 
+                                id="last_name" 
+                                required 
+                                onChange={e=> setLastName(e.target.value)}
+                                className="form-input"
+                                placeholder="Last Name"
+                            />
+                        </div>
                         <div className='field'>
                             <input 
                                 type="email" 
@@ -67,9 +89,9 @@ const CreateUser = ({createUser}) => {
                         <label>
                             <input
                                 type="checkbox"
-                                id='isAdmin'
-                                checked={isAdmin}
-                                onChange={()=>setIsAdmin(!isAdmin)}
+                                id='is_admin'
+                                checked={is_admin}
+                                onChange={()=>setIsAdmin(!is_admin)}
                             />
                             {" "}Admin
                         </label>

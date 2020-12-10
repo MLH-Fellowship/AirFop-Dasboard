@@ -1,15 +1,45 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import StatusFilter from './StatusFilter'
 import DateRangeFilter from './DateRangeFilter'
+import FilterBtns from './FilterBtns'
 import { connect } from 'react-redux'
-import { updateFilter, getProjects } from '../../store/actions/projectActions'
+import { updateFilter,  getProjects } from '../../store/actions/projectActions'
 import Report from '../report/Report'
 import Search from './Search'
 
 const Filter = ({filterProjects, projects, updateFilter, greenSelected, yellowSelected, redSelected, startDate, endDate, showAll, showReportBtn}) => {
   
+    //  useEffect(() => {
+    //    if(!projects || projects.length ===0 ){
+    //     getProjects("?");
+    //    }
+        // console.log("?")
+      // if(greenSelected || yellowSelected || redSelected || startDate || endDate){
+      //   console.log("???")
+      //     let filters = {test:'test'}
+
+      //     if(greenSelected){
+      //       filters.green = true
+      //     }
+      //     if(yellowSelected){
+      //       filters.yellow = true
+      //     }
+      //     if(redSelected){
+      //       filters.red = true
+      //     }
+      //     if(startDate){
+      //       filters.startDate = true
+      //     }
+      //     if(endDate){
+      //       filters.endDate = true
+      //     }
+      //     console.log('f',filters)
+        
+      //     getProjects(filters);
+      // }
+    // }, [])
+
   const handleCheckboxChange = (e) => {
-    console.log(projects, 'P')
     const id = e.target.id    
     if(id === 'green'){
       filterProjects(!greenSelected, yellowSelected, redSelected, startDate,endDate)
@@ -63,7 +93,7 @@ const Filter = ({filterProjects, projects, updateFilter, greenSelected, yellowSe
             </td>  
           </tr>
         </tbody>
-      </table>     
+      </table>
     </div>
   )
 }
@@ -76,6 +106,7 @@ const mapStateToProps = (state) => {
     startDate: state.project.startDate,
     endDate: state.project.endDate,
     showAll: state.project.showAll
+    // projects:state.project.projects
   }
 }
 

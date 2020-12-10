@@ -15,7 +15,9 @@ body{
 .left{float:left;}
 .p-30{padding:30px;}
 .m-30{margin:30px;}
-.m-20{margin:20px;}  
+.m-40{margin:40px;}
+.m-20{margin:20px;}
+.mt-50{margin-top:50px;}
 .fs-20{font-size: 20px;}
 .grey-text{color:var(--dark-grey);}
 .blue-text{color:var(--dark-blue);}
@@ -28,7 +30,7 @@ body{
 .nav{
   list-style-type: none;
   margin: 0;
-  padding: 0;
+  padding: 5px 0;
   overflow: hidden;
   background-color: var(--dark-grey);
   font-size: 16px;
@@ -66,17 +68,14 @@ body{
 
 #nav-user-dropdown{
   display: none;
-  font-weight: 300;
+  /* font-weight: 300; */
   text-transform: none;
   display: none;
   position: absolute;
-  width:170px;
+  width:250px;
   right:0;
   margin-top:30px;
   background-color: #333333;
-  /* background-color: #f2f2f2; */
-  /* border: 0.2px solid var(--light-grey); */
-  /* border-top: 0; */
   transition:all 0.5s ease;
 }
 
@@ -90,8 +89,23 @@ body{
 }
 
 #nav-user-dropdown p {
-  color: white;
+  color:var(--bright-blue);
   padding-left: 15px;
+}
+
+#user-nav-tab{
+  font-size: large;
+  border-bottom: 0.25px solid var(--bright-blue);
+  width:100%;
+  padding:0;
+  margin:0;
+}
+
+.brigth-border-b{
+  border-top: 0.25px solid var(--bright-blue);
+  padding:0;
+  margin:20px 0 0 0;
+  width:100%;
 }
 
 .login form {
@@ -109,19 +123,20 @@ body{
 }
 
 .small-btn-block{
-  background-color:var(--dark-blue);
-  color:white;
-  padding:5px;
-  width:50%;
-  border: 2px solid black;
+  background-color:var(--light-grey);
+  color:black;
+  padding:3px 6px;
+  /* width:50%; */
+  border: 2px solid var(--light-grey);
+  /* border: 2px solid black; */
   font-size: 14px;
-  text-shadow:
-    -1px -1px 0 #000,
-    1px -1px 0 #000,
-    -1px 1px 0 #000,
-    1px 1px 0 #000;
+  font-weight: bold;
+  margin:0;
 }
-
+.small-btn-block:hover{
+  background-color: #fff;
+  cursor: pointer;
+}
 .btn-block{
   background-color:var(--dark-blue);
   color:white;
@@ -136,6 +151,8 @@ body{
     -1px 1px 0 #000,
     1px 1px 0 #000;
 }
+
+
 .btn:hover{
   background-color: #085f87;
   /* background-color: #80DEFF; */
@@ -158,8 +175,14 @@ body{
   transition: 0.3s;
   background-color: #fff;
 }
+.card-light {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+  /* box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5); */
+  transition: 0.3s;
+  background-color:rgba(255,255,255,0.92);
+}
 
-.card:hover {
+.card:hover, .card-light:hover {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,1);
   /* box-shadow: 0 16px 32px 0 rgba(0,0,0,1); */
 }
@@ -227,13 +250,14 @@ body{
   background-color: #f2f2f2;
   color:black;
   /* border-top: 1px solid hsla(0, 0%, 100%, 0.2); */
-  border-bottom: 2px solid var(--dark-grey);
-  border-top: 2px solid var(--dark-grey);
+  /* border-bottom: 2px solid var(--dark-grey);
+  border-top: 2px solid var(--dark-grey); */
   font-size: 14px;
 }
 .header-label{
   font-weight: bold;
   font-size: 16px;
+  padding:10px 0;
 }
 
 .new-project-datePicker{
@@ -250,6 +274,7 @@ body{
 #date-grid{
   display: grid;
   grid-template-columns: auto auto auto auto;
+  /* grid-template-columns: 140px 135px 190px auto; */
 }
 
 .datePicker{
@@ -264,7 +289,7 @@ body{
 
 #filter-grid{
   display: grid;
-  grid-template-columns: 200px auto;
+  grid-template-columns: 195px auto;
 }
 
 #projects, #projectDetails {
@@ -400,7 +425,7 @@ select option:active {
 }
 
 .status-check-box{
-  margin-right: 5px;
+  margin-right: 4px;
 }
 
  .container{

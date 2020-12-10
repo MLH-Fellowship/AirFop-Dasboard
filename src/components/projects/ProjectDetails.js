@@ -1,66 +1,80 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useImperativeHandle} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom';
-import {getProjectById} from '../../store/actions/projectActions'
+import {getProjectById, getProjectByName} from '../../store/actions/projectActions'
+import FileDialouge from '../layout/FileDialouge'
 
-const ProjectDetails = ({project, isAdmin, id, getProjectById}) => {
+const ProjectDetails = ({project, isAdmin, id,name, getProjectByName, ref}) => {
     const plusIconClass = "folderIcon far fa-plus-square "
     const minusIconClass = "folderIcon far fa-minus-square"
     // fas fa-folder-plus fas fa-folder-minus
-    const [showI, setShowI]= useState(false);
-    const [showII, setShowII]= useState(false);
-    const [showIII, setShowIII]= useState(false);
-    const [showIV, setShowIV]= useState(false);
-    const [showV, setShowV]= useState(false);
-    const [showVI, setShowVI]= useState(false);
-    const [showMisc, setShowMisc]= useState(false);
+    const [showI, setShowI]=useState(false);
+    const [showII, setShowII]=useState(false);
+    const [showIII, setShowIII]=useState(false);
+    const [showIV, setShowIV]=useState(false);
+    const [showV, setShowV]=useState(false);
+    const [showVI, setShowVI]=useState(false);
+    const [showMisc, setShowMisc]=useState(false);
 
     let className='';
     let statusLabel = '';
 
-    switch (project.status){
-        case 'green':
-         className='status status-green'
-         statusLabel="G"
-            break;
-        case 'yellow':
-            className='status status-yellow'
-            statusLabel="Y"
-            break;
-        case 'red':
-            className='status status-red'
-            statusLabel='R'
-            break
-        default:
-            className='status status-unknown'
-            statusLabel='U'
+    if (project && project.status){
+        switch (project.status){
+            case 'Green':
+             className='status status-green'
+             statusLabel="G"
+                break;
+            case 'Yellow':
+                className='status status-yellow'
+                statusLabel="Y"
+                break;
+            case 'Red':
+                className='status status-red'
+                statusLabel='R'
+                break
+            default:
+                className='status status-unknown'
+                statusLabel='U'
+        }    
     }
-
+    
     const handleClick = (e, func, value) => {
         e.preventDefault();
         func(value);
     }
 
+    const handleFileClick = (e, file) => {
+        e.preventDefault();
+        let path = `/Users/me/mlh/AiFop/projects/${project.funding_source}/${project.project_name}/${file}`
+        // setPath(`${path}/${file}`);
+        console.log(path);
+    }
     useEffect(() => {
-        getProjectById(id);
+        // getProjectById(id);
+        getProjectByName(name);
     }, [])
 
     return (
         <div className="App">
+            {/* <input id="fileInput" ref={ref} type="file" style={{display:"none"}} />
+            <input type="button" value="Open" onClick={ useImperativeHandle(ref,() => ({
+            handleClick}))} /> */}
+            {/* <FileDialouge/> */}
             <div className="project-card project-card p-30 m-30">
             {project && (
                 <>
                 {
                     isAdmin && (
                         <div className='right'>
-                        <Link to={'/edit/' + project.projectName} key={project.projectName}  className='action-icon blue-text'>
-                            <i class="fas fa-pencil-alt"></i> <b>UPDATE</b>
-                        </Link>
-                        <span className='action-icon red-text'><i class="fas fa-trash-alt"></i> DELETE</span>
+                            <Link to={'/edit/' + project.project_name} key={project.project_name}  className='action-icon blue-text'>
+                                <i className="fas fa-pencil-alt"></i> <b>UPDATE</b>
+                            </Link>
+                            <span className='action-icon red-text'><i className="fas fa-trash-alt"></i> DELETE</span>
                         </div>
                     )
                 } 
-                <h1>{project.projectName}</h1>
+                <h1>{project.project_name}</h1>
                 <table id="projectDetails">
                 <tbody>
                 <tr>
@@ -77,7 +91,7 @@ const ProjectDetails = ({project, isAdmin, id, getProjectById}) => {
                     {project.number} 
                     </td>
                     <td>
-                    {project.funding} 
+                    {project.funding_source} 
                     </td>
                     <td>
                         <span className={className}>{statusLabel}</span>
@@ -92,12 +106,12 @@ const ProjectDetails = ({project, isAdmin, id, getProjectById}) => {
                 onClick={e => handleClick(e, setShowI, !showI)}
                 className='folder'
             >
-                <i class={showI ? minusIconClass : plusIconClass}></i> 
+                <i className={showI ? minusIconClass : plusIconClass}></i> 
                 PART I: SOURCE DOCUMENTS
             </p>
             {showI && (
                 <div className='fileSubList'>
-                    <p className='file'>Requirements Approval Document (RAD)</p>
+                    <p onClick={e => handleFileClick(e,"Requirements Approval Document" )} className='file'>Requirements Approval Document (RAD)</p>
                     <p className='file'>Quality Assurance Surveillance Plan (QASP)</p>
                     <p className='file'>Performance Work Statement(PWS) or Statement of Work (SOW)</p>
                     <p className='file'>Market Research Report</p>
@@ -163,21 +177,17 @@ const ProjectDetails = ({project, isAdmin, id, getProjectById}) => {
 
 const mapStateToProps = (state, ownProps) => {
     const projectName = ownProps.match.params.projectName;
-    //make a call to the database for this project 
-    const project = state.project.projects ? 
-    state.project.projects.find(p=>p.projectName===projectName):
-    null
-    console.log('found:', project)
     return {
-        project,
+        project: state.project.project[0],
         isAdmin: state.user.isAdmin,
-        id:projectName
+        name:projectName
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return{
-      getProjectById: (id) => dispatch(getProjectById(id))
+      getProjectById: (id) => dispatch(getProjectById(id)),
+      getProjectByName: (name) => dispatch(getProjectByName(name))
     }
   }
   

@@ -13,6 +13,7 @@ import CreateUser from './components/users/CreateUser';
 import AdminOnlyContent from './components/layout/AdminOnlyContent';
 // import Print from './components/report/Print';
 import Report from './components/report/Report'
+import ResetPassword from './components/users/ResetPassword'
 
 function App({user, isAuthenticated, isAdmin}) {
   const CreateProjectComponent = isAdmin ? CreateProject : AdminOnlyContent;
@@ -35,6 +36,9 @@ function App({user, isAuthenticated, isAdmin}) {
         <Route  path="/login" component={Login}>
           {isAuthenticated && <Redirect to={"/"}/>}
         </Route>
+        <Route  path="/reset/:id" component={ResetPassword}/>
+          {/* {!isAuthenticated && <Redirect to={"/"}/>} */}
+        {/* </Route> */}
         <Route path="/newproject" component={CreateProjectComponent}>
           {!isAuthenticated && <Redirect to={"/login"}/>}
         </Route>

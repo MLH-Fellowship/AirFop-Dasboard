@@ -1,13 +1,16 @@
 import React, {useState} from 'react'
-import { updateFilter, getProjects } from '../../store/actions/projectActions'
+import { updateFilter, getProjects, getProjectByName } from '../../store/actions/projectActions'
 import { connect } from 'react-redux'
 
-function Search() {
+function Search({getProjectByName}) {
     const [searchTxt, setSearchTxt] = useState('')
 
     const search = (e) => {
         e.preventDefault();
-        getProjects(searchTxt);
+        console.log('hi', searchTxt)
+        updateFilter('showSearch', true);
+        getProjectByName(searchTxt);
+        // getProjects(searchTxt);
     }
     return (
         <div>
@@ -23,12 +26,10 @@ function Search() {
                 />
                 <span style={{margin:'-3px 0 0 10px'}}>
                     <button id='search'>
-                        <i onClick={e=>search(e)} class="right fas fa-search"> SEARCH</i>
+                        <i onClick={e=>search(e)} className="right fas fa-search"> SEARCH</i>
                     </button>
                 </span>
             </div>
-            
-            
         </div>
     )
     
@@ -48,7 +49,7 @@ const mapStateToProps = (state) => {
   const mapDispatchToProps = (dispatch) => {
     return{
       updateFilter: (label,value) => dispatch(updateFilter(label,value)),
-      getProjects: (filters) => dispatch(getProjects(filters))
+      getProjectByName: (name) => dispatch(getProjectByName(name))
     }
   }
   export default connect(mapStateToProps, mapDispatchToProps)(Search);

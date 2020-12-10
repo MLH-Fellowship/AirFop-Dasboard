@@ -7,15 +7,15 @@ export const Project = ({project}) => {
     let statusLabel = '';
 
     switch (project.status){
-        case 'green':
+        case 'Green':
          className='status status-green'
          statusLabel="G"
             break;
-        case 'yellow':
+        case 'Yellow':
             className='status status-yellow'
             statusLabel="Y"
             break;
-        case 'red':
+        case 'Red':
             className='status status-red'
             statusLabel='R'
             break
@@ -24,28 +24,28 @@ export const Project = ({project}) => {
             statusLabel='U'
     }
 
-    const date = project.awardDate ? moment(project.awardDate).format("MM/DD/yyyy") : 'None'
+    const date = project.award_date ? moment(project.award_date).format("MM/DD/yyyy") : 'None'
     
     return (
         <>
         <tr>        
             <td>
-                {/* {action} */}
-                <Link to={'/project/' + project.projectName} key={project.projectName} >
-                    {project.projectName}
+                <Link to={'/project/' + project.project_name} key={project.project_name} >
+                {/* <Link to={'/project/' + project.id} key={project.id} > */}
+                    {project.project_name}
                 </Link> 
             </td>
-            <td>{project.funding}</td>
+            <td>{project.funding_source}</td>
             <td>{project.phase}</td>
             <td>{date}</td>
             <td>{project.pop}</td>
             <td>{project.customer}</td>
             <td>{project.contractor}</td>
-            <td>{project.PM}</td>
+            <td>{project.pm}</td>
             <td>
                 <span className={className}>{statusLabel}</span>
             </td>
-            <td>{project.statusComment}</td>
+            <td>{project.status_comment}</td>
         </tr>
         </>
     )

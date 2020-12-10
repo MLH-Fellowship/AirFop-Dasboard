@@ -1,10 +1,34 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import DatePickerTool from './DatePicker'
 import { connect } from 'react-redux'
 import { updateFilter,  getProjects } from '../../store/actions/projectActions'
 import Report from '../report/Report'
+var moment = require('moment');
 
-const DateRange = ({showAll, projects, getProjects, startDate, endDate, updateFilter, handleCheckboxChange}) => {
+const DateRange = ({showAll,showProjects,showSearch, projects, getProjects,greenSelected, yellowSelected, redSelected, startDate, endDate, updateFilter, handleCheckboxChange}) => {
+    useEffect(() => {
+        if(showProjects && !showSearch){
+        let filters = {}
+        if(greenSelected){
+            filters.green = true
+        }
+        if(yellowSelected){
+            filters.yellow = true
+        }
+        if(redSelected){
+            filters.red = true
+        }
+        if(startDate){
+            filters.startDate = true
+        }
+        if(endDate){
+            filters.endDate = true
+        }
+        console.log(filters)
+        
+        getProjects(filters);
+        }
+     }, [])
     const [quickSelect, setQuickSelect] = useState("");
     const setStartDate = (date) => {
         updateFilter('start', date);
@@ -58,28 +82,33 @@ const DateRange = ({showAll, projects, getProjects, startDate, endDate, updateFi
 
     const clear = (e) => {
         e.preventDefault();
+        updateFilter('showProjects', false);
+        updateFilter('showSearch', false);
         setQuickSelect("");
-        handleCheckboxChange(e);
+        if(startDate !== null){
+            setStartDate(null);
+        }
+        if(endDate !== null){
+            setEndDate(null);
+        }
     }
     
     const search = (e) => {
         e.preventDefault();
-        getProjects();
-        // handleCheckboxChange(e);
+        // updateFilter('showSearch', true);
+        getProjects("filters");
     }
 
   return (
     <div>
-        {/* <label className='left'>Date Range: </label> */}
         <div id='date-grid'>
-        {/* <div> */}
             <span>
                 <label className="date-filter datePicker">Start</label>
-                <DatePickerTool date={startDate} setDate={setStartDate} className='datePicker'/>
+                <DatePickerTool date={startDate ? moment(startDate).toDate() : null} setDate={setStartDate} className='datePicker'/>
             </span>
             <span>
                 <label className="date-filter datePicker">End</label>
-                <DatePickerTool date={endDate} setDate={setEndDate} className='datePicker'/>
+                <DatePickerTool date={endDate ? moment(endDate).toDate() : null} setDate={setEndDate} className='datePicker'/>
             </span>
             <span>
                 <label className="date-filter datePicker">Quick</label>
@@ -91,14 +120,15 @@ const DateRange = ({showAll, projects, getProjects, startDate, endDate, updateFi
                     <option value="oneYear">1 year</option>
                 </select>
             </span>
-            {/* <span style={{margin:'-3px 0 0 10px', float:'right'}}> */}
             <span >
                 <button id='filter'>
-                    <i  onClick={e=>search(e)} class="fas fa-filter"> FILTER</i>    
+                    <i  onClick={e=>search(e)} className="fas fa-filter"> FILTER</i>    
                 </button>
-                <button id='clear'>
-                    <i onClick={e=>clear(e)} class="fas fa-times"> CLEAR</i>    
-                </button>
+                {projects && projects.length > 0 &&
+                    <button id='clear'>
+                        <i onClick={e=>clear(e)} className="fas fa-times"> CLEAR</i>    
+                    </button>
+                }
             </span>
         </div>
     </div>
@@ -109,14 +139,19 @@ const mapStateToProps = (state) => {
     return {
         startDate: state.project.startDate,
         endDate: state.project.endDate,
-        showAll: state.project.showAll
+        showAll: state.project.showAll,
+        showProjects: state.project.showProjects,
+        showSearch: state.project.showSearch,
+        greenSelected: state.project.greenSelected,
+        yellowSelected: state.project.yellowSelected,
+        redSelected: state.project.redSelected
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return{
         updateFilter: (label,value) => dispatch(updateFilter(label,value)),
-        getProjects: () => dispatch(getProjects())
+        getProjects: (filters) => dispatch(getProjects(filters))
     }
   }
 export default connect(mapStateToProps, mapDispatchToProps)(DateRange);

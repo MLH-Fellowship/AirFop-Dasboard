@@ -1,7 +1,13 @@
 const initState = {
-   user:{email:'my@e.mail', isAdmin:true},
-   isAuthenticated: true,
-   isAdmin:true
+    user:{
+        email:'myemail@airforce.gov',
+        isAdmin:true,
+        first_name:"Joan",
+        last_name:"Jett",
+        isAuthenticated: true,
+        isAdmin:true,
+        id:5
+    }
 }
 
 const userReducer = ( state = initState, action) => {
@@ -31,6 +37,17 @@ const userReducer = ( state = initState, action) => {
             return {
                 ...state,
                 user: action.user
+            }
+        case 'UPDATE_USER':
+            console.log('UPDATE_USER', action.user)
+            return {
+                ...state
+            }
+        case 'GET_USER':
+            console.log('GET_USER', action.id)
+            return {
+                ...state,
+                restUser:action.id
             }
         default:
             return state

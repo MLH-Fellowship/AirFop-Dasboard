@@ -2,29 +2,109 @@ import {projects} from '../../data/Data'
 
 export const createProject = (project) => {
     return (dispatch, getState) => {
-        //call to db
-        dispatch({ type:'CREATE_PROJECT', project })
+        console.log('hey', project)
+        fetch(`/projects` , {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(project)
+        })
+        .then(res => res.json())
+        .then(r => {
+            console.log(JSON.stringify(project))
+            dispatch({ type:'CREATE_PROJECT', r, project })
+        }) 
+        .catch((err)=>{
+            console.log(err)
+            dispatch({type:'EXAMPLE_ERROR', err})
+        })
     }
 }
 
 export const getProjects = (filters) => {
+    console.log('filters',filters)
     return (dispatch, getState) => {
-        //call to db and set projects results 
-        dispatch({ type:'GET_PROJECTS', projects })
+        const greenSelected= getState().project.greenSelected;
+        const yellowSelected= getState().project.yellowSelected;
+        const redSelected= getState().project.redSelected;
+        const startDate= getState().project.startDate;
+        const endDate= getState().project.endDate;
+
+        fetch('/projects')
+        .then(res => res.json())
+        .then(projects => {
+            console.log('actions', filters, projects)
+            dispatch({ type:'GET_PROJECTS', projects })
+        }) 
+        .catch((err)=>{
+            dispatch({type:'EXAMPLE_ERROR', err})
+        })
+        
     }
 }
 
 export const getProjectById = (id) => {
     return (dispatch, getState) => {
-        //call to db and set projects results 
-        dispatch({ type:'GET_PROJECT_BY_ID', id, project:{} })
+        fetch(`/projects/${id}`)
+        .then(res => res.json())
+        .then(project => {
+            console.log(project)
+            dispatch({ type:'GET_PROJECT_BY_ID', id, project })
+        }) 
+        .catch((err)=>{
+            dispatch({type:'EXAMPLE_ERROR', err})
+        })
     }
 }
 
-export const updateProject = (project) => {
+export const getProjectByName = (name) => {
+    console.log('name from action', name)
+    return (dispatch) => {
+        fetch(`/proj_by_name/${name}`)
+        .then(res => res.json())
+        .then(project => {
+            console.log('getProjectByName',project)
+            dispatch({ type:'GET_PROJECT_BY_NAME', name, project })
+        }) 
+        .catch((err)=>{
+            console.log(err)
+            dispatch({type:'EXAMPLE_ERROR', err})
+        })
+    }
+}
+
+
+export const updateProject = (id, project) => {
+    console.log(project)
     return (dispatch, getState) => {
-        //call to db
-        dispatch({ type:'UPDATE_PROJECT', project })
+        fetch(`/projects/${id}` , {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(project)
+        })
+        .then(res => res.json())
+        .then(res => {
+            console.log('res',res)
+            dispatch({ type:'UPDATE_PROJECT', project, id, res })
+        }) 
+        .catch((err)=>{
+            dispatch({type:'EXAMPLE_ERROR', err})
+        })
+    }
+}
+
+export const deleteProject = (id) => {
+    return (dispatch, getState) => {
+        fetch(`/projects/${id}`, {
+            method:"DELETE"
+        })
+        .then(res => res.json())
+        .then(project => {
+            console.log(project)
+            dispatch({ type:'GET_PROJECT_BY_ID', id, project })
+        }) 
+        .catch((err)=>{
+            dispatch({type:'EXAMPLE_ERROR', err})
+        })
     }
 }
 
@@ -47,10 +127,18 @@ export const updateFilter = (filter, value) => {
         case 'end':
             TYPE='UPDATE_END_DATE'
             break;
+        case 'quick':
+            TYPE='UPDATE_QUICK_SELECT'
+            break;
         case 'showAll':
             TYPE='UPDATE_SHOW_ALL'
             break;
-
+        case 'showProjects':
+            TYPE='UPDATE_SHOW_PROJECTS'
+            break;
+        case 'showSearch':
+            TYPE='UPDATE_SHOW_SEARCH'
+            break;
         default: console.log("error")
     }
     return { type:TYPE, value }
