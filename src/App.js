@@ -14,6 +14,7 @@ import AdminOnlyContent from './components/layout/AdminOnlyContent';
 // import Print from './components/report/Print';
 import Report from './components/report/Report'
 import ResetPassword from './components/users/ResetPassword'
+import { ToastProvider, useToasts } from 'react-toast-notifications'
 
 function App({user, isAuthenticated, isAdmin}) {
   const CreateProjectComponent = isAdmin ? CreateProject : AdminOnlyContent;
@@ -24,6 +25,7 @@ function App({user, isAuthenticated, isAdmin}) {
     <Router>
       <NavBar/>
       <Switch>
+      <ToastProvider>
         <Route path="/" exact component={Dashboard}>
            {!isAuthenticated && <Redirect to={"/login"}/>}
         </Route>
@@ -48,6 +50,7 @@ function App({user, isAuthenticated, isAdmin}) {
         <Route path="/print" component={Report}>
           {!isAuthenticated && <Redirect to={"/login"}/>}
         </Route>
+        </ToastProvider>
         <Route component={NoMatch} />
       </Switch>
     </Router>

@@ -138,20 +138,13 @@ body{
   cursor: pointer;
 }
 .btn-block{
-  background-color:var(--dark-blue);
+  background-color:var(--dark-grey);
   color:white;
   padding:8px 20px;
   width:50%;
   border: 2px solid var(--dark-grey);
-  font-weight: bold;
   font-size: 14px;
-  text-shadow:
-    -1px -1px 0 #000,
-    1px -1px 0 #000,
-    -1px 1px 0 #000,
-    1px 1px 0 #000;
 }
-
 
 .btn:hover{
   background-color: #085f87;
@@ -476,3 +469,20 @@ select option:active {
   color:#757575;
 }
 
+#confirm-delete{
+  font-size:16px;
+  line-height: 1.5;
+  background:white;
+  padding:40px;    
+  width:100%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3);
+}
+
+#confirm-delete button{
+  padding:5px;
+  margin:5px;
+}
+
+#confirm-delete button:hover{
+  cursor: pointer;
+}

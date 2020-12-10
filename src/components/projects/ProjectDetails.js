@@ -4,6 +4,9 @@ import {Link} from 'react-router-dom';
 import {getProjectById, getProjectByName, deleteProject,updateFilter} from '../../store/actions/projectActions'
 import FileDialouge from '../layout/FileDialouge'
 import {Redirect} from "react-router-dom";
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import { useToasts } from 'react-toast-notifications'
 
 const ProjectDetails = ({project, deleteProject, isAdmin, id,name, getProjectByName, ref}) => {
     const plusIconClass = "folderIcon far fa-plus-square "
@@ -17,6 +20,7 @@ const ProjectDetails = ({project, deleteProject, isAdmin, id,name, getProjectByN
     const [showVI, setShowVI]=useState(false);
     const [showMisc, setShowMisc]=useState(false);
     const [deleted, setDeleted]=useState(false);
+    const { addToast } = useToasts()
 
     let className='';
     let statusLabel = '';
@@ -58,10 +62,29 @@ const ProjectDetails = ({project, deleteProject, isAdmin, id,name, getProjectByN
 
     const del = (e) => {
         e.preventDefault();
-        updateFilter('showSearch',false)
-        console.log('del')
-        deleteProject(project.id)
-        setDeleted(true);
+        confirmAlert({
+            customUI: ({ onClose }) => {
+              return (
+                <div className='custom-ui' id="confirm-delete">
+                  <h1>Confirm</h1>
+                  <p>Do you want to<b> DELETE</b> this project? <br/> This can not be undone.</p>
+                  <button onClick={onClose}>Cancel</button>
+                  <button
+                    onClick={() => {
+                        updateFilter('showSearch',false)
+                        console.log('del')
+                        deleteProject(project.id)
+                        setDeleted(true);
+                        addToast('Project Deleted Successfully', { appearance: 'success',autoDismiss: true, autoDismissTimeout:3000 })
+                        onClose();
+                    }}
+                  >
+                   DELETE
+                  </button>
+                </div>
+              );
+            }
+        });
     }
 
     if(deleted){
@@ -84,7 +107,7 @@ const ProjectDetails = ({project, deleteProject, isAdmin, id,name, getProjectByN
                             <Link to={'/edit/' + project.project_name} key={project.project_name}  className='action-icon blue-text'>
                                 <i className="fas fa-pencil-alt"></i> <b>UPDATE</b>
                             </Link>
-                            <span className='action-icon red-text'><i onClick={e=>del(e)} className="fas fa-trash-alt"></i> DELETE</span>
+                            <span onClick={e=>del(e)} className='action-icon red-text'><i className="fas fa-trash-alt"></i> DELETE</span>
                         </div>
                     )
                 } 
@@ -102,7 +125,7 @@ const ProjectDetails = ({project, deleteProject, isAdmin, id,name, getProjectByN
                     {project.name} 
                     </td>
                     <td>
-                    {project.number} 
+                    {project.project_num}
                     </td>
                     <td>
                     {project.funding_source} 

@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import DatePickerTool from '../dashboard/DatePicker'
 import Select from 'react-select'
 import {Redirect} from "react-router-dom";
+import { useToasts } from 'react-toast-notifications'
 
 const CreateProject = ({createProject}) => {
   const [project_name, setProject_name] = useState("");
@@ -19,11 +20,13 @@ const CreateProject = ({createProject}) => {
   const [status, setStatus] = useState("");
   const [status_comment, setStatusComment] = useState("");
   const [created, setCreated] = useState(false);
+  const { addToast } = useToasts()
 
   const onSubmit = (e) => {
     e.preventDefault();
     console.log('stat: ', status)
     setCreated(true);
+    addToast('Project Created Successfully', { appearance: 'success',autoDismiss: true, autoDismissTimeout:3000 });
     createProject({
       project_name,
       // name,

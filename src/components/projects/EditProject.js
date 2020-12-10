@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import DatePickerTool from '../dashboard/DatePicker'
 import Select from 'react-select'
 import {Redirect} from "react-router-dom";
+import { useToasts } from 'react-toast-notifications'
 
 var moment = require('moment');
 
@@ -86,6 +87,7 @@ const EditProject = ({updateProject, project, projectName, getProjectByName}) =>
 
   const [status, setStatus] = useState(initStatus);
   const [status_comment, setStatusComment] = useState(project && project.status_comment ? project.status_comment : "");
+  const { addToast } = useToasts()
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -105,6 +107,7 @@ const EditProject = ({updateProject, project, projectName, getProjectByName}) =>
     }
     setEdited(true);
     updateProject(project.id,updatedProject);
+    addToast('Project Updated Successfully', { appearance: 'success',autoDismiss: true, autoDismissTimeout:3000 })
     // getProjectByName(project.project_name,false);
   }
 

@@ -96,10 +96,11 @@ export const updateProject = (id, project) => {
         })
         .then(res => res.json())
         .then(res => {
+            console.log("!!!!!!!!!!!", project)
             dispatch({ type:'UPDATE_PROJECT', project, id, res })
         }) 
         .catch((err)=>{
-            console.log('error!!!!!!!!!!', err)
+            console.log('error!!!!!!!!!!', err, project)
             dispatch({ type:'UPDATE_PROJECT', project, id, err })
         })
     }
