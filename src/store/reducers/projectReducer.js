@@ -6,7 +6,7 @@ import { persistReducer } from 'redux-persist';
 
 const initState = {
     projects:[],
-    project:null,
+    project:[],
     // projects:[],
     greenSelected:true,
     yellowSelected:true,
