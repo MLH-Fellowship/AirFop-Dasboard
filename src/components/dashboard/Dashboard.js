@@ -38,19 +38,16 @@ const Dashboard = ({projects, project, myState, showSearch, search, showProjects
                     <ProjectsList projects={projectsList}/>
                 </div>
             )}
-            {/* { showSearch && (!project || project.length===0) && */}
-                {
-                    showSearch && projectsList.length === 0 && (
-                    <div className="card-light p-30 m-40 mt-50">
-                        <header >
-                            <h1  className='grey-text fs-20'>No results found with project name : {search}</h1>
-                        </header>
-                    </div>
-                    )
-                }
+
+            {showSearch && projectsList.length === 0 && (
+                <div className="card-light p-30 m-40 mt-50">
+                    <header >
+                        <h1  className='grey-text fs-20'>No results found with project name : {search}</h1>
+                    </header>
+                </div>
+            )}
                 
-            {/* } */}
-            {projectsList.length === 0 || (!showProjects && !showSearch) && 
+            {(projectsList.length === 0 || (!showProjects && !showSearch)) && 
                 <div className="card-light p-30 m-40 mt-50">
                     <header >
                         <h1  className='grey-text fs-20'>Filter by status and/or date range to display matching projects</h1>
