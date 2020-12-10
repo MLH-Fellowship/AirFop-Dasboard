@@ -8,9 +8,8 @@ function Search({getProjectByName}) {
     const search = (e) => {
         e.preventDefault();
         console.log('hi', searchTxt)
-        updateFilter('showSearch', true);
-        getProjectByName(searchTxt);
-        // getProjects(searchTxt);
+        // updateFilter('showSearch', true);
+        getProjectByName(searchTxt, true);
     }
     return (
         <div>
@@ -49,7 +48,7 @@ const mapStateToProps = (state) => {
   const mapDispatchToProps = (dispatch) => {
     return{
       updateFilter: (label,value) => dispatch(updateFilter(label,value)),
-      getProjectByName: (name) => dispatch(getProjectByName(name))
+      getProjectByName: (name, showSearch) => dispatch(getProjectByName(name, showSearch))
     }
   }
   export default connect(mapStateToProps, mapDispatchToProps)(Search);

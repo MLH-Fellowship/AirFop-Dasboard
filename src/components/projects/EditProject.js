@@ -3,6 +3,7 @@ import {updateProject, getProjectByName} from '../../store/actions/projectAction
 import {connect} from 'react-redux'
 import DatePickerTool from '../dashboard/DatePicker'
 import Select from 'react-select'
+import {Redirect} from "react-router-dom";
 
 var moment = require('moment');
 
@@ -10,10 +11,10 @@ const EditProject = ({updateProject, project, projectName, getProjectByName}) =>
   
   useEffect(() => {
     if(!project){
-      getProjectByName(projectName);
+      getProjectByName(projectName, false);
     }else{
       setProjectName(project.project_name);
-      // setName(project.name);
+      setName(project.name? project.name: "");
       setNumber(project.id);
       setFunding(project.funding_source);
       setAwardDate(project.award_date ? moment(project.award_date).toDate() : null);
@@ -23,6 +24,7 @@ const EditProject = ({updateProject, project, projectName, getProjectByName}) =>
       setPm(project.pm);
       setStatus(project.status);
       setStatusComment(project.status_comment);
+      setNumber(project.project_num);
     }
   }, [project])
   
@@ -35,6 +37,7 @@ const EditProject = ({updateProject, project, projectName, getProjectByName}) =>
   const [customer, setCustomer] = useState("");
   const [contractor, setContractor] = useState("");
   const [pm, setPm] = useState("");
+  const [edited, setEdited] = useState(false);
 
   const phaseOptions = [
     { value: '', label: 'Select Phase' },
@@ -56,8 +59,7 @@ const EditProject = ({updateProject, project, projectName, getProjectByName}) =>
     default:
       initPhase = phaseOptions[0];
   }
-  console.log(initPhase, 'ip');
-  // const [phase, setPhase] = useState(initPhase);
+
   const [phase, setPhase] = useState(phaseOptions[2]);
 
   const statusOptions = [
@@ -89,7 +91,7 @@ const EditProject = ({updateProject, project, projectName, getProjectByName}) =>
     e.preventDefault();
     const updatedProject={
       project_name,
-      // name,
+      name,
       phase:phase.value,
       award_date,
       pop,
@@ -98,11 +100,12 @@ const EditProject = ({updateProject, project, projectName, getProjectByName}) =>
       pm,
       status,
       status_comment,
-      project_num:project.id,
+      project_num:number,
       funding_source
     }
-
-    updateProject(project.id,updatedProject); 
+    setEdited(true);
+    updateProject(project.id,updatedProject);
+    // getProjectByName(project.project_name,false);
   }
 
   const validateForm = () => {
@@ -131,7 +134,11 @@ const EditProject = ({updateProject, project, projectName, getProjectByName}) =>
     }
   };
 
-
+  if(edited){
+    return(
+      <Redirect to="/"/>
+    )
+  } else{
   return (
     <div className="App">
       <div className="card p-30 m-30">
@@ -301,7 +308,7 @@ const EditProject = ({updateProject, project, projectName, getProjectByName}) =>
         {!project && <h1> No Project found with that id</h1>}
       </div> 
     </div>
-  )
+  )}
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -316,7 +323,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
   return{
     updateProject: (id, project) => dispatch(updateProject(id, project)),
-    getProjectByName: (name) => dispatch(getProjectByName(name))
+    getProjectByName: (name, showSearch) => dispatch(getProjectByName(name, showSearch))
   }
 }
 

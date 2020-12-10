@@ -7,7 +7,6 @@ import { persistReducer } from 'redux-persist';
 const initState = {
     projects:[],
     project:[],
-    // projects:[],
     greenSelected:true,
     yellowSelected:true,
     redSelected:true,
@@ -37,7 +36,8 @@ const projectReducer = ( state = initState, action) => {
             console.log('UPDATE_PROJECT', action.res, action.project, action.id);
             return {
                 ...state,
-                update: action.project
+                update: action.project,
+                project:[action.project]
             }
         case "GET_PROJECTS":
             console.log('GET_PROJECTS', action.projects);
@@ -46,7 +46,6 @@ const projectReducer = ( state = initState, action) => {
                 projects:action.projects,
                 showProjects:true,
                 showSearch:false
-                // filters: action.filters
             }
         case "GET_PROJECT_BY_ID":
             console.log('GET_PROJECT_BY_ID', action.id);
@@ -58,26 +57,33 @@ const projectReducer = ( state = initState, action) => {
         case "GET_PROJECT_BY_NAME":
             console.log('GET_PROJECT_BY_NAME');
             console.log(action.name, action.project);
-            // let show = false;
             let searchProject=[];
             if(action.project && action.project[0]){
                 searchProject=action.project;
-                // show=true;
             }
-            return {
-                ...state,
-                projects:[],
-                project:searchProject,
-                showSearch:true,
-                search:action.name
+            if(action.showSearch){
+                return {
+                    ...state,
+                    projects:[],
+                    project:searchProject,
+                    showSearch:true,
+                    search:action.name
+                }
+            }else{
+                return {
+                    ...state,
+                    projects:[],
+                    project:searchProject,
+                    search:action.name
+                }
             }
+            
         case "DELETE_PROJECT":
             console.log('DELETE_PROJECT');
             return {
                 ...state,
                 showSearch:false,
                 search:null,
-                // projects:[],
                 project:[]
             }
         case "UPDATE_GREEN_SELECTED":

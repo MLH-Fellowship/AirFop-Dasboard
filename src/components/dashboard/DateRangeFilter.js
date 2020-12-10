@@ -29,7 +29,7 @@ const DateRange = ({showAll,showProjects,showSearch,searchText, projects, getPro
         getProjects(filters);
         }else if(showSearch){
             console.log('should be getting')
-            getProjectByName(searchText);
+            getProjectByName(searchText,false);
         }
      }, [])
     const [quickSelect, setQuickSelect] = useState("");
@@ -156,7 +156,7 @@ const mapDispatchToProps = (dispatch) => {
     return{
         updateFilter: (label,value) => dispatch(updateFilter(label,value)),
         getProjects: (filters) => dispatch(getProjects(filters)),
-        getProjectByName: (name) => dispatch(getProjectByName(name))
+        getProjectByName: (name, showSearch) => dispatch(getProjectByName(name, showSearch))
     }
   }
 export default connect(mapStateToProps, mapDispatchToProps)(DateRange);

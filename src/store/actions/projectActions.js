@@ -2,7 +2,6 @@ import {projects} from '../../data/Data'
 
 export const createProject = (project) => {
     return (dispatch, getState) => {
-        console.log('hey', project)
         fetch(`/projects` , {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -10,7 +9,6 @@ export const createProject = (project) => {
         })
         .then(res => res.json())
         .then(r => {
-            console.log(JSON.stringify(project))
             dispatch({ type:'CREATE_PROJECT', r, project })
         }) 
         .catch((err)=>{
@@ -21,7 +19,6 @@ export const createProject = (project) => {
 }
 
 export const getProjects = (filters) => {
-    console.log('filters',filters)
     return (dispatch, getState) => {
         const greenSelected= getState().project.greenSelected;
         const yellowSelected= getState().project.yellowSelected;
@@ -32,7 +29,6 @@ export const getProjects = (filters) => {
         fetch('/projects')
         .then(res => res.json())
         .then(projects => {
-            console.log('actions', filters, projects)
             dispatch({ type:'GET_PROJECTS', projects })
         }) 
         .catch((err)=>{
@@ -47,7 +43,6 @@ export const getProjectById = (id) => {
         fetch(`/projects/${id}`)
         .then(res => res.json())
         .then(project => {
-            console.log(project)
             dispatch({ type:'GET_PROJECT_BY_ID', id, project })
         }) 
         .catch((err)=>{
@@ -64,7 +59,6 @@ export const deleteProject = (id) => {
         })
         .then(res => res.json())
         .then(json => {
-            console.log(json)
             dispatch({ type:'DELETE_PROJECT', id, json })
         }) 
         .catch((err)=>{
@@ -74,14 +68,16 @@ export const deleteProject = (id) => {
     }
 }
 
-export const getProjectByName = (name) => {
-    console.log('name from action', name)
-    return (dispatch) => {
+export const getProjectByName = (name, isSearch) => {
+    return (dispatch, getState) => {
         fetch(`/proj_by_name/${name}`)
         .then(res => res.json())
         .then(project => {
-            console.log('getProjectByName',project)
-            dispatch({ type:'GET_PROJECT_BY_NAME', name, project })
+            const dispatchObject = {type:'GET_PROJECT_BY_NAME', name, project}
+            if(isSearch){
+                dispatchObject.showSearch = true
+            }
+            dispatch(dispatchObject)
         }) 
         .catch((err)=>{
             console.log(err)
@@ -92,7 +88,6 @@ export const getProjectByName = (name) => {
 
 
 export const updateProject = (id, project) => {
-    console.log(project)
     return (dispatch, getState) => {
         fetch(`/projects/${id}` , {
             method: 'PUT',
@@ -101,11 +96,11 @@ export const updateProject = (id, project) => {
         })
         .then(res => res.json())
         .then(res => {
-            console.log('res',res)
             dispatch({ type:'UPDATE_PROJECT', project, id, res })
         }) 
         .catch((err)=>{
-            dispatch({type:'EXAMPLE_ERROR', err})
+            console.log('error!!!!!!!!!!', err)
+            dispatch({ type:'UPDATE_PROJECT', project, id, err })
         })
     }
 }

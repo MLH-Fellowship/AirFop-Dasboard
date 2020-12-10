@@ -53,8 +53,7 @@ const ProjectDetails = ({project, deleteProject, isAdmin, id,name, getProjectByN
         console.log(path);
     }
     useEffect(() => {
-        // getProjectById(id);
-        getProjectByName(name);
+        getProjectByName(name, false);
     }, [])
 
     const del = (e) => {
@@ -203,7 +202,7 @@ const mapDispatchToProps = (dispatch) => {
     return{
         updateFilter: (label,value) => dispatch(updateFilter(label,value)),
         getProjectById: (id) => dispatch(getProjectById(id)),
-        getProjectByName: (name) => dispatch(getProjectByName(name)),
+        getProjectByName: (name, showSearch) => dispatch(getProjectByName(name, showSearch)),
         deleteProject: (id) => dispatch(deleteProject(id))
     }
   }
