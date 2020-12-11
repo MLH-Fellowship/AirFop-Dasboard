@@ -25,7 +25,7 @@ const NavBar = ({user, isAuthenticated, isAdmin, projects, project, showSearch})
             <li className='left block'><NavLink to="/">Home</NavLink></li>
             {links}
             {((projects && projects.length > 0) || (showSearch) )&& 
-                <ul className='right' style={{marginTop:'-6px', padding:'0'}}>
+                <ul className='right' style={{marginTop:'-4px', padding:'0'}}>
                     <li>
                         <Report projects={reportProjects}/>
                     </li>

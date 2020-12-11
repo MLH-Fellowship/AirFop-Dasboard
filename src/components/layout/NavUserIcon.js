@@ -5,29 +5,25 @@ import {connect} from 'react-redux'
 
 
 const NavUserIcon = ({logout, first_name, last_name, email, example}) => {
-    // const name  =  user && user.email? user.email.substring(0, user.email.lastIndexOf("@")) : 'User'
+    const displayName  =  email? email.substring(0, email.lastIndexOf("@")) : 'User'
     return (
         <div id="nav-user-icon">
             <li style={{ padding:'0', marginRight:'25px'}}>
-                <NavLink to="/"><i className="fas fa-user-circle"></i>{first_name} {last_name}</NavLink>
+                <NavLink to="/"><i className="fas fa-user-circle" style={{fontSize:"24px", padding:"0 5px"}}></i><span  style={{fontSize:"18px", padding:"5px 0"}}>{displayName}</span></NavLink>
             </li>
              <UserMenu logout={logout} first_name={first_name} last_name={last_name} email={email} example={example}/>
         </div>
     )
 }
 
-export const UserMenu = ({logout, email, first_name, last_name, example}) => {
+export const UserMenu = ({logout}) => {
     return (
         <ul id="nav-user-dropdown">
-            <li className="brigth-border-b">
-                <p>{email}
-                </p>
+            <li style={{margin:'0'}}>
+                <a>Reset Password</a>
             </li>
-            <li style={{margin:'0 20px'}}>
-                <a>reset password</a>
-            </li>
-            <li style={{margin:'0 20px'}}>
-                <a onClick={logout}>logout</a>
+            <li style={{margin:'0'}}>
+                <a onClick={logout}>Logout</a>
             </li>
         </ul>
     )

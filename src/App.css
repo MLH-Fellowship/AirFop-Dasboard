@@ -33,7 +33,7 @@ body{
   padding: 5px 0;
   overflow: hidden;
   background-color: var(--dark-grey);
-  font-size: 16px;
+  font-size: 18px;
   z-index: 10;
   transition:all 0.5s ease;
 }
@@ -59,7 +59,7 @@ body{
 
 #nav-user-icon{
   float: left;
-  padding:5px;
+  /* padding:5px; */
 }
 
 #nav-user-icon:hover  #nav-user-dropdown{
@@ -72,11 +72,13 @@ body{
   text-transform: none;
   display: none;
   position: absolute;
-  width:250px;
+  width:160px;
   right:0;
-  margin-top:30px;
+  margin-top:40px;
+  padding-top: 20px;
   background-color: #333333;
   transition:all 0.5s ease;
+  font-size: 16px;
 }
 
 #nav-user-dropdown a {
@@ -86,11 +88,6 @@ body{
 #nav-user-dropdown a:hover{
   color: white;
   cursor: pointer;
-}
-
-#nav-user-dropdown p {
-  color:var(--bright-blue);
-  padding-left: 15px;
 }
 
 #user-nav-tab{
