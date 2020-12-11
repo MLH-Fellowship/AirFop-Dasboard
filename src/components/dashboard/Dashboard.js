@@ -1,9 +1,8 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import ProjectsList from '../projects/ProjectsList'
 import Filter from './Filter'
 import { connect } from 'react-redux'
 import {getProjects} from '../../store/actions/projectActions'
-import {UserMenu} from '../layout/NavUserIcon'
 
 
 const Dashboard = ({projects, project, myState, showSearch, search, showProjects, greenSelected, yellowSelected, redSelected, startDate, endDate}) => {
@@ -31,7 +30,7 @@ const Dashboard = ({projects, project, myState, showSearch, search, showProjects
     return (
         <div>
             <header style={{ marginBottom:'40px' }}>
-                <Filter filterProjects={filterProjects}  projects={projects} showReportBtn={true} />
+                <Filter filterProjects={filterProjects}  projects={projects} project={project} showReportBtn={true} />
             </header>
             {projectsList && projectsList.length > 0 && (showProjects || showSearch) && (
                 <div className='project-list'>

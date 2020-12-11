@@ -1,13 +1,11 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import StatusFilter from './StatusFilter'
 import DateRangeFilter from './DateRangeFilter'
-import FilterBtns from './FilterBtns'
 import { connect } from 'react-redux'
 import { updateFilter,  getProjects } from '../../store/actions/projectActions'
-import Report from '../report/Report'
 import Search from './Search'
 
-const Filter = ({filterProjects, projects, updateFilter, greenSelected, yellowSelected, redSelected, startDate, endDate, showAll, showReportBtn}) => {
+const Filter = ({filterProjects, projects, project, updateFilter, greenSelected, yellowSelected, redSelected, startDate, endDate, showAll, showReportBtn}) => {
   
     //  useEffect(() => {
     //    if(!projects || projects.length ===0 ){
@@ -84,6 +82,7 @@ const Filter = ({filterProjects, projects, updateFilter, greenSelected, yellowSe
                 className='filter'
                 handleCheckboxChange={handleCheckboxChange}
                 projects={projects}
+                project={project}
               />
             </td>
             <td style={{width:'30vw'}} >

@@ -6,11 +6,11 @@ var moment = require('moment');
 // Create styles
 const styles = StyleSheet.create({
   page: {
-    padding:20
+    padding:30
   },
   section: {
     margin: 10,
-    padding: 15,
+    padding: 10,
     fontSize:12,
     border:1
   }
@@ -18,26 +18,43 @@ const styles = StyleSheet.create({
 
 // Create Document Component
 
-const MyDocument = ({projects, statusFilter, dateFilter, createdOn}) => (
+const MyDocument = ({projects, statusFilter, dateFilter, createdOn, showSearch}) => (
   <Document title='report' fileName='report'>
     {projects && projects.length > 0 &&(
-      <Page size="A4" style={styles.page}>
+      <Page size="A4" style={styles.page}> 
       <View>
         <Text style={{fontSize:16, textAlign:'center', textDecoration:'underline', paddingBottom:'10px'}}>Projects Report</Text>
       </View>
-      <View style={styles.section} >
-        <Text style={{fontWeight:'bold', fontSize:14}}>Created on: {createdOn}</Text>
-        <Text style={{fontWeight:'bold', fontSize:14}}>Filtering:</Text>
+      {!showSearch && (
+        <View style={styles.section}>
+        <Text style={{fontWeight:'bold'}}>Created on: {createdOn}</Text>
+        <Text style={{fontWeight:'bold'}}>Filtering:</Text>
         <Text style={{padding:'2px 10px'}}>Status:{statusFilter} </Text>
         <Text style={{padding:'2px 10px'}}>Date Range: {dateFilter}</Text>
       </View>
+      )}
+      {showSearch && (
+        <View style={styles.section}>
+          <Text style={{fontWeight:'bold'}}>Created on: {createdOn}</Text>
+        </View>
+      )}
+      
       <View style={styles.section}>
-      <Text style={{fontWeight:'bold', fontSize:14, paddingBottom:'10px'}}>Projects:</Text>
         {projects && projects.length > 0 && projects.map(
           project => (
-            <View>
-              <Text key={project.project_name} style={{ borderBottom:'1', borderBottomColor:'#cccccc', padding:'10px'}}>{project.project_name} - Status: {project.status} </Text>
-              <Text> phase:{project.phase}, award date: {project.award_date}, pop: {project.pop}, customer: {project.customer}, contractor: {project.contractor}, pm: {project.pm}, status: {project.status}, status comment: {project.status_comment}, funding source: {project.funding_source}
+            <View key={project.project_name} style={{ borderBottom:'1', borderBottomColor:'#cccccc', padding:'10px'}}>
+              <Text style={{padding:'5px 0'}}>{project.project_name}: {project.name &&  project.name} </Text>
+              <Text style={{padding:'0 5px', lineHeight: '1.5'}}> Status: {project.status}  -  Comments: {project.status_comment}
+              </Text>
+              <Text style={{padding:'0 5px', lineHeight: '1.5'}}> Status: {project.status}  -  Comments: {project.status_comment}
+              </Text>
+              <Text style={{padding:'0 5px', lineHeight: '1.5'}}>
+              Funding Source: {project.funding_source}  -  Phase:{project.phase}
+              </Text>
+              <Text style={{padding:'0 5px', lineHeight: '1.5'}}>
+              Award Date: {project.award_date}  -  POP: {project.pop} 
+              </Text>
+              <Text style={{padding:'0 5px', lineHeight: '1.5'}}> Customer: {project.customer}  -  Contractor: {project.contractor}  -  PM: {project.pm}
               </Text>
             </View>
           )
@@ -48,7 +65,7 @@ const MyDocument = ({projects, statusFilter, dateFilter, createdOn}) => (
   </Document>
 );
 
-const Report = ({projects,  greenSelected, yellowSelected, redSelected, startDate, endDate}) => {
+const Report = ({projects,  greenSelected, yellowSelected, redSelected, startDate, endDate, showSearch}) => {
     let statusFilter = " "
     if(greenSelected){statusFilter += '*Green '}
     if(yellowSelected){statusFilter += '*Yellow '}
@@ -64,7 +81,7 @@ const Report = ({projects,  greenSelected, yellowSelected, redSelected, startDat
 
     return(
       <div>
-      <PDFDownloadLink document={<MyDocument projects={projects} statusFilter={statusFilter} dateFilter={dateFilter} createdOn={createdOn} />} fileName="report.pdf">
+      <PDFDownloadLink document={<MyDocument projects={projects} statusFilter={statusFilter} dateFilter={dateFilter} createdOn={createdOn} showSearch={showSearch} />} fileName="report.pdf">
         {({ blob, url, loading, error }) => (
           loading ? 'Loading document...' :
           // <div style={{}}>
@@ -83,7 +100,8 @@ const mapStateToProps = (state) => {
     redSelected: state.project.redSelected,
     startDate: state.project.startDate,
     endDate: state.project.endDate,
-    showAll: state.project.showAll
+    showAll: state.project.showAll,
+    showSearch: state.project.showSearch
   }
 }
 

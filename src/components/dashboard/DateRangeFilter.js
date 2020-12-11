@@ -5,7 +5,7 @@ import { updateFilter,  getProjects, getProjectByName } from '../../store/action
 import Report from '../report/Report'
 var moment = require('moment');
 
-const DateRange = ({showAll,showProjects,showSearch,searchText, projects, getProjects,greenSelected, yellowSelected, redSelected, startDate, endDate, updateFilter, handleCheckboxChange}) => {
+const DateRange = ({showAll,showProjects,showSearch,searchText, projects, project, getProjects,greenSelected, yellowSelected, redSelected, startDate, endDate, updateFilter, handleCheckboxChange}) => {
     useEffect(() => {
         if(showProjects && !showSearch){
         let filters = {}
@@ -127,7 +127,8 @@ const DateRange = ({showAll,showProjects,showSearch,searchText, projects, getPro
                 <button id='filter'>
                     <i  onClick={e=>search(e)} className="fas fa-filter"> FILTER</i>    
                 </button>
-                {projects && projects.length > 0 &&
+                {/* {(projects && projects.length || project && project.length) > 0 && */}
+                {(showProjects || showSearch) &&
                     <button id='clear'>
                         <i onClick={e=>clear(e)} className="fas fa-times"> CLEAR</i>    
                     </button>
