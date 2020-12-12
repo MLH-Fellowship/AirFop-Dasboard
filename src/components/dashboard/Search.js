@@ -7,8 +7,6 @@ function Search({getProjectByName}) {
 
     const search = (e) => {
         e.preventDefault();
-        console.log('hi', searchTxt)
-        // updateFilter('showSearch', true);
         getProjectByName(searchTxt, true);
     }
     return (

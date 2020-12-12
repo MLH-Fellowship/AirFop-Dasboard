@@ -24,7 +24,7 @@ const CreateProject = ({createProject}) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log('stat: ', status)
+
     setCreated(true);
     addToast('Project Created Successfully', { appearance: 'success',autoDismiss: true, autoDismissTimeout:3000 });
     createProject({
@@ -50,11 +50,11 @@ const CreateProject = ({createProject}) => {
 
   const handlePhaseChange = (selectedOption) => {
     setPhase(selectedOption)
-    console.log(`Option selected:`, selectedOption.value);
+
   }
   const handleStatusChange = (selectedOption) => {
     setStatus(selectedOption.value)
-    console.log(`Option selected:`, selectedOption);
+
   }
 
   const colourStyles = {

@@ -18,7 +18,7 @@ const NavBar = ({user, isAuthenticated, isAdmin, projects, project, showSearch})
     }
     
     const reportProjects= showSearch? project : projects;
-    console.log('hey', showSearch, reportProjects)
+
     return (
         <>
         <ul className='nav'>

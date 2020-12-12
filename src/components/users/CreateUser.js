@@ -17,7 +17,6 @@ const CreateUser = ({createUser}) => {
         setUserName('');
         setPassword('');
         setPassword2('');
-        console.log({email:userName,password,is_admin})
     }
 
     const validateForm = () => {

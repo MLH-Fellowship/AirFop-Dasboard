@@ -24,11 +24,9 @@ const DateRange = ({showAll,showProjects,showSearch,searchText, projects, projec
         if(endDate){
             filters.endDate = true
         }
-        console.log(filters)
         
         getProjects(filters);
         }else if(showSearch){
-            console.log('should be getting')
             getProjectByName(searchText,false);
         }
      }, [])

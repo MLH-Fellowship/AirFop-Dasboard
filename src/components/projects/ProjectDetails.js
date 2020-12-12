@@ -53,8 +53,7 @@ const ProjectDetails = ({project, deleteProject, isAdmin, id,name, getProjectByN
     const handleFileClick = (e, file) => {
         e.preventDefault();
         let path = `/Users/me/mlh/AiFop/projects/${project.funding_source}/${project.project_name}/${file}`
-        // setPath(`${path}/${file}`);
-        console.log(path);
+
     }
     useEffect(() => {
         getProjectByName(name, false);
@@ -72,7 +71,6 @@ const ProjectDetails = ({project, deleteProject, isAdmin, id,name, getProjectByN
                   <button
                     onClick={() => {
                         updateFilter('showSearch',false)
-                        console.log('del')
                         deleteProject(project.id)
                         setDeleted(true);
                         addToast('Project Deleted Successfully', { appearance: 'success',autoDismiss: true, autoDismissTimeout:3000 })

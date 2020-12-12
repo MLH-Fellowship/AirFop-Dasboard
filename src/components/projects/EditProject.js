@@ -117,11 +117,11 @@ const EditProject = ({updateProject, project, projectName, getProjectByName}) =>
 
   const handlePhaseChange = (selectedOption) => {
     setPhase(selectedOption)
-    console.log(`Option selected:`, selectedOption.value);
+
   }
   const handleStatusChange = (selectedOption) => {
     setStatus(selectedOption.value)
-    console.log(`Option selected:`, selectedOption);
+
   }
 
   const colourStyles = {

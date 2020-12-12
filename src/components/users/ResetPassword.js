@@ -8,7 +8,6 @@ const ResetPassword = (id, user, resetUser) => {
 
     const onSubmit = (e) => {
       e.preventDefault()
-      console.log('id:',id.match.params.id)
       resetPassword(parseInt(id.match.params.id), password)
     }
 
@@ -17,11 +16,9 @@ const ResetPassword = (id, user, resetUser) => {
     }
 
     useEffect(() => {
-        console.log(id.match.params.id)
-        if(!resetUser){
-            getUserById(parseInt(id.match.params.id))
-            console.log('!!!!!')
-        }
+      if(!resetUser){
+        getUserById(parseInt(id.match.params.id))
+      }
     }, [resetUser])
 
     return (

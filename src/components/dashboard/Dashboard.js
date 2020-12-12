@@ -22,7 +22,6 @@ const Dashboard = ({projects, project, myState, showSearch, search, showProjects
             filteredProjects = filteredProjects.filter(project => {return project.status !== "Red"})
         }
         // setDisplayProjects(filteredProjects);
-        console.log('g:',greenSelected,'y:',yellowSelected, 'r:', redSelected, 'start:', startDate, 'end:', endDate)
     }
 
     const projectsList = showSearch ? project : projects
