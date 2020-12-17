@@ -102,17 +102,6 @@ export const openFolder = (funding, project) => {
             dispatch({type:'EXAMPLE_ERROR', err})
         })
     }
-    // return (dispatch, getState) => {
-    //     fetch(`/open/${funding}/${project}`)
-    //     .then(res => res.json())
-    //     .then(project => {
-    //         console.log('actions,',funding,project)
-    //         dispatch({ type:'OPEN_FOLDER', funding, project })
-    //     }) 
-    //     .catch((err)=>{
-    //         dispatch({type:'EXAMPLE_ERROR', err})
-    //     })
-    // }
 }
 
 export const updateProject = (id, project) => {

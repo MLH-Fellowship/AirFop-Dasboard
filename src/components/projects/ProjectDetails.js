@@ -1,24 +1,13 @@
-import React, {useState, useEffect, useImperativeHandle} from 'react'
+import React, {useState, useEffect} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom';
 import {getProjectById, getProjectByName, deleteProject,updateFilter, openFolder} from '../../store/actions/projectActions'
-import FileDialouge from '../layout/FileDialouge'
 import {Redirect} from "react-router-dom";
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import { useToasts } from 'react-toast-notifications'
 
-const ProjectDetails = ({project, deleteProject, isAdmin, id,name, getProjectByName, openFolder}) => {
-    const plusIconClass = "folderIcon far fa-plus-square "
-    const minusIconClass = "folderIcon far fa-minus-square"
-    // fas fa-folder-plus fas fa-folder-minus
-    const [showI, setShowI]=useState(false);
-    const [showII, setShowII]=useState(false);
-    const [showIII, setShowIII]=useState(false);
-    const [showIV, setShowIV]=useState(false);
-    const [showV, setShowV]=useState(false);
-    const [showVI, setShowVI]=useState(false);
-    const [showMisc, setShowMisc]=useState(false);
+const ProjectDetails = ({project, deleteProject, isAdmin, name, getProjectByName, openFolder}) => {
     const [deleted, setDeleted]=useState(false);
     const { addToast } = useToasts()
 
@@ -44,22 +33,12 @@ const ProjectDetails = ({project, deleteProject, isAdmin, id,name, getProjectByN
                 statusLabel='U'
         }    
     }
-    
-    const handleClick = (e, func, value) => {
-        e.preventDefault();
-        func(value);
-    }
 
     const handleFolderClick = (e) => {
         e.preventDefault();
-        console.log(project.funding_source, project.project_name)
-        openFolder("AF","TestProject6")
+        openFolder(project.funding_source, project.project_name)
     }
 
-    const handleFileClick = (e, file) => {
-        e.preventDefault();
-
-    }
     useEffect(() => {
         getProjectByName(name, false);
     }, [])
@@ -97,10 +76,6 @@ const ProjectDetails = ({project, deleteProject, isAdmin, id,name, getProjectByN
     } else{
     return (
         <div className="App">
-            {/* <input id="fileInput" ref={ref} type="file" style={{display:"none"}} />
-            <input type="button" value="Open" onClick={ useImperativeHandle(ref,() => ({
-            handleClick}))} /> */}
-            {/* <FileDialouge/> */}
             <div className="project-card project-card p-30 m-30">
             {project && (
                 <>
@@ -145,78 +120,9 @@ const ProjectDetails = ({project, deleteProject, isAdmin, id,name, getProjectByN
                 onClick={e => handleFolderClick(e)}
                 className='folder'
             >
-                <i class="far fa-folder-open"></i> 
+                <i className="far fa-folder-open"></i> 
             {" "}Open Project Folder
             </p>
-{/*             
-            <p 
-                onClick={e => handleClick(e, setShowI, !showI)}
-                className='folder'
-            >
-                <i className={showI ? minusIconClass : plusIconClass}></i> 
-                PART I: SOURCE DOCUMENTS
-            </p>
-            {showI && (
-                <div className='fileSubList'>
-                    <p onClick={e => handleFileClick(e,"Requirements Approval Document" )} className='file'>Requirements Approval Document (RAD)</p>
-                    <p className='file'>Quality Assurance Surveillance Plan (QASP)</p>
-                    <p className='file'>Performance Work Statement(PWS) or Statement of Work (SOW)</p>
-                    <p className='file'>Market Research Report</p>
-                    <p className='file'>Justification & Approval (J&A)</p>
-                    <p className='file'>COR Nomination & Training</p>
-                    <p className='file'>Brand Name Justification </p>
-                    <p className='file'>AF Form 9</p>
-                </div>
-            )}
-
-            
-            <p 
-                onClick={e => handleClick(e, setShowII, !showII)}
-                className='folder'
-            >
-                <i className={showII ? minusIconClass : plusIconClass}></i> 
-                PART II: GENERAL CORRESPONDENCE
-            </p>
-            
-            <p 
-                onClick={e => handleClick(e, setShowIII, !showIII)}
-                className='folder'
-            >
-                <i className={showIII ? minusIconClass : plusIconClass}></i>
-                PART III: PROJECT SUPPORT AGREEMENT
-            </p>
-            
-            <p 
-                onClick={e => handleClick(e, setShowIV, !showIV)}
-                className='folder'
-            >
-                <i className={showIV ? minusIconClass : plusIconClass}></i> 
-                PART IV: ALLIED SUPPORT CONSTRUCTION
-            </p>
-            
-            <p 
-                onClick={e => handleClick(e, setShowV, !showV)}
-                className='folder'
-            >
-                <i className={showV ? minusIconClass : plusIconClass}></i>
-                PART V: COMMISSIONING DOCUMENTS
-            </p>
-            
-            <p 
-                onClick={e => handleClick(e, setShowVI, !showVI)}
-                className='folder'
-            >
-                <i className={showVI ? minusIconClass : plusIconClass}></i> 
-                PART VI: PROJECT PACKAGE/DRAWINGS
-            </p>
-            
-            <p 
-                onClick={e => handleClick(e, setShowMisc, !showMisc)}
-                className='folder'
-            >
-                <i className={showMisc ? minusIconClass : plusIconClass}></i> 
-                Miscellaneous
-            </p> */}
             </div>
         </div>
     )}

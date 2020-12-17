@@ -1,7 +1,5 @@
 import {projects} from '../../data/Data'
 import storage from 'redux-persist/lib/storage/session'
-
-
 import { persistReducer } from 'redux-persist';
 
 const initState = {

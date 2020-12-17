@@ -47,7 +47,6 @@ const Login = ({login}) => {
                 placeholder="Password"
                 type="password"
                 name="password"
-                minLength="6"
                 required
               />
             </div>

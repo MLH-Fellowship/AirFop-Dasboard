@@ -29,7 +29,7 @@ const CreateProject = ({createProject}) => {
     addToast('Project Created Successfully', { appearance: 'success',autoDismiss: true, autoDismissTimeout:3000 });
     createProject({
       project_name,
-      // name,
+      name,
       phase:phase.value,
       award_date,
       pop,
@@ -38,7 +38,7 @@ const CreateProject = ({createProject}) => {
       pm,
       status,
       status_comment,
-      // project_num:4,
+      project_num: parseInt(number),
       funding_source,
     }); 
     // setProject_name(''); setName(''); setNumber(''); setFunding(''); setPhase(''); setAward(''); setPop(''); setCustomer(''); setContractor(''); setPm(''); setStatus(''); setStatusComment('');
@@ -228,6 +228,7 @@ const CreateProject = ({createProject}) => {
                 styles={colourStyles}
                 id="phase"
                 onChange={handleStatusChange}
+                required
               />
               </td>
             </tr>

@@ -1,0 +1,28 @@
+﻿Home Page Components Structure:
+
+
+App
+|
+| -- NAV (./src/components/layout)
+|     | -- REPORT
+|     | -- LINKS
+|     | -- USER INFO
+|
+| -- DASHBOARD (./src/components/dashboard)
+      |
+      | -- HEADER
+      |       | -- Filter
+      |       |     | -- Status
+      |       |     | -- Date Range
+      |       |
+      |       | -- Search
+      |
+      |
+      | -- PROJECT TABLE  (./src/components/projects)
+              | -- PROJECT UUID link to edit
+              | -- PROJECT UUID link to edit
+              | -- PROJECT UUID link to edit
+        
+
+
+The state is held in a Redux store, values and actions are imported directly into the components that need them. All API calls are made from UserActions.js and ProjectActions.js in this folder: ./src/store/actions

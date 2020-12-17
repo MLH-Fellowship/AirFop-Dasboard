@@ -1,0 +1,37 @@
+﻿Note on opening files:
+
+The endpoint that opens the project folder is expecting a file structure like this:
+
+
+Root Folder
+|
+| -- FRONTEND (AirFop-Dashboard)
+|
+| -- BACKEND (AirFop-Backend)
+|
+| -- PROJECTS
+|
+| -- FUNDING SOURCE (AF)
+|        |
+|        | -- PROJECT UUID (TestProject1)
+|        |
+|        | -- PROJECT UUID (TestProject2)
+|
+| -- FUNDING SOURCE (Base)
+|        |
+|        | -- PROJECT UUID (TestProject3)
+|        |
+|        | -- PROJECT UUID (TestProject4)
+|        |
+|        | -- PROJECT UUID (TestProject5)
+|        
+| -- FUNDING SOURCE (EI)
+        |
+        | -- PROJECT UUID (TestProject6)
+        |
+        | -- PROJECT UUID (TestProject7)
+
+
+
+
+Where the BACKEND  is in the same root folder as the projects, FUNDING SOURCE is the same as funding_source, the field on the project object & the name of the project folder is the same as the project_name UUID field. For it to work in its current state the fields on the object must match the folder names and not contain spaces or special characters.
