@@ -1,6 +1,6 @@
 const initState = {
     user:{
-        email:'myemail@airforce.gov',
+        email:'testadmin@us.af.mil',
         isAdmin:true,
         first_name:"Joan",
         last_name:"Jett",

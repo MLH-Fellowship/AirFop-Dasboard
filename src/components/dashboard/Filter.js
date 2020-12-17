@@ -6,36 +6,6 @@ import { updateFilter,  getProjects } from '../../store/actions/projectActions'
 import Search from './Search'
 
 const Filter = ({filterProjects, projects, project, updateFilter, greenSelected, yellowSelected, redSelected, startDate, endDate, showAll, showReportBtn}) => {
-  
-    //  useEffect(() => {
-    //    if(!projects || projects.length ===0 ){
-    //     getProjects("?");
-    //    }
-        // console.log("?")
-      // if(greenSelected || yellowSelected || redSelected || startDate || endDate){
-      //   console.log("???")
-      //     let filters = {test:'test'}
-
-      //     if(greenSelected){
-      //       filters.green = true
-      //     }
-      //     if(yellowSelected){
-      //       filters.yellow = true
-      //     }
-      //     if(redSelected){
-      //       filters.red = true
-      //     }
-      //     if(startDate){
-      //       filters.startDate = true
-      //     }
-      //     if(endDate){
-      //       filters.endDate = true
-      //     }
-      //     console.log('f',filters)
-        
-      //     getProjects(filters);
-      // }
-    // }, [])
 
   const handleCheckboxChange = (e) => {
     const id = e.target.id    

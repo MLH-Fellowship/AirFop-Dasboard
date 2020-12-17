@@ -14,18 +14,18 @@ const EditProject = ({updateProject, project, projectName, getProjectByName}) =>
     if(!project){
       getProjectByName(projectName, false);
     }else{
-      setProjectName(project.project_name);
-      setName(project.name? project.name: "");
-      setNumber(project.id);
-      setFunding(project.funding_source);
+      project.project_name && setProjectName(project.project_name);
+      project.name && setName(project.name);
+      project.number && setNumber(project.number);
+      project.funding_source && setFunding(project.funding_source);
       setAwardDate(project.award_date ? moment(project.award_date).toDate() : null);
-      setPop(project.pop);
-      setCustomer(project.customer);
-      setContractor(project.contractor);
-      setPm(project.pm);
-      setStatus(project.status);
-      setStatusComment(project.status_comment);
-      setNumber(project.project_num);
+      project.pop && setPop(project.pop);
+      project.customer && setCustomer(project.customer);
+      project.contractor && setContractor(project.contractor);
+      project.pm && setPm(project.pm);
+      project.status && setStatus(project.status);
+      project.status_comment && setStatusComment(project.status_comment);
+      project.project_num && setNumber(project.project_num);
     }
   }, [project])
   
@@ -147,7 +147,7 @@ const EditProject = ({updateProject, project, projectName, getProjectByName}) =>
       <div className="card p-30 m-30">
         {project && (
           <form onSubmit={e=>onSubmit(e)} className='new-project'>
-          <h1  style={{width:'70%', margin:'auto', padding:'20px'}}className="grey-text">UPDATE PROJECT: {project_name}</h1>
+          <h1  style={{width:'70%', margin:'auto', padding:'20px', fontSize:'22px'}}className="grey-text">UPDATE PROJECT: {project_name}</h1>
           <table id="edit-project-table" style={{width:'70%', margin:'auto'}} >
             <tbody>
               <tr>
@@ -186,7 +186,7 @@ const EditProject = ({updateProject, project, projectName, getProjectByName}) =>
                     onChange={e=> setNumber(e.target.value)}
                     className="form-input"
                     value={number}
-                    name="number"
+                    // name="number"
                   />
                 </td>
               </tr>

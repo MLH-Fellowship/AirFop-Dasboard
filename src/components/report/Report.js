@@ -46,8 +46,6 @@ const MyDocument = ({projects, statusFilter, dateFilter, createdOn, showSearch})
               <Text style={{padding:'5px 0'}}>{project.project_name}: {project.name &&  project.name} </Text>
               <Text style={{padding:'0 5px', lineHeight: '1.5'}}> Status: {project.status}  -  Comments: {project.status_comment}
               </Text>
-              <Text style={{padding:'0 5px', lineHeight: '1.5'}}> Status: {project.status}  -  Comments: {project.status_comment}
-              </Text>
               <Text style={{padding:'0 5px', lineHeight: '1.5'}}>
               Funding Source: {project.funding_source}  -  Phase:{project.phase}
               </Text>
@@ -81,7 +79,7 @@ const Report = ({projects,  greenSelected, yellowSelected, redSelected, startDat
 
     return(
       <div>
-      <PDFDownloadLink document={<MyDocument projects={projects} statusFilter={statusFilter} dateFilter={dateFilter} createdOn={createdOn} showSearch={showSearch} />} fileName="report.pdf">
+      <PDFDownloadLink document={<MyDocument projects={projects? projects : []} statusFilter={statusFilter} dateFilter={dateFilter} createdOn={createdOn} showSearch={showSearch} />} fileName="report.pdf">
         {({ blob, url, loading, error }) => (
           loading ? 'Loading document...' :
           // <div style={{}}>

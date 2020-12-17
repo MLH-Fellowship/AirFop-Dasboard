@@ -140,6 +140,9 @@ const projectReducer = ( state = initState, action) => {
                 ...state,
                 showSearch:action.value
             }
+        case "LOGOUT":
+            console.log('LOGOUT');
+            return initState;
         default :
             return state;
     }

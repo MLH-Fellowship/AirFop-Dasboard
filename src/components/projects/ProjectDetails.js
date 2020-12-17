@@ -1,14 +1,14 @@
 import React, {useState, useEffect, useImperativeHandle} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom';
-import {getProjectById, getProjectByName, deleteProject,updateFilter} from '../../store/actions/projectActions'
+import {getProjectById, getProjectByName, deleteProject,updateFilter, openFolder} from '../../store/actions/projectActions'
 import FileDialouge from '../layout/FileDialouge'
 import {Redirect} from "react-router-dom";
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import { useToasts } from 'react-toast-notifications'
 
-const ProjectDetails = ({project, deleteProject, isAdmin, id,name, getProjectByName, ref}) => {
+const ProjectDetails = ({project, deleteProject, isAdmin, id,name, getProjectByName, openFolder}) => {
     const plusIconClass = "folderIcon far fa-plus-square "
     const minusIconClass = "folderIcon far fa-minus-square"
     // fas fa-folder-plus fas fa-folder-minus
@@ -50,9 +50,14 @@ const ProjectDetails = ({project, deleteProject, isAdmin, id,name, getProjectByN
         func(value);
     }
 
+    const handleFolderClick = (e) => {
+        e.preventDefault();
+        console.log(project.funding_source, project.project_name)
+        openFolder("AF","TestProject6")
+    }
+
     const handleFileClick = (e, file) => {
         e.preventDefault();
-        let path = `/Users/me/mlh/AiFop/projects/${project.funding_source}/${project.project_name}/${file}`
 
     }
     useEffect(() => {
@@ -136,7 +141,14 @@ const ProjectDetails = ({project, deleteProject, isAdmin, id,name, getProjectByN
             </table>     
                 </>
             )}
-            
+            <p 
+                onClick={e => handleFolderClick(e)}
+                className='folder'
+            >
+                <i class="far fa-folder-open"></i> 
+            {" "}Open Project Folder
+            </p>
+{/*             
             <p 
                 onClick={e => handleClick(e, setShowI, !showI)}
                 className='folder'
@@ -204,7 +216,7 @@ const ProjectDetails = ({project, deleteProject, isAdmin, id,name, getProjectByN
             >
                 <i className={showMisc ? minusIconClass : plusIconClass}></i> 
                 Miscellaneous
-            </p>
+            </p> */}
             </div>
         </div>
     )}
@@ -224,7 +236,8 @@ const mapDispatchToProps = (dispatch) => {
         updateFilter: (label,value) => dispatch(updateFilter(label,value)),
         getProjectById: (id) => dispatch(getProjectById(id)),
         getProjectByName: (name, showSearch) => dispatch(getProjectByName(name, showSearch)),
-        deleteProject: (id) => dispatch(deleteProject(id))
+        deleteProject: (id) => dispatch(deleteProject(id)),
+        openFolder: (funding, project) => dispatch(openFolder(funding, project))
     }
   }
   

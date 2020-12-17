@@ -18,7 +18,7 @@ export const login = (credentials) => {
     return (dispatch, getState) => {
         // make call to db
         const user = {
-            email:'myemail@airforce.gov',
+            email:'testadmin@us.af.mil',
             isAdmin:true,
             first_name:"Joan",
             last_name:"Jett",
@@ -90,6 +90,23 @@ export const getUserById = (id) => {
         .then(user => {
             console.log(user)
             dispatch({ type:'GET_USER', id})
+        }) 
+        .catch((err)=>{
+            console.log(err)
+            dispatch({type:'EXAMPLE_ERROR', err})
+        })
+    }
+}
+
+export const getUserByEmail = (email) => {
+    // this is not working yet
+    console.log('getUserByEmail', email)
+    return (dispatch, getState) => {
+        fetch(`/user_by_email/${email}`)
+        .then(res => res.json())
+        .then(user => {
+            console.log(user)
+            dispatch({ type:'GET_USER', email})
         }) 
         .catch((err)=>{
             console.log(err)

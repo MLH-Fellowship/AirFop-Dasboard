@@ -2,30 +2,22 @@ import React, {useState, useEffect} from 'react'
 import DatePickerTool from './DatePicker'
 import { connect } from 'react-redux'
 import { updateFilter,  getProjects, getProjectByName } from '../../store/actions/projectActions'
-import Report from '../report/Report'
+
 var moment = require('moment');
 
 const DateRange = ({showAll,showProjects,showSearch,searchText, projects, project, getProjects,greenSelected, yellowSelected, redSelected, startDate, endDate, updateFilter, handleCheckboxChange}) => {
     useEffect(() => {
         if(showProjects && !showSearch){
-        let filters = {}
-        if(greenSelected){
-            filters.green = true
-        }
-        if(yellowSelected){
-            filters.yellow = true
-        }
-        if(redSelected){
-            filters.red = true
-        }
-        if(startDate){
-            filters.startDate = true
-        }
-        if(endDate){
-            filters.endDate = true
-        }
-        
-        getProjects(filters);
+            const filter = {
+                date: !startDate || !endDate ? null : 'ok',
+                start: moment(startDate).format("DD/MM/YYYY"),
+                end: moment(endDate).format("DD/MM/YYYY"),
+                status: 'ok',
+                Green:greenSelected,
+                Yellow:yellowSelected,
+                Red:redSelected
+            }
+            getProjects(filter);
         }else if(showSearch){
             getProjectByName(searchText,false);
         }
@@ -96,8 +88,16 @@ const DateRange = ({showAll,showProjects,showSearch,searchText, projects, projec
     
     const search = (e) => {
         e.preventDefault();
-        // updateFilter('showSearch', true);
-        getProjects("filters");
+        const filter = {
+            date: !startDate || !endDate ? null : 'ok',
+            start: moment(startDate).format("DD/MM/YYYY"),
+            end: moment(endDate).format("DD/MM/YYYY"),
+            status: 'ok',
+            Green:greenSelected,
+            Yellow:yellowSelected,
+            Red:redSelected
+        }
+        getProjects(filter);
     }
 
   return (

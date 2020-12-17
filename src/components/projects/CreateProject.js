@@ -91,7 +91,7 @@ const CreateProject = ({createProject}) => {
     <div className="App">
       <div className="card p-30 m-30">
         <form onSubmit={e=>onSubmit(e)} className='new-project'>
-          <h1  style={{width:'70%', margin:'auto', padding:'20px'}}className="grey-text">New Project</h1>
+          <h1  style={{width:'70%', margin:'auto', padding:'20px', fontSize:'22px'}}className="grey-text">New Project</h1>
           <table id="new-project-table" style={{width:'70%', margin:'auto'}} >
           <tbody>
             <tr>

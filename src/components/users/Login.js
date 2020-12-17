@@ -20,7 +20,7 @@ const Login = ({login}) => {
     
   const forgotPassword = (e) => {
     e.preventDefault();
-    setForgot("Please check your email for password reset instructions")
+    setForgot(`Password reset instructions sent to ${email}`)
   }
 
   return (
@@ -54,9 +54,9 @@ const Login = ({login}) => {
             <div>
               <button style={{width:'250px', margin:'30px 0'}} className={validateForm() ? "btn btn-block" : "disabledBtn"} disabled={!validateForm()}>LOGIN</button>
             </div>
-            <div>
+            { email.length > 0 &&
               <p className={forgot === "Forgot Password?" ? 'forgot-password': 'forgot-password-red red-text'} onClick={e => forgotPassword(e)} id='forgot-password'>{forgot}</p>
-            </div>
+            }
             </div>
           </form>
         </div>

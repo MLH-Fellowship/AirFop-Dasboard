@@ -26,7 +26,7 @@ const CreateUser = ({createUser}) => {
         <div className="App">
             <div className="card p-30 m-30">
                 <form onSubmit={e=>onSubmit(e)} className='new-project'>
-                    <h1  style={{width:'70%', margin:'auto', padding:'20px'}}className="grey-text">New User</h1>
+                    <h1  style={{width:'70%', margin:'auto', padding:'20px', fontSize:'22px'}}className="grey-text">New User</h1>
                     <div className='container'>
                         <div className='field'>
                             <input 

@@ -38,7 +38,7 @@ function App({user, isAuthenticated, isAdmin}) {
         <Route  path="/login" component={Login}>
           {isAuthenticated && <Redirect to={"/"}/>}
         </Route>
-        <Route  path="/reset/:id" component={ResetPassword}/>
+        <Route  path="/reset/:email" component={ResetPassword}/>
           {/* {!isAuthenticated && <Redirect to={"/"}/>} */}
         {/* </Route> */}
         <Route path="/newproject" component={CreateProjectComponent}>

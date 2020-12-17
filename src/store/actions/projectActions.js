@@ -1,4 +1,5 @@
 import {projects} from '../../data/Data'
+import axios from 'axios'
 
 export const createProject = (project) => {
     return (dispatch, getState) => {
@@ -18,23 +19,24 @@ export const createProject = (project) => {
     }
 }
 
-export const getProjects = (filters) => {
+export const getProjects = (filter) => {
     return (dispatch, getState) => {
-        const greenSelected= getState().project.greenSelected;
-        const yellowSelected= getState().project.yellowSelected;
-        const redSelected= getState().project.redSelected;
-        const startDate= getState().project.startDate;
-        const endDate= getState().project.endDate;
-
-        fetch('/projects')
-        .then(res => res.json())
-        .then(projects => {
-            dispatch({ type:'GET_PROJECTS', projects })
-        }) 
-        .catch((err)=>{
-            dispatch({type:'EXAMPLE_ERROR', err})
+        axios.get(`/query`, {
+            params:{
+                status:filter.stauts,
+                Red:filter.Red,
+                Yellow:filter.Yellow,
+                Green:filter.Green,
+                date:filter.date,
+                start:filter.start,
+                end:filter.end
+            }
         })
-        
+        .then(res => {
+        console.log(res);
+        console.log(res.data);
+        dispatch({ type:'GET_PROJECTS', projects:res.data})
+        })
     }
 }
 
@@ -86,6 +88,32 @@ export const getProjectByName = (name, isSearch) => {
     }
 }
 
+export const openFolder = (funding, project) => {
+    console.log('actions,',funding,project)
+    
+    return (dispatch, getState) => {
+        fetch(`/open/${funding}/${project}`)
+        .then(res => res.json())
+        .then(project => {
+            console.log('actions,',funding,project)
+            dispatch({ type:'OPEN_FOLDER', funding, project })
+        }) 
+        .catch((err)=>{
+            dispatch({type:'EXAMPLE_ERROR', err})
+        })
+    }
+    // return (dispatch, getState) => {
+    //     fetch(`/open/${funding}/${project}`)
+    //     .then(res => res.json())
+    //     .then(project => {
+    //         console.log('actions,',funding,project)
+    //         dispatch({ type:'OPEN_FOLDER', funding, project })
+    //     }) 
+    //     .catch((err)=>{
+    //         dispatch({type:'EXAMPLE_ERROR', err})
+    //     })
+    // }
+}
 
 export const updateProject = (id, project) => {
     return (dispatch, getState) => {
@@ -136,6 +164,9 @@ export const updateFilter = (filter, value) => {
             break;
         case 'showSearch':
             TYPE='UPDATE_SHOW_SEARCH'
+            break;
+        case 'logout':
+            TYPE='LOGOUT'
             break;
         default: console.log("error")
     }
