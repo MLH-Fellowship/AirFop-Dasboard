@@ -5,7 +5,6 @@ const initState = {
         first_name:"Joan",
         last_name:"Jett",
         isAuthenticated: true,
-        isAdmin:true,
         id:5
     }
 }
