@@ -14,23 +14,48 @@ export const example = () => {
     }
 }
 
+
+// TODO work here for login
 export const login = (credentials) => {
     return (dispatch, getState) => {
+
+        console.log('The Following the credentials object');
+        console.log(JSON.stringify(credentials,null, 2));
+        // user = JSON.stringify()
         // make call to db
+        // const user = {
+        //     email:'testadmin@us.af.mil',
+        //     isAdmin:true,
+        //     first_name:"Joan",
+        //     last_name:"Jett",
+        //     isAuthenticated: true,
+        //     id:5
+        // };
+
         const user = {
-            email:'testadmin@us.af.mil',
-            isAdmin:true,
-            first_name:"Joan",
-            last_name:"Jett",
-            isAuthenticated: true,
-            id:5
-        }
-        const isAuthenticated = true;
-        const isAdmin = true;
+            email: credentials.email,
+            password: credentials.password
+        };
+
+        fetch('/sessions', {
+            method: 'POST',
+            headers: {'Content-Type' : 'application/json'},
+            body: JSON.stringify(user)
+        })
+        .then(res => res.json())
+        .then(json => {
+            console.log('res:',json)
+            console.log('sent:', JSON.stringify(user))
+        })
+
+        const isAuthenticated = false;
+        const isAdmin = false;
 
         dispatch({type:'LOGIN', user, isAuthenticated, isAdmin})
     }
 }
+
+// TODO work here for logout
 export const logout = () => {
     return (dispatch) => {
         // make call to db
