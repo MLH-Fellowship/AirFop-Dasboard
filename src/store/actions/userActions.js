@@ -18,9 +18,6 @@ export const example = () => {
 // TODO work here for login
 export const login = (credentials) => {
     return (dispatch, getState) => {
-
-        console.log('The Following the credentials object');
-        console.log(JSON.stringify(credentials,null, 2));
         // user = JSON.stringify()
         // make call to db
         // const user = {
@@ -32,24 +29,30 @@ export const login = (credentials) => {
         //     id:5
         // };
 
+        const isAuthenticated = false;
+        const isAdmin = false;
         const user = {
             email: credentials.email,
             password: credentials.password
         };
-
         fetch('/sessions', {
             method: 'POST',
             headers: {'Content-Type' : 'application/json'},
             body: JSON.stringify(user)
         })
-        .then(res => res.json())
+        .then(res => {
+            if (res.status !== 201) {
+                return Promise.reject('The credentials provided are not valid');
+            }
+            return res.json()
+        })
         .then(json => {
             console.log('res:',json)
             console.log('sent:', JSON.stringify(user))
         })
-
-        const isAuthenticated = false;
-        const isAdmin = false;
+        .catch((error) => {
+            console.log(`The following error occurred during login: "${error}"`)
+        });
 
         dispatch({type:'LOGIN', user, isAuthenticated, isAdmin})
     }
