@@ -14,9 +14,11 @@ async function decryptJWT(inputHash) {
     try {
         const decoded = jwt.verify(inputHash, secretKey);
         console.log(JSON.stringify(decoded));
+        return decoded;
     } catch (err) {
         console.log(`There was an issue decoding the jwt: ${err}`);
     }
+    return null;
 }
 
 

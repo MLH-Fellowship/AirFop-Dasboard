@@ -20,20 +20,7 @@ export const example = () => {
 // TODO work here for login
 export const login = (credentials) => {
     return (dispatch, getState) => {
-        // user = JSON.stringify()
-        // make call to db
-        // const user = {
-        //     email:'testadmin@us.af.mil',
-        //     isAdmin:true,
-        //     first_name:"Joan",
-        //     last_name:"Jett",
-        //     isAuthenticated: true,
-        //     id:5
-        // };
-
-        let isAuthenticated = false;
-        let isAdmin = false;
-        const user = {
+        let user = {
             email: credentials.email,
             password: credentials.password
         };
@@ -49,20 +36,34 @@ export const login = (credentials) => {
             return res.json()
         })
             // Will execute when the user provides valid credentials
-        .then(json => {
-            console.log('res:',json)
+        .then(userInfo => {
+            console.log('res:',userInfo)
             console.log('sent:', JSON.stringify(user))
-            const token = json["token"];
-            decryptJWT(token).then(r => JSON.stringify(r));
+            const token = userInfo["token"];
+            decryptJWT(token).then( userInfo => {
 
-            // isAuthenticated = true;
+                if (userInfo !== null) {
+                    console.log(`This is the parsed user: ${JSON.stringify(userInfo)}`);
+                    user = {
+                        id: userInfo['id'],
+                        email: userInfo['email'],
+                        first_name: userInfo['first_name'],
+                        last_name: userInfo['last_name'],
+                        isAdmin: userInfo['is_admin'],
+                        isAuthenticated: true
+                    }
+                    console.log(`This is the user after the transform: ${JSON.stringify(user)}`);
 
+                    const isAuthenticated = true;
+                    const isAdmin = userInfo.is_admin;
+                    dispatch({type:'LOGIN', user, isAuthenticated, isAdmin});
+                }
+            });
         })
         .catch((error) => {
             console.log(`The following error occurred during login: "${error}"`)
         });
 
-        dispatch({type:'LOGIN', user, isAuthenticated, isAdmin})
     }
 }
 
