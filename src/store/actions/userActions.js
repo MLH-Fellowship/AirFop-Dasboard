@@ -1,4 +1,6 @@
 // This is an example calling to JSON placeholder API
+import {decryptJWT} from "../helpers/jwt";
+
 export const example = () => {
     return (dispatch) => {
         fetch('https://jsonplaceholder.typicode.com/users/1')
@@ -29,8 +31,8 @@ export const login = (credentials) => {
         //     id:5
         // };
 
-        const isAuthenticated = false;
-        const isAdmin = false;
+        let isAuthenticated = false;
+        let isAdmin = false;
         const user = {
             email: credentials.email,
             password: credentials.password
@@ -46,9 +48,15 @@ export const login = (credentials) => {
             }
             return res.json()
         })
+            // Will execute when the user provides valid credentials
         .then(json => {
             console.log('res:',json)
             console.log('sent:', JSON.stringify(user))
+            const token = json["token"];
+            decryptJWT(token).then(r => JSON.stringify(r));
+
+            // isAuthenticated = true;
+
         })
         .catch((error) => {
             console.log(`The following error occurred during login: "${error}"`)
