@@ -1,5 +1,5 @@
 // This is an example calling to JSON placeholder API
-import {decryptJWT, setCookies} from "../helpers/jwt";
+import {decryptJWT, setCookies, clearCookies} from "../helpers/jwt";
 
 export const example = () => {
     return (dispatch) => {
@@ -72,6 +72,7 @@ export const login = (credentials) => {
 export const logout = () => {
     return (dispatch) => {
         // make call to db
+        clearCookies();
         dispatch({type:'LOGOUT'})
     }
 }

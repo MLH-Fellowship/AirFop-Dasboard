@@ -15,6 +15,11 @@ import AdminOnlyContent from './components/layout/AdminOnlyContent';
 import Report from './components/report/Report'
 import ResetPassword from './components/users/ResetPassword'
 import { ToastProvider, useToasts } from 'react-toast-notifications'
+import Cookies from 'js-cookie';
+import { getUserFromCookies } from "./store/helpers/jwt";
+
+const _ = require('lodash/core');
+
 
 function App({user, isAuthenticated, isAdmin}) {
   const CreateProjectComponent = isAdmin ? CreateProject : AdminOnlyContent;
@@ -58,6 +63,18 @@ function App({user, isAuthenticated, isAdmin}) {
 }
 
 const mapStateToProps = (state) => {
+
+  // Checks to see if the user is logged.
+  // Sets the state based on previous log in of the user is logged in
+  if (!_.isEmpty(Cookies.get())) {
+    const user = getUserFromCookies();
+    return {
+      user: user,
+      isAuthenticated: true,
+      isAdmin: user.isAdmin
+    }
+  }
+
   return {
     user: state.user.user,
     isAuthenticated: state.user.isAuthenticated,

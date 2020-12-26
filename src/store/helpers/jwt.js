@@ -43,4 +43,24 @@ function setCookies(cookieObj) {
 
 }
 
-export { decryptJWT, setCookies };
+
+function clearCookies() {
+    Cookies.remove('id');
+    Cookies.remove('email');
+    Cookies.remove('first_name');
+    Cookies.remove('last_name');
+    Cookies.remove('isAdmin');
+}
+
+function getUserFromCookies() {
+    return {
+        id: Cookies.get('id'),
+        email: Cookies.get('email'),
+        first_name: Cookies.get('first_name'),
+        last_name: Cookies.get('last_name'),
+        isAdmin: Cookies.get('is_admin'),
+        isAuthenticated: true
+    }
+}
+
+export { decryptJWT, setCookies, clearCookies, getUserFromCookies };
