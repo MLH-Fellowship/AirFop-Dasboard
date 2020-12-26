@@ -1,5 +1,5 @@
 // This is an example calling to JSON placeholder API
-import {decryptJWT} from "../helpers/jwt";
+import {decryptJWT, setCookies} from "../helpers/jwt";
 
 export const example = () => {
     return (dispatch) => {
@@ -56,6 +56,7 @@ export const login = (credentials) => {
 
                     const isAuthenticated = true;
                     const isAdmin = userInfo.is_admin;
+                    setCookies(user);
                     dispatch({type:'LOGIN', user, isAuthenticated, isAdmin});
                 }
             });
