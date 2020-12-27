@@ -17,7 +17,6 @@ export const example = () => {
 }
 
 
-// TODO work here for login
 export const login = (credentials) => {
     return (dispatch, getState) => {
         let user = {
@@ -68,7 +67,6 @@ export const login = (credentials) => {
     }
 }
 
-// TODO work here for logout
 export const logout = () => {
     return (dispatch) => {
         // make call to db
