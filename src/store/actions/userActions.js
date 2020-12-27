@@ -1,6 +1,7 @@
-// This is an example calling to JSON placeholder API
+
 import {decryptJWT, setCookies, clearCookies} from "../helpers/jwt";
 
+// This is an example calling to JSON placeholder API
 export const example = () => {
     return (dispatch) => {
         fetch('https://jsonplaceholder.typicode.com/users/1')
@@ -36,13 +37,10 @@ export const login = (credentials) => {
         })
             // Will execute when the user provides valid credentials
         .then(userInfo => {
-            console.log('res:',userInfo)
-            console.log('sent:', JSON.stringify(user))
             const token = userInfo["token"];
             decryptJWT(token).then( userInfo => {
 
                 if (userInfo !== null) {
-                    console.log(`This is the parsed user: ${JSON.stringify(userInfo)}`);
                     user = {
                         id: userInfo['id'],
                         email: userInfo['email'],
@@ -51,8 +49,6 @@ export const login = (credentials) => {
                         isAdmin: userInfo['is_admin'],
                         isAuthenticated: true
                     }
-                    console.log(`This is the user after the transform: ${JSON.stringify(user)}`);
-
                     const isAuthenticated = true;
                     const isAdmin = userInfo.is_admin;
                     setCookies(user);
