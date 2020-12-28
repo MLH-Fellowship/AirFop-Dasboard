@@ -21,6 +21,7 @@ function App({user, isAuthenticated, isAdmin}) {
   const CreateUserComponent = isAdmin ? CreateUser : AdminOnlyContent;
   const EditProjectComponent = isAdmin ? EditProject : AdminOnlyContent;
   
+  console.log('wtf? i hate him', isAuthenticated, user)
   return (
     <Router>
       <NavBar/>

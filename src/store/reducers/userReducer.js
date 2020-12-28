@@ -1,13 +1,7 @@
 const initState = {
-    user:{
-        email:'testadmin@us.af.mil',
-        isAdmin:true,
-        first_name:"Joan",
-        last_name:"Jett",
-        isAuthenticated: true,
-        isAdmin:true,
-        id:5
-    }
+    isAuthenticated:false,
+    isAdmin:false,
+    user:{}
 }
 
 const userReducer = ( state = initState, action) => {
