@@ -5,12 +5,9 @@ import { connect } from 'react-redux'
 import {getProjects} from '../../store/actions/projectActions'
 
 
-const Dashboard = ({projects, project, myState, showSearch, search, showProjects, greenSelected, yellowSelected, redSelected, startDate, endDate}) => {
+const Dashboard = ({projects, project, showSearch, search, showProjects}) => {
 
-    console.log('state: ', myState)
-    const filterProjects = (greenSelected, yellowSelected, redSelected, startDate, endDate) => {
-        // instead of filtering the list, depending on how many projects there are, it might make snse to handle filtering with a db call. we may need pagination
-        // exmpale of formating the date if we need to do that : const start =  moment(startDate).format("MM/dd/yyyy");
+    const filterProjects = (greenSelected, yellowSelected, redSelected) => {
         let filteredProjects = projects;
         if(greenSelected === false){
             filteredProjects = filteredProjects.filter(project => {return project.status !== "Green"})
@@ -21,7 +18,6 @@ const Dashboard = ({projects, project, myState, showSearch, search, showProjects
         if(redSelected === false){
             filteredProjects = filteredProjects.filter(project => {return project.status !== "Red"})
         }
-        // setDisplayProjects(filteredProjects);
     }
 
     const projectsList = showSearch ? project : projects

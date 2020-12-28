@@ -1,39 +1,60 @@
-// This is an example calling to JSON placeholder API
-export const example = () => {
-    return (dispatch) => {
-        fetch('https://jsonplaceholder.typicode.com/users/1')
-        .then(res => res.json())
-        .then(json => {
-            console.log(json)
-            // look for action.type 'EXAMPLE on line 9 of src/store/reducers/userReducer'
-            dispatch({type:'EXAMPLE', example:json});
-        }) 
-        .catch((err)=>{
-            dispatch({type:'EXAMPLE_ERROR', err})
-        })
-    }
-}
+import {decryptJWT, setCookies, clearCookies} from "../helpers/jwt";
 
 export const login = (credentials) => {
     return (dispatch, getState) => {
-        // make call to db
-        const user = {
-            email:'testadmin@us.af.mil',
-            isAdmin:true,
-            first_name:"Joan",
-            last_name:"Jett",
-            isAuthenticated: true,
-            id:5
-        }
-        const isAuthenticated = true;
-        const isAdmin = true;
+        let user = {
+            email: credentials.email,
+            password: credentials.password
+        };
+        fetch('/sessions', {
+            method: 'POST',
+            headers: {'Content-Type' : 'application/json'},
+            body: JSON.stringify(user)
+        })
+        .then(res => {
+            if (res.status !== 201) {
+                return Promise.reject('The credentials provided are not valid');
+            }
+            return res.json()
+        })
+            // Will execute when the user provides valid credentials
+        .then(userInfo => {
+            const token = userInfo["token"];
+            decryptJWT(token).then( userInfo => {
 
-        dispatch({type:'LOGIN', user, isAuthenticated, isAdmin})
+                if (userInfo !== null) {
+                    user = {
+                        id: userInfo['id'],
+                        email: userInfo['email'],
+                        first_name: userInfo['first_name'],
+                        last_name: userInfo['last_name'],
+                        isAdmin: userInfo['is_admin'],
+                        isAuthenticated: true
+                    }
+                    const isAuthenticated = true;
+                    const isAdmin = userInfo.is_admin;
+                    setCookies(user);
+                    dispatch({type:'LOGIN', user, isAuthenticated, isAdmin});
+                }
+            });
+        })
+        .catch((error) => {
+            console.error(`The following error occurred during login: "${error}"`)
+            dispatch({type:'LOGIN_ERROR', error});
+        });
     }
 }
+
+export const clearLoginError = () =>{
+    return (dispatch) => {
+        dispatch({type:'CLEAR_LOGIN_ERROR'})
+    }
+}
+
 export const logout = () => {
     return (dispatch) => {
         // make call to db
+        clearCookies();
         dispatch({type:'LOGOUT'})
     }
 }
@@ -46,14 +67,10 @@ export const createUser = (user) => {
         })
         .then(res => res.json())
         .then(json => {
-            console.log('res:',json)
-            console.log('sent:', JSON.stringify(user))
-
-            // look for action.type 'EXAMPLE on line 9 of src/store/reducers/userReducer'
             dispatch({type:'CREATE_USER', user})
         }) 
         .catch((err)=>{
-            console.log('error:', err)
+            console.log(err)
             dispatch({type:'EXAMPLE_ERROR', err})
         })
     }
@@ -69,26 +86,20 @@ export const resetPassword = (id, password) => {
         })
         .then(res => res.json())
         .then(json => {
-            console.log('res:',json)
-            console.log('sent:', JSON.stringify(password))
-
-            // look for action.type 'EXAMPLE on line 9 of src/store/reducers/userReducer'
             dispatch({type:'UPDATE_USER', password})
         }) 
         .catch((err)=>{
-            console.log('error:', err)
+            console.log(err)
             dispatch({type:'EXAMPLE_ERROR', err})
         })
     }
 }
 
 export const getUserById = (id) => {
-    console.log('ekjnf', id)
     return (dispatch, getState) => {
         fetch(`/users/${id}`)
         .then(res => res.json())
         .then(user => {
-            console.log(user)
             dispatch({ type:'GET_USER', id})
         }) 
         .catch((err)=>{
@@ -99,13 +110,10 @@ export const getUserById = (id) => {
 }
 
 export const getUserByEmail = (email) => {
-    // this is not working yet
-    console.log('getUserByEmail', email)
     return (dispatch, getState) => {
         fetch(`/user_by_email/${email}`)
         .then(res => res.json())
         .then(user => {
-            console.log(user)
             dispatch({ type:'GET_USER', email})
         }) 
         .catch((err)=>{
