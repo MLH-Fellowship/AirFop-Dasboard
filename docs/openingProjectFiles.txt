@@ -1,4 +1,5 @@
 ﻿Note on opening files:
+This functionality is not currently in the master branch. There is an open pull request: https://github.com/MLH-Fellowship/AirFop-Backend/pull/9
 
 The endpoint that opens the project folder is expecting a file structure like this:
 

@@ -70,7 +70,7 @@ export const createUser = (user) => {
             dispatch({type:'CREATE_USER', user})
         }) 
         .catch((err)=>{
-            console.log('error:', err)
+            console.log(err)
             dispatch({type:'EXAMPLE_ERROR', err})
         })
     }
@@ -89,7 +89,7 @@ export const resetPassword = (id, password) => {
             dispatch({type:'UPDATE_USER', password})
         }) 
         .catch((err)=>{
-            console.log('error:', err)
+            console.log(err)
             dispatch({type:'EXAMPLE_ERROR', err})
         })
     }

@@ -62,7 +62,7 @@ export const deleteProject = (id) => {
             dispatch({ type:'DELETE_PROJECT', id, json })
         }) 
         .catch((err)=>{
-            console.log('dpe', err)
+            console.log(err)
             dispatch({type:'DELETE_PROJECT', err})
         })
     }
@@ -111,7 +111,7 @@ export const updateProject = (id, project) => {
             dispatch({ type:'UPDATE_PROJECT', project, id, res })
         }) 
         .catch((err)=>{
-            console.log('error', err, project)
+            console.log('error')
             dispatch({ type:'UPDATE_PROJECT', project, id, err })
         })
     }
@@ -151,7 +151,7 @@ export const updateFilter = (filter, value) => {
         case 'logout':
             TYPE='LOGOUT'
             break;
-        default: console.log("error")
+        default: console.warn("Check function updatefilter")
     }
     return { type:TYPE, value }
 
