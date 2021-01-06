@@ -1,16 +1,17 @@
 import React, { useState } from 'react'
-import {login} from '../../store/actions/userActions'
+import {login, clearLoginError} from '../../store/actions/userActions'
 import {connect} from 'react-redux'
 
-const Login = ({login}) => {
-
+const Login = ({login, error}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [forgot, setForgot] = useState("Forgot Password?")
+  const [errorMsg, setError] = useState("Invalid email or password")
 
 
   const onSubmit = (e) => {
     e.preventDefault()
+    clearLoginError();
     login({email,password})
   }
 
@@ -53,20 +54,29 @@ const Login = ({login}) => {
             <div>
               <button style={{width:'250px', margin:'30px 0'}} className={validateForm() ? "btn btn-block" : "disabledBtn"} disabled={!validateForm()}>LOGIN</button>
             </div>
+            {
+              error && <p style={{fontSize:'20px'}} className='forgot-password-red red-text'>{errorMsg}</p>
+            }
             { email.length > 0 &&
               <p className={forgot === "Forgot Password?" ? 'forgot-password': 'forgot-password-red red-text'} onClick={e => forgotPassword(e)} id='forgot-password'>{forgot}</p>
             }
-            </div>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
+    </div>
   )
-    
+}
+
+const mapStateToProps = (state) => {
+  return {
+    error: state.user.error
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return{
-    login: (credentials) => dispatch(login(credentials))
+    login: (credentials) => dispatch(login(credentials)),
+    clearLoginError: () => dispatch(clearLoginError())
   }
 }
-export default connect(null,mapDispatchToProps)(Login);
+export default connect(mapStateToProps,mapDispatchToProps)(Login);

@@ -1,23 +1,39 @@
+import storage from 'redux-persist/lib/storage/session'
+import { persistReducer } from 'redux-persist';
+
 const initState = {
-    isAuthenticated:false,
-    isAdmin:false,
-    user:{}
+    user:{
+        isAdmin:false,
+        isAuthenticated: false
+    },
+    error:null
 }
+
+const persistConfig = {
+    key: 'user',
+    storage: storage,
+    blacklist: ['error']
+};
 
 const userReducer = ( state = initState, action) => {
     switch(action.type){
-        case 'EXAMPLE':
-            console.log('EXAMPLE: ', action.example)
-            return {
-                ...state,
-                example: action.example
-            }
         case 'LOGIN':
             return {
                 ...state,
                 user: action.user,
                 isAuthenticated: action.isAuthenticated,
-                isAdmin: action.isAdmin
+                isAdmin: action.isAdmin,
+                error:""
+            }
+        case 'LOGIN_ERROR':
+            return {
+                ...state,
+                error: action.error
+            }
+        case 'CLEAR_LOGIN_ERROR':
+            return {
+                ...state,
+                error: null
             }
         case 'LOGOUT':
             return {
@@ -27,18 +43,15 @@ const userReducer = ( state = initState, action) => {
                 isAdmin: false
             }
         case 'CREATE_USER':
-            console.log('CERATE_USER', action.user)
             return {
                 ...state,
                 user: action.user
             }
         case 'UPDATE_USER':
-            console.log('UPDATE_USER', action.user)
             return {
                 ...state
             }
         case 'GET_USER':
-            console.log('GET_USER', action.id)
             return {
                 ...state,
                 restUser:action.id
@@ -48,4 +61,4 @@ const userReducer = ( state = initState, action) => {
     }
 }
 
-export default userReducer;
+export default persistReducer(persistConfig, userReducer);

@@ -18,18 +18,12 @@ Implemented Features:
     - Admins can create, edit and delete projects
 
 Not Implemented Features:
-    - Login: Admins have greater access than users, however,
-        Login is not currently implemented and the use is hard-coded as an admin
-
     - Reset Password (user not logged in): The UI to request a password rest email for users
         not logged in is designed, but the functionality is not there
 
-    - Security: Once it is setup in the server, passing the user/session token should be added API calls
+    - Security: After logging in an access token is stored in a cookie. The token should be required to access the server and then added API calls
         in ProjectActions.js and UserActions.js
 
 General Notes:
-    - Security: isAdmin and isAuthenticed are currently stored in the state
-        They should be incorporated with the access token from the server
-
-    - Email: The navbar and password reset UI assume all users will use an email
+    - Email: The password reset UI assumes all users will use an email
         ending in @us.af.mil
