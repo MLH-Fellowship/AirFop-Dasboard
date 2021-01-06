@@ -116,7 +116,6 @@ export const resetPassword = (id, password) => {
 }
 
 export const getUserById = (id) => {
-    console.log('ekjnf', id)
     return (dispatch, getState) => {
         fetch(`/users/${id}`)
         .then(res => res.json())

@@ -11,8 +11,7 @@ const UserLinks = ({logout}) => {
     }
     return (
         <>
-        <ul className='right'>        
-            <li className='block' onClick={e=>onClick(e)}><NavLink to="/"><i className="fas fa-user-circle"></i></NavLink></li>
+        <ul className='right'>
             <NavUserIcon logout={logout}/>
         </ul>
         </>

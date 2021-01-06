@@ -77,8 +77,8 @@ const mapStateToProps = (state) => {
 
   return {
     user: state.user.user,
-    isAuthenticated: state.user.isAuthenticated,
-    isAdmin: state.user.isAdmin
+    isAuthenticated: state.user.user.isAuthenticated,
+    isAdmin: state.user.user.isAdmin
   }
 }
 export default connect(mapStateToProps)(App);
