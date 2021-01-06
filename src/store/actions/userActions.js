@@ -1,22 +1,4 @@
-
 import {decryptJWT, setCookies, clearCookies} from "../helpers/jwt";
-
-// This is an example calling to JSON placeholder API
-export const example = () => {
-    return (dispatch) => {
-        fetch('https://jsonplaceholder.typicode.com/users/1')
-        .then(res => res.json())
-        .then(json => {
-            console.log(json)
-            // look for action.type 'EXAMPLE on line 9 of src/store/reducers/userReducer'
-            dispatch({type:'EXAMPLE', example:json});
-        }) 
-        .catch((err)=>{
-            dispatch({type:'EXAMPLE_ERROR', err})
-        })
-    }
-}
-
 
 export const login = (credentials) => {
     return (dispatch, getState) => {
@@ -58,8 +40,14 @@ export const login = (credentials) => {
         })
         .catch((error) => {
             console.log(`The following error occurred during login: "${error}"`)
+            dispatch({type:'LOGIN_ERROR', error});
         });
+    }
+}
 
+export const clearLoginError = () =>{
+    return (dispatch) => {
+        dispatch({type:'CLEAR_LOGIN_ERROR'})
     }
 }
 
@@ -79,10 +67,6 @@ export const createUser = (user) => {
         })
         .then(res => res.json())
         .then(json => {
-            console.log('res:',json)
-            console.log('sent:', JSON.stringify(user))
-
-            // look for action.type 'EXAMPLE on line 9 of src/store/reducers/userReducer'
             dispatch({type:'CREATE_USER', user})
         }) 
         .catch((err)=>{
@@ -102,10 +86,6 @@ export const resetPassword = (id, password) => {
         })
         .then(res => res.json())
         .then(json => {
-            console.log('res:',json)
-            console.log('sent:', JSON.stringify(password))
-
-            // look for action.type 'EXAMPLE on line 9 of src/store/reducers/userReducer'
             dispatch({type:'UPDATE_USER', password})
         }) 
         .catch((err)=>{
@@ -120,7 +100,6 @@ export const getUserById = (id) => {
         fetch(`/users/${id}`)
         .then(res => res.json())
         .then(user => {
-            console.log(user)
             dispatch({ type:'GET_USER', id})
         }) 
         .catch((err)=>{
@@ -131,13 +110,10 @@ export const getUserById = (id) => {
 }
 
 export const getUserByEmail = (email) => {
-    // this is not working yet
-    console.log('getUserByEmail', email)
     return (dispatch, getState) => {
         fetch(`/user_by_email/${email}`)
         .then(res => res.json())
         .then(user => {
-            console.log(user)
             dispatch({ type:'GET_USER', email})
         }) 
         .catch((err)=>{

@@ -58,7 +58,7 @@ function getUserFromCookies() {
         email: Cookies.get('email'),
         first_name: Cookies.get('first_name'),
         last_name: Cookies.get('last_name'),
-        isAdmin: Cookies.get('is_admin'),
+        isAdmin: Cookies.get('isAdmin'),
         isAuthenticated: true
     }
 }

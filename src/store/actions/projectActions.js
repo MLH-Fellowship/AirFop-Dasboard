@@ -33,8 +33,6 @@ export const getProjects = (filter) => {
             }
         })
         .then(res => {
-        console.log(res);
-        console.log(res.data);
         dispatch({ type:'GET_PROJECTS', projects:res.data})
         })
     }
@@ -89,13 +87,10 @@ export const getProjectByName = (name, isSearch) => {
 }
 
 export const openFolder = (funding, project) => {
-    console.log('actions,',funding,project)
-    
-    return (dispatch, getState) => {
+    return (dispatch) => {
         fetch(`/open/${funding}/${project}`)
         .then(res => res.json())
         .then(project => {
-            console.log('actions,',funding,project)
             dispatch({ type:'OPEN_FOLDER', funding, project })
         }) 
         .catch((err)=>{
@@ -113,11 +108,10 @@ export const updateProject = (id, project) => {
         })
         .then(res => res.json())
         .then(res => {
-            console.log("!!!!!!!!!!!", project)
             dispatch({ type:'UPDATE_PROJECT', project, id, res })
         }) 
         .catch((err)=>{
-            console.log('error!!!!!!!!!!', err, project)
+            console.log('error', err, project)
             dispatch({ type:'UPDATE_PROJECT', project, id, err })
         })
     }

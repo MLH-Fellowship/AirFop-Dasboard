@@ -11,10 +11,9 @@ import CreateProject from './components/projects/CreateProject';
 import EditProject from './components/projects/EditProject';
 import CreateUser from './components/users/CreateUser';
 import AdminOnlyContent from './components/layout/AdminOnlyContent';
-// import Print from './components/report/Print';
 import Report from './components/report/Report'
 import ResetPassword from './components/users/ResetPassword'
-import { ToastProvider, useToasts } from 'react-toast-notifications'
+import { ToastProvider} from 'react-toast-notifications'
 import Cookies from 'js-cookie';
 import { getUserFromCookies } from "./store/helpers/jwt";
 
@@ -22,9 +21,9 @@ const _ = require('lodash/core');
 
 
 function App({user, isAuthenticated, isAdmin}) {
-  const CreateProjectComponent = isAdmin ? CreateProject : AdminOnlyContent;
-  const CreateUserComponent = isAdmin ? CreateUser : AdminOnlyContent;
-  const EditProjectComponent = isAdmin ? EditProject : AdminOnlyContent;
+  const CreateProjectComponent = !isAdmin || isAdmin === "false" ? AdminOnlyContent : CreateProject;
+  const CreateUserComponent = !isAdmin || isAdmin === "false" ? AdminOnlyContent : CreateUser;
+  const EditProjectComponent = !isAdmin || isAdmin === "false" ? AdminOnlyContent : EditProject;
   
   return (
     <Router>
@@ -77,8 +76,8 @@ const mapStateToProps = (state) => {
 
   return {
     user: state.user.user,
-    isAuthenticated: state.user.user.isAuthenticated,
-    isAdmin: state.user.user.isAdmin
+    isAuthenticated: state.user.isAuthenticated,
+    isAdmin: state.user.isAdmin
   }
 }
 export default connect(mapStateToProps)(App);
