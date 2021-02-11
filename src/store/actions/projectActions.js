@@ -152,6 +152,7 @@ export const updateFilter = (filter, value) => {
             TYPE='LOGOUT'
             break;
         default: console.warn("Check function updatefilter")
+
     }
     return { type:TYPE, value }
 

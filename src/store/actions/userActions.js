@@ -39,7 +39,7 @@ export const login = (credentials) => {
             });
         })
         .catch((error) => {
-            console.log(`The following error occurred during login: "${error}"`)
+            console.error(`The following error occurred during login: "${error}"`)
             dispatch({type:'LOGIN_ERROR', error});
         });
     }
